@@ -4,13 +4,21 @@ import { ThemeContext } from "./ThemeContext";
 
 export function TextView(props: TextProps) {
     const theme = useContext(ThemeContext)
+    let children = props.children
+    if (theme.i18n) {
+        if (children && typeof children == 'string') {
+            children = theme.i18n.t(children)
+        }
+    }
     return (
         <Text {...props}
             style={[{
                 flexWrap: 'wrap',
                 color: theme.colors.text,
                 padding: theme.dimens.space.sm
-            }, theme.styles.text, props.style]} />
+            }, theme.styles.text, props.style]} >
+            {children}
+        </Text>
     )
 }
 
