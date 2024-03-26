@@ -180,7 +180,7 @@ export function CompositeTextInputView(props: TextInputProps & {
                     selectionColor={props.selectionColor || theme.colors.accent}
                     secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={theme.colors.caption}
-                    placeholder={hintVisible ? '' : props.placeholder}
+                    placeholder={hintVisible ? '' : theme.i18n?.t(props.placeholder) || props.placeholder}
                     keyboardType={props.keyboardType}
                     returnKeyType={props.returnKeyType || 'default'}
                     onFocus={(e) => {
