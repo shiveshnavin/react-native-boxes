@@ -1,0 +1,24 @@
+{
+  "name": "react-native-boxes",
+  "version": "1.0.0",
+  "description": "A react native library for rapid development of UI using boxes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo Skipping..."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiveshnavin/react-native-boxes.git"
+  },
+  "keywords": [
+    "react-native-libary",
+    "react-native-boxes",
+    "react-native-ui"
+  ],
+  "author": "Shivesh Navin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shiveshnavin/react-native-boxes/issues"
+  },
+  "homepage": "https://github.com/shiveshnavin/react-native-boxes#readme"
+}
