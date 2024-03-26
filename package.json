@@ -4,7 +4,7 @@
   "description": "A react native library for rapid development of UI using boxes",
   "main": "dist/index.js",
   "scripts": {
-    "release": "git add src && git add package.json && git commit -m Update-files | npm version patch && npm publish && git add package.json && git commit -m Update-version | git push",
+    "release": "npm run build && git add src && git add package.json && git commit -m Update-files | npm version patch && npm publish && git add package.json && git commit -m Update-version | git push",
     "build": "tsc --build --verbose",
     "test": "echo Skipping..."
   },
