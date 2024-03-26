@@ -22,7 +22,6 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
   const btnIcon = (<FontAwesome name='google'
     size={theme.dimens.icon.md}
     color={theme.colors.invert.text} />)
-  const insets = useSafeAreaInsets();
   const [loading, setLoading] = useState(false)
   const [alert, setBs] = useState(`In this version, the icon used is always 'chevron-right' even when expanded.`)
   const [bottomsheetVisible, setbottomsheetVisible] = useState(false)
