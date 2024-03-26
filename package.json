@@ -4,6 +4,7 @@
   "description": "A react native library for rapid development of UI using boxes",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --build --verbose",
     "test": "echo Skipping..."
   },
   "repository": {

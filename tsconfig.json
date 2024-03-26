@@ -1,3 +1,24 @@
 {
-    "extends": "@tsconfig/react-native/tsconfig.json"
+    "extends": "@tsconfig/react-native/tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.tsx",
+        "src/**/*.jsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
