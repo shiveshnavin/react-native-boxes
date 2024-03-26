@@ -1,5 +1,6 @@
-import React, { Component, useContext, useEffect, useRef, useState } from 'react';
-import { Animated, Easing, LayoutChangeEvent, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
+import * as React from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Animated, Easing, LayoutChangeEvent, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
 import { Icon, IconProps } from './Image';
 import { isDesktop } from './utils';
 import { ThemeContext } from './ThemeContext';

@@ -1,5 +1,6 @@
 import { HBox } from "./Box";
-import React, { useContext } from "react";
+import * as React from "react";
+import { useContext } from 'react'
 import { ThemeContext } from "./ThemeContext";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Platform, Pressable, Text, ViewProps } from "react-native";

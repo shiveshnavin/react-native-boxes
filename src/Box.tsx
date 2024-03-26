@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { ThemeContext } from "./ThemeContext";
-import React from 'react'
+import * as React from 'react'
 import { KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { isWeb } from "./utils";

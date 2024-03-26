@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StatusBar, TextStyle, ViewProps } from "react-native";
 import { ThemeContext } from "./ThemeContext";
-import React from 'react'
+import * as React from 'react'
 import { Center, HBox } from "./Box";
 import { TextView } from "./Text";
 import { Icon, getIcon } from "./Image";

@@ -1,4 +1,4 @@
-import React from "react"
+import { createContext } from "react"
 import { Colors, Dimens, createStyle, DarkColors, LightColors, Fonts } from "./Styles"
 import { randomColor } from "./utils"
 const DEFAULT_STYLE = createStyle(Dimens, Colors, Fonts)
@@ -22,4 +22,4 @@ export class Theme {
         this.styles = styles ?? createStyle(this.dimens, this.colors, this.fonts)
     }
 }
-export const ThemeContext = React.createContext(new Theme())
+export const ThemeContext = createContext(new Theme())

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
+import * as React from 'react'
 import { LayoutAnimation, SafeAreaView } from 'react-native';
 import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox } from '.';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
