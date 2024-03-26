@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { LayoutAnimation, SafeAreaView } from 'react-native';
-import { ContextData, AppContext } from '../src/context/Context';
 import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox } from '.';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -18,21 +17,10 @@ export interface DemoScreenProps {
 export function DemoScreen({ navigation }: DemoScreenProps) {
 
   const theme: Theme = useContext(ThemeContext)
-  const context: ContextData = useContext(AppContext)
-  const [text, setText] = useState('Loading...')
-  const [initComplete, setInit] = useState(false)
-  useEffect(() => {
-    if (initComplete) {
-      setText(context.appname)
-    }
-  }, [initComplete])
   console.log('Rendering')
   const btnIcon = (<FontAwesome name='google'
     size={theme.dimens.icon.md}
     color={theme.colors.invert.text} />)
-  setTimeout(() => {
-    // setLoading(true)
-  }, 2000)
   const insets = useSafeAreaInsets();
   const [loading, setLoading] = useState(false)
   const [alert, setBs] = useState(`In this version, the icon used is always 'chevron-right' even when expanded.`)
