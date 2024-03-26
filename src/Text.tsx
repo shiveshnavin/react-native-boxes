@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { TextProps, Text } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 
-export function TextView(props: TextProps) {
+export function TextView(props: TextProps & {
+    skipI18n?: boolean
+}) {
     const theme = useContext(ThemeContext)
     let children = props.children
-    if (theme.i18n) {
+    if (theme.i18n && !props.skipI18n) {
         if (children && typeof children == 'string') {
             children = theme.i18n.t(children)
         }
