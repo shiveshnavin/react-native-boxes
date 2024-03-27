@@ -6,7 +6,6 @@ import { isDesktop } from './utils';
 import { ThemeContext } from './ThemeContext';
 import { Center, HBox, VBox } from './Box';
 import { Subtitle, Title } from './Text';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type BottomSheetProps = {
     visible: boolean,
@@ -232,7 +231,6 @@ export function Expand(props: ViewProps & {
     });
 
     const ExpandIcon = () => {
-        const insets = useSafeAreaInsets()
         return (
             <Pressable
                 style={[{
