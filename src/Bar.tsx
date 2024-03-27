@@ -30,7 +30,13 @@ export const SimpleToolbarHeight = 40
 export function SimpleToolbar(props: SimpleToolbarProps) {
     const theme = useContext(ThemeContext)
     var HomeIcon = getIcon(props.homeIcon)
-    const insets = useSafeAreaInsets();
+    let insets
+    try {
+        insets = useSafeAreaInsets()
+    } catch (e: any) {
+        console.warn('Unable to useSafeAreaInsets. Please set theme.insets =  useSafeAreaInsets(). ' + e.message)
+        insets = theme.insets || theme.styles.safeAreaInset
+    }
 
     return (
         <HBox style={[isWeb() ? {

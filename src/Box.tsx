@@ -82,8 +82,15 @@ export function VPage(props: ViewProps) {
  * @returns 
  */
 const KeyboardAvoidingScrollView: React.FC<ScrollViewProps> = (props: ScrollViewProps) => {
-
-    const insets = useSafeAreaInsets();
+    const theme = useContext(ThemeContext)
+    let insets
+    try {
+        insets = useSafeAreaInsets()
+    } catch (e: any) {
+        if (!theme.insets)
+            console.warn('Unable to useSafeAreaInsets. Please set theme.insets =  useSafeAreaInsets(). ' + e.message)
+        insets = theme.insets || theme.styles.safeAreaInset
+    }
     if (isWeb()) {
         return <ScrollView
             showsVerticalScrollIndicator={false}

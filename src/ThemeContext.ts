@@ -2,6 +2,7 @@ import { createContext } from "react"
 import { Colors, Dimens, createStyle, DarkColors, LightColors, Fonts } from "./Styles"
 import { randomColor } from "./utils"
 import { I18n, _i18n } from "./I18n"
+import { EdgeInsets } from "react-native-safe-area-context"
 const DEFAULT_STYLE = createStyle(Dimens, Colors, Fonts)
 export class Theme {
     appname: string = ''
@@ -10,6 +11,7 @@ export class Theme {
     colors: typeof Colors
     fonts: typeof Fonts
     i18n: I18n
+    insets?: EdgeInsets
     randomColor = randomColor
     constructor(appname = '',
         colors = Colors,
@@ -24,6 +26,9 @@ export class Theme {
         this.fonts = fonts ?? Fonts
         this.styles = styles ?? createStyle(this.dimens, this.colors, this.fonts)
         this.i18n = i18n
+    }
+    setInsets(insets: EdgeInsets) {
+        this.insets = insets
     }
 }
 export const ThemeContext = createContext(new Theme())

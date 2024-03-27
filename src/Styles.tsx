@@ -96,6 +96,12 @@ export function createStyle(
     fonts: typeof Fonts) {
 
     const Styles = StyleSheet.create({
+        safeAreaInset: {
+            top: dimens.space.md,
+            left: 0,
+            right: 0,
+            bottom: dimens.space.md,
+        },
         container: {
             marginTop: dimens.space.xl,
             backgroundColor: colors.background,
