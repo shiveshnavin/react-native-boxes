@@ -34,7 +34,8 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
     try {
         insets = useSafeAreaInsets()
     } catch (e: any) {
-        console.warn('Unable to useSafeAreaInsets. Please set theme.insets =  useSafeAreaInsets(). ' + e.message)
+        if (!theme.insets)
+            console.warn('Unable to useSafeAreaInsets. Please set theme.insets =  useSafeAreaInsets(). ' + e.message)
         insets = theme.insets || theme.styles.safeAreaInset
     }
 
