@@ -43,17 +43,17 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
         <HBox style={[isWeb() ? {
             paddingTop: theme.dimens.space.lg,
             paddingBottom: theme.dimens.space.lg,
-            backgroundColor: theme.colors.accent || props.backgroundColor,
+            backgroundColor: props.backgroundColor || theme.colors.accent,
             minHeight: SimpleToolbarHeight * (isDesktop() ? 1.3 : 1.25),
         } : {
             paddingTop: insets.top,
             paddingBottom: theme.dimens.space.lg,
-            backgroundColor: theme.colors.accent || props.backgroundColor,
+            backgroundColor: props.backgroundColor || theme.colors.accent,
             minHeight: SimpleToolbarHeight,
         }, props.style]}>
             <StatusBar
                 animated={true}
-                backgroundColor={theme.colors.accent || props.backgroundColor}
+                backgroundColor={props.backgroundColor || theme.colors.accent}
             />
             <HBox style={{
                 left: 0,
