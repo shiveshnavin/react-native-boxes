@@ -169,6 +169,7 @@ export function BottomNavBar(props: ViewProps &
             }}
             {...props}
             style={[{
+                marginBottom: theme?.insets?.bottom || 0,
                 padding: theme.dimens.space.md,
                 paddingTop: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                 paddingBottom: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
