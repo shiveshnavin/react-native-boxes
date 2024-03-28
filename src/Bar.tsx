@@ -18,6 +18,7 @@ export interface Option {
 
 export interface SimpleToolbarProps extends ViewProps {
     title?: String,
+    hideStatusBar?: boolean,
     backgroundColor?: string,
     forgroundColor?: string,
     homeIcon?: string | typeof Icon,
@@ -51,10 +52,12 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
             backgroundColor: props.backgroundColor || theme.colors.accent,
             minHeight: SimpleToolbarHeight,
         }, props.style]}>
-            <StatusBar
-                animated={true}
-                backgroundColor={props.backgroundColor || theme.colors.accent}
-            />
+            {
+                !props.hideStatusBar && <StatusBar
+                    animated={true}
+                    backgroundColor={props.backgroundColor || theme.colors.accent}
+                />
+            }
             <HBox style={{
                 left: 0,
                 paddingStart: HomeIcon ? 0 : theme.dimens.space.sm,
