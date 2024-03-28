@@ -20,6 +20,7 @@ export interface SimpleToolbarProps extends ViewProps {
     title?: String,
     hideStatusBar?: boolean,
     backgroundColor?: string,
+    statusbarBackgroundColor?: string,
     forgroundColor?: string,
     homeIcon?: string | typeof Icon,
     onHomePress?: () => void
@@ -55,7 +56,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
             {
                 !props.hideStatusBar && <StatusBar
                     animated={true}
-                    backgroundColor={props.backgroundColor || theme.colors.accent}
+                    backgroundColor={props.statusbarBackgroundColor || props.backgroundColor || theme.colors.accent}
                 />
             }
             <HBox style={{
@@ -88,7 +89,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                     <PressableView onPress={() => {
                         props.onHomePress && props.onHomePress()
                     }}>
-                        {HomeIcon && <HomeIcon />}
+                        {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.invert.text} />}
                     </PressableView>
                 </Center>
                 <HBox style={{
