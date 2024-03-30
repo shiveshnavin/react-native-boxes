@@ -68,6 +68,7 @@ function SimpleToolbar(props) {
             width: '100%',
         }}>
                 <Text_1.TextView style={[{
+                fontWeight: 'bold',
                 color: props.forgroundColor || theme.colors.invert.text
             }, props.textStyle]}>
                     {props.title}
