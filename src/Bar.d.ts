@@ -9,7 +9,9 @@ export interface Option {
 }
 export interface SimpleToolbarProps extends ViewProps {
     title?: String;
+    hideStatusBar?: boolean;
     backgroundColor?: string;
+    statusbarBackgroundColor?: string;
     forgroundColor?: string;
     homeIcon?: string | typeof Icon;
     onHomePress?: () => void;

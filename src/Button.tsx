@@ -3,6 +3,7 @@ import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighligh
 import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
 import { TextView } from "./Text";
+import { getIcon } from "./Image";
 
 export function TransparentButton(props: TextProps & TouchableHighlightProps
     & { icon?: any, text?: string }) {
@@ -44,7 +45,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
                         <View style={{
                             margin: theme.dimens.space.sm
                         }}>
-                            {props.icon}
+                            {getIcon(props.icon)}
                         </View>
                     )
                 }
@@ -112,7 +113,7 @@ export function ButtonView(props: TextProps & TouchableHighlightProps
                         <View style={{
                             margin: theme.dimens.space.sm
                         }}>
-                            {props.icon}
+                            {getIcon(props.icon)}
                         </View>
                     )
                 }
@@ -216,7 +217,7 @@ export function RightIconButton(props: TextProps & TouchableHighlightProps
                             right: 0,
                             margin: theme.dimens.space.sm
                         }}>
-                            {props.icon}
+                            {getIcon(props.icon)}
                         </View>
                     )
                 }

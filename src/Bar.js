@@ -58,7 +58,7 @@ function SimpleToolbar(props) {
                 backgroundColor: props.backgroundColor || theme.colors.accent,
                 minHeight: exports.SimpleToolbarHeight,
             }, props.style]}>
-            <react_native_1.StatusBar animated={true} backgroundColor={props.backgroundColor || theme.colors.accent}/>
+            {!props.hideStatusBar && <react_native_1.StatusBar animated={true} backgroundColor={props.statusbarBackgroundColor || props.backgroundColor || theme.colors.accent}/>}
             <Box_1.HBox style={{
             left: 0,
             paddingStart: HomeIcon ? 0 : theme.dimens.space.sm,
@@ -89,7 +89,7 @@ function SimpleToolbar(props) {
                     <Button_1.PressableView onPress={() => {
             props.onHomePress && props.onHomePress();
         }}>
-                        {HomeIcon && <HomeIcon />}
+                        {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.invert.text}/>}
                     </Button_1.PressableView>
                 </Box_1.Center>
                 <Box_1.HBox style={{
@@ -147,6 +147,7 @@ function BottomNavBar(props) {
             const { width, height } = event.nativeEvent.layout;
             onDimens && onDimens(width, height);
         }} {...props} style={[{
+                marginBottom: theme?.insets?.bottom || 0,
                 padding: theme.dimens.space.md,
                 paddingTop: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                 paddingBottom: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,

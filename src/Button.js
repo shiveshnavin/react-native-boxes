@@ -6,6 +6,7 @@ const react_native_1 = require("react-native");
 const ThemeContext_1 = require("./ThemeContext");
 const Box_1 = require("./Box");
 const Text_1 = require("./Text");
+const Image_1 = require("./Image");
 function TransparentButton(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
     const tstyle = props.style || {};
@@ -39,7 +40,7 @@ function TransparentButton(props) {
                 {props.icon && (<react_native_1.View style={{
                 margin: theme.dimens.space.sm
             }}>
-                            {props.icon}
+                            {(0, Image_1.getIcon)(props.icon)}
                         </react_native_1.View>)}
 
                 {(props.text || props.children) && (<Text_1.TextView style={{
@@ -93,7 +94,7 @@ function ButtonView(props) {
                 {props.icon && (<react_native_1.View style={{
                 margin: theme.dimens.space.sm
             }}>
-                            {props.icon}
+                            {(0, Image_1.getIcon)(props.icon)}
                         </react_native_1.View>)}
 
                 {(props.text || props.children) && (<Text_1.TextView style={{
@@ -177,7 +178,7 @@ function RightIconButton(props) {
                 right: 0,
                 margin: theme.dimens.space.sm
             }}>
-                            {props.icon}
+                            {(0, Image_1.getIcon)(props.icon)}
                         </react_native_1.View>)}
 
             </Box_1.HBox>
