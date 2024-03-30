@@ -80,6 +80,7 @@ function VPage(props) {
                 height: '100%',
                 padding: 0,
                 margin: 0,
+                backgroundColor: theme.colors.background,
             },
             props.style
         ]}/>);
