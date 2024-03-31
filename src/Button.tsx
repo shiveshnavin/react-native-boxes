@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable } from "react-native";
+import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable, TextStyle } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
-import { TextView } from "./Text";
+import { TextView, TextViewProps } from "./Text";
 import { getIcon } from "./Image";
 
-export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string }
+export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle }
 
 export function TertiaryButtonView(props: ButtonViewProps) {
     const theme = useContext(ThemeContext)
@@ -14,11 +14,11 @@ export function TertiaryButtonView(props: ButtonViewProps) {
             {...props}
             underlayColor={props.underlayColor || theme.colors.transparent}
 
-            style={[{
+            textStyle={Object.assign({
                 fontSize: theme.dimens.font.lg,
                 backgroundColor: theme.colors.transparent,
                 color: theme.colors.accent
-            }, props.style]}
+            }, props.textStyle || {})}
         />
     )
 }
@@ -137,19 +137,19 @@ export function ButtonView(props: ButtonViewProps) {
 
                 {
                     (props.text || props.children) && (
-                        <TextView style={{
+                        <TextView style={[{
                             opacity: isPressed ? .7 : 1,
                             fontWeight: "500",
                             justifyContent: 'center',
                             alignContent: 'center',
                             alignItems: 'center',
                             //@ts-ignore
-                            fontSize: tstyle.fontSize,
+                            fontSize: tstyle.fontSize || theme.dimens.font.md,
                             //@ts-ignore
-                            fontFamily: tstyle.fontFamily,
+                            fontFamily: tstyle.fontFamily || theme.fonts.Regular,
                             //@ts-ignore
                             color: tstyle.color || theme.colors.invert.text,
-                        }}>
+                        }, props.textStyle]}>
                             {props.text || props.children}
                         </TextView>
                     )

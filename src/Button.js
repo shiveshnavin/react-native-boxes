@@ -9,11 +9,11 @@ const Text_1 = require("./Text");
 const Image_1 = require("./Image");
 function TertiaryButtonView(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
-    return (<ButtonView {...props} underlayColor={props.underlayColor || theme.colors.transparent} style={[{
-                fontSize: theme.dimens.font.lg,
-                backgroundColor: theme.colors.transparent,
-                color: theme.colors.accent
-            }, props.style]}/>);
+    return (<ButtonView {...props} underlayColor={props.underlayColor || theme.colors.transparent} textStyle={Object.assign({
+            fontSize: theme.dimens.font.lg,
+            backgroundColor: theme.colors.transparent,
+            color: theme.colors.accent
+        }, props.textStyle || {})}/>);
 }
 exports.TertiaryButtonView = TertiaryButtonView;
 function TransparentButton(props) {
@@ -106,19 +106,19 @@ function ButtonView(props) {
                             {(0, Image_1.getIcon)(props.icon)}
                         </react_native_1.View>)}
 
-                {(props.text || props.children) && (<Text_1.TextView style={{
-                opacity: isPressed ? .7 : 1,
-                fontWeight: "500",
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                //@ts-ignore
-                fontSize: tstyle.fontSize,
-                //@ts-ignore
-                fontFamily: tstyle.fontFamily,
-                //@ts-ignore
-                color: tstyle.color || theme.colors.invert.text,
-            }}>
+                {(props.text || props.children) && (<Text_1.TextView style={[{
+                    opacity: isPressed ? .7 : 1,
+                    fontWeight: "500",
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    //@ts-ignore
+                    fontSize: tstyle.fontSize || theme.dimens.font.md,
+                    //@ts-ignore
+                    fontFamily: tstyle.fontFamily || theme.fonts.Regular,
+                    //@ts-ignore
+                    color: tstyle.color || theme.colors.invert.text,
+                }, props.textStyle]}>
                             {props.text || props.children}
                         </Text_1.TextView>)}
             </Box_1.Center>
