@@ -5,6 +5,23 @@ import { Center, HBox } from "./Box";
 import { TextView } from "./Text";
 import { getIcon } from "./Image";
 
+export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string }
+
+export function TertiaryButtonView(props: ButtonViewProps) {
+    const theme = useContext(ThemeContext)
+    return (
+        <ButtonView
+            {...props}
+            underlayColor={props.underlayColor || theme.colors.transparent}
+
+            style={[{
+                fontSize: theme.dimens.font.lg,
+                backgroundColor: theme.colors.transparent,
+                color: theme.colors.accent
+            }, props.style]}
+        />
+    )
+}
 export function TransparentButton(props: TextProps & TouchableHighlightProps
     & { icon?: any, text?: string }) {
     const theme = useContext(ThemeContext)
@@ -18,6 +35,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
         setIsPressed(false)
         if (props.onPressOut) props.onPressOut(e)
     }
+
     return (
         <TouchableHighlight
             {...props}
@@ -31,7 +49,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
                 padding: theme.dimens.space.md,
                 borderRadius: theme.dimens.space.xl,
                 margin: theme.dimens.space.sm,
-                backgroundColor: theme.colors.accent,
+                backgroundColor: theme.colors.transparent,
             }, props.style]}>
             <Center style={{
                 padding: 0,
@@ -73,8 +91,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
     )
 }
 
-export function ButtonView(props: TextProps & TouchableHighlightProps
-    & { icon?: any, text?: string }) {
+export function ButtonView(props: ButtonViewProps) {
     const theme = useContext(ThemeContext)
     const tstyle = props.style || {}
     const [isPressed, setIsPressed] = useState(false)
@@ -143,8 +160,7 @@ export function ButtonView(props: TextProps & TouchableHighlightProps
 }
 
 
-export function RightIconButton(props: TextProps & TouchableHighlightProps
-    & { icon?: any, text?: string }) {
+export function RightIconButton(props: ButtonViewProps) {
 
     const theme = useContext(ThemeContext)
     const tstyle = props.style || {}

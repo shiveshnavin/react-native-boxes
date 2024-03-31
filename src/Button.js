@@ -1,12 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PressableView = exports.LoadingButton = exports.RightIconButton = exports.ButtonView = exports.TransparentButton = void 0;
+exports.PressableView = exports.LoadingButton = exports.RightIconButton = exports.ButtonView = exports.TransparentButton = exports.TertiaryButtonView = void 0;
 const react_1 = require("react");
 const react_native_1 = require("react-native");
 const ThemeContext_1 = require("./ThemeContext");
 const Box_1 = require("./Box");
 const Text_1 = require("./Text");
 const Image_1 = require("./Image");
+function TertiaryButtonView(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<ButtonView {...props} underlayColor={props.underlayColor || theme.colors.transparent} style={[{
+                fontSize: theme.dimens.font.lg,
+                backgroundColor: theme.colors.transparent,
+                color: theme.colors.accent
+            }, props.style]}/>);
+}
+exports.TertiaryButtonView = TertiaryButtonView;
 function TransparentButton(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
     const tstyle = props.style || {};
@@ -28,7 +37,7 @@ function TransparentButton(props) {
                 padding: theme.dimens.space.md,
                 borderRadius: theme.dimens.space.xl,
                 margin: theme.dimens.space.sm,
-                backgroundColor: theme.colors.accent,
+                backgroundColor: theme.colors.transparent,
             }, props.style]}>
             <Box_1.Center style={{
             padding: 0,

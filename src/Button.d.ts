@@ -1,16 +1,15 @@
 import { TextProps, TouchableHighlightProps, PressableProps } from "react-native";
+export type ButtonViewProps = TextProps & TouchableHighlightProps & {
+    icon?: any;
+    text?: string;
+};
+export declare function TertiaryButtonView(props: ButtonViewProps): import("react").JSX.Element;
 export declare function TransparentButton(props: TextProps & TouchableHighlightProps & {
     icon?: any;
     text?: string;
 }): import("react").JSX.Element;
-export declare function ButtonView(props: TextProps & TouchableHighlightProps & {
-    icon?: any;
-    text?: string;
-}): import("react").JSX.Element;
-export declare function RightIconButton(props: TextProps & TouchableHighlightProps & {
-    icon?: any;
-    text?: string;
-}): import("react").JSX.Element;
+export declare function ButtonView(props: ButtonViewProps): import("react").JSX.Element;
+export declare function RightIconButton(props: ButtonViewProps): import("react").JSX.Element;
 export declare function LoadingButton(props: TextProps & TouchableHighlightProps & {
     loading: boolean;
     icon?: any;
