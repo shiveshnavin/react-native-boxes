@@ -9,9 +9,10 @@ const Text_1 = require("./Text");
 const Image_1 = require("./Image");
 function TertiaryButtonView(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
-    return (<ButtonView {...props} underlayColor={props.underlayColor || theme.colors.transparent} textStyle={Object.assign({
-            fontSize: theme.dimens.font.lg,
+    return (<ButtonView {...props} underlayColor={props.underlayColor || theme.colors.transparent} style={{
             backgroundColor: theme.colors.transparent,
+        }} textStyle={Object.assign({
+            fontSize: theme.dimens.font.lg,
             color: theme.colors.accent
         }, props.textStyle || {})}/>);
 }

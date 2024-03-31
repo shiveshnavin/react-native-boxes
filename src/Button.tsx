@@ -13,10 +13,11 @@ export function TertiaryButtonView(props: ButtonViewProps) {
         <ButtonView
             {...props}
             underlayColor={props.underlayColor || theme.colors.transparent}
-
+            style={{
+                backgroundColor: theme.colors.transparent,
+            }}
             textStyle={Object.assign({
                 fontSize: theme.dimens.font.lg,
-                backgroundColor: theme.colors.transparent,
                 color: theme.colors.accent
             }, props.textStyle || {})}
         />
