@@ -102,6 +102,10 @@ export function createStyle(
             right: 0,
             bottom: dimens.space.md,
         },
+        full: {
+            height: '100%',
+            width: '100%'
+        },
         container: {
             marginTop: dimens.space.xl,
             backgroundColor: colors.background,

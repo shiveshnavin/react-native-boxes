@@ -9,6 +9,10 @@ declare const DEFAULT_STYLE: {
         right: number;
         bottom: number;
     };
+    full: {
+        height: "100%";
+        width: "100%";
+    };
     container: {
         marginTop: number;
         backgroundColor: string;
@@ -86,6 +90,10 @@ export declare class Theme {
             left: number;
             right: number;
             bottom: number;
+        };
+        full: {
+            height: "100%";
+            width: "100%";
         };
         container: {
             marginTop: number;

@@ -100,6 +100,10 @@ export declare function createStyle(dimens: typeof Dimens, colors: typeof Colors
         right: number;
         bottom: number;
     };
+    full: {
+        height: "100%";
+        width: "100%";
+    };
     container: {
         marginTop: number;
         backgroundColor: string;
