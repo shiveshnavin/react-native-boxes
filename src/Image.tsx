@@ -8,7 +8,8 @@ import { Subtitle } from "./Text";
 export type IconProps = {
     name: any,
     size?: number,
-    color?: string
+    color?: string,
+    onPress?: () => void
 }
 export function Icon(props: ViewProps & IconProps) {
     const theme = useContext(ThemeContext)
@@ -92,16 +93,20 @@ export function Avatar(props: ViewProps & {
 }
 
 
-export function getIcon(input: any) {
-    if (input == undefined) {
+export function getIcon(Input: any): any {
+    if (Input == undefined) {
         return undefined
     }
-    if (typeof input == 'string') {
+    if (typeof Input == 'string') {
         return (props: IconProps) => {
             return (
-                <Icon  {...props} name={props.name || input} />
+                <Icon  {...props} name={props.name || Input} />
             )
         }
     }
-    return input
+    return (props: any) => {
+        return <>
+            {Input}
+        </>
+    }
 }

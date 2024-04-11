@@ -1,11 +1,11 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 import * as React from 'react'
-import { LayoutAnimation, SafeAreaView } from 'react-native';
-import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox } from '.';
+import { Alert, LayoutAnimation, SafeAreaView } from 'react-native';
+import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, DatatableViewItem, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox } from '.';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AlertMessage } from './Message';
-import { BottomSheet } from './Modal';
+import { BottomSheet, DropDownView } from './Modal';
 import { Avatar, Icon } from './Image';
 import { ReactWrapper } from './utils';
 import KeyboardAvoidingScrollView from './Box';
@@ -41,6 +41,12 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
     forceUpdate()
   }, [selectedTheme])
   const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+
+  const [selCountry, setSelCountry] = useState('india')
+
+
+
 
   return (
     <SafeAreaProvider>
@@ -139,6 +145,37 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
               }}
               iconText='SN' />
           </Center>
+
+          <Expand title='Datalist' initialExpand={true}>
+            <DatatableViewItem
+              icon={(
+                <Avatar iconText='GH' />
+              )}
+              flexRatio={{
+                left: 1.5, middle: 8, right: 0.5
+              }}
+              title='Go home'
+              subtitle="Go big or Go home !"
+              body="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available."
+              action={(<Icon name="arrow-right" onPress={() => {
+                console.log('pressed')
+              }} />)}
+            />
+
+            <DatatableViewItem
+              icon="home"
+              title='Go home'
+              subtitle="In publishing and graphic design"
+              action={(<Icon name="arrow-right" />)} />
+
+            <DatatableViewItem
+              icon="home"
+              title='Go home'
+              subtitle="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available."
+              action={(<Icon name="arrow-right" />)}
+            />
+          </Expand>
+
           <Expand title='Message Alert' initialExpand={false}
             style={{
               backgroundColor: theme.colors.forground
@@ -155,6 +192,33 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
               <AlertMessage text='Warning Message' type='warning' />
             </VBox>
 
+          </Expand>
+          <Expand title='Dropdowns'
+            initialExpand={true}
+          >
+            <DropDownView
+              displayType='button'
+              title={"Select Country"}
+              forceDialogSelectOnWeb={true}
+              onSelect={(id) => {
+                setSelCountry(id)
+              }}
+              selectedId={selCountry}
+              options={[{
+                id: 'india',
+                value: 'Indian Republic',
+                title: 'Indian Republic'
+              },
+              {
+                id: 'vietnam',
+                value: 'Vietnam Cong',
+                title: 'Vietnam Cong'
+              },
+              {
+                id: 'usa',
+                value: 'United States of America',
+                title: 'United States of America'
+              }]} />
           </Expand>
           <Expand
             style={{

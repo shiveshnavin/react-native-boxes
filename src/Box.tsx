@@ -112,3 +112,17 @@ const KeyboardAvoidingScrollView: React.FC<ScrollViewProps> = (props: ScrollView
 }
 
 export default KeyboardAvoidingScrollView
+
+export function CardView(props: ViewProps) {
+
+    const theme = useContext(ThemeContext)
+
+    return (
+        <VBox {...props} style={[{
+            padding: theme.dimens.space.md,
+            borderRadius: theme.dimens.space.md,
+            backgroundColor: theme.colors.forground,
+            margin: theme.dimens.space.md
+        }, props.style]} />
+    )
+}

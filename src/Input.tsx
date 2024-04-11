@@ -68,7 +68,16 @@ export function TextInputView(props: TextInputProps & {
     )
 }
 
-
+export type CompositeTextInputViewProps = TextInputProps & {
+    hint?: string,
+    alertText?: string,
+    alertTextColor?: string,
+    pattern?: string,
+    initialText?: string,
+    icon?: 'close' | 'eye' | string | React.Component,
+    _textInputProps?: TextInputProps,
+    onIconPress?: ((event: GestureResponderEvent) => void) | undefined
+}
 /**
  * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
  * to the scrollview else the icon click wont work
@@ -77,15 +86,7 @@ export function TextInputView(props: TextInputProps & {
  * @param props 
  * @returns 
  */
-export function CompositeTextInputView(props: TextInputProps & {
-    hint?: string,
-    alertText?: string,
-    alertTextColor?: string,
-    pattern?: string,
-    initialText?: string,
-    icon?: 'close' | 'eye' | string | React.Component,
-    onIconPress?: ((event: GestureResponderEvent) => void) | undefined
-}) {
+export function CompositeTextInputView(props: CompositeTextInputViewProps) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
     const [alerttext, setAlertText] = useState(props.alertText)
@@ -177,6 +178,7 @@ export function CompositeTextInputView(props: TextInputProps & {
                     }}
                 >{props.placeholder}</TextView>}
                 <TextInput
+                    {...props._textInputProps}
                     selectionColor={props.selectionColor || theme.colors.accent}
                     secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={theme.colors.caption}

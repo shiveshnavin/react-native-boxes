@@ -1,11 +1,14 @@
+//@ts-nocheck
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Animated, Easing, LayoutChangeEvent, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
+import { Animated, Button, Easing, LayoutChangeEvent, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
 import { Icon, IconProps } from './Image';
 import { isDesktop } from './utils';
 import { ThemeContext } from './ThemeContext';
 import { Center, HBox, VBox } from './Box';
-import { Subtitle, Title } from './Text';
+import { Subtitle, TextView, Title } from './Text';
+import { ButtonView, ButtonViewProps, PressableView, TertiaryButtonView } from './Button';
+import { CompositeTextInputView, CompositeTextInputViewProps } from './Input';
 
 export type BottomSheetProps = {
     visible: boolean,
@@ -166,6 +169,7 @@ export function Expand(props: ViewProps & {
     iconStyle?: IconProps,
     initialExpand?: boolean,
     duration?: number,
+    onExpand?: (isExpanded: boolean) => void,
     onChange?: (isExpanded: boolean) => void
 }) {
     const theme = useContext(ThemeContext);
@@ -192,6 +196,10 @@ export function Expand(props: ViewProps & {
                 useNativeDriver: true // Add this line for better performance
             }
         ).start();
+        if (props.onChange) {
+            props.onChange(expanded);
+        }
+        expanded && props.onExpand && props.onExpand(expanded)
     }, [expanded]);
 
     useEffect(() => {
@@ -199,10 +207,8 @@ export function Expand(props: ViewProps & {
     }, [])
 
     const toggleExpand = () => {
-        if (props.onChange) {
-            props.onChange(!expanded);
-        }
-        setExpanded(!expanded);
+        let newValue = !expanded
+        setExpanded(newValue);
     };
     var onLayoutContent = (event: LayoutChangeEvent) => {
         if (!contentHeight) {
@@ -301,4 +307,133 @@ export function Expand(props: ViewProps & {
             </Animated.View>
         </VBox>
     );
+}
+
+export type DropDownViewOption = {
+    id: string
+    value: any
+    title?: string
+}
+export type DropDownViewProps = {
+    options: DropDownViewOption[]
+    selectedId: string,
+    onSelect: (selectedId: string, opt: DropDownViewOption) => void
+
+    initialVisile?: Boolean,
+    title?: string,
+    displayType?: 'button' | 'input',
+    onRenderOption?: (opt: DropDownViewOption) => any,
+    forceDialogSelectOnWeb?: Boolean
+} & ViewProps
+export const DropDownView = (props: DropDownViewProps) => {
+    const displayType = props.displayType || 'input'
+    const theme = useContext(ThemeContext)
+    const [visible, setVisible] = useState(props.initialVisile || false)
+
+    const getSelected = (): DropDownViewOption | undefined => {
+        let se = props.options.find(op => op.id == props.selectedId)
+        return se
+    };
+
+    if (Platform.OS == 'web' && !props.forceDialogSelectOnWeb) {
+        return (
+            <select
+                defaultValue={props.selectedId}
+                onChange={(e) => {
+                    props.onSelect(e.target.value, props.options.find(o => o.id == e.target.value)?.value)
+                }}
+                //@ts-ignore
+                style={Object.assign({
+                    width: '100%',
+                    padding: theme.dimens.space.md
+                }, props.style || {})}>
+                {
+                    props.options.map(opt => {
+                        if (props.onRenderOption) {
+                            return props.onRenderOption(opt)
+                        }
+                        return (
+                            <option
+                                style={{
+                                    padding: theme.dimens.space.md,
+                                }}
+                                key={opt.id} id={opt.id} value={opt.id}>{opt.title || opt.value}</option>
+                        )
+                    })
+                }
+            </select>
+        )
+    }
+
+    else {
+        return (
+            <VBox style={props.style}>
+                <BottomSheet
+                    visible={visible}
+                    onDismiss={() => {
+                        setVisible(false)
+                    }}
+                    title={props.title || ''} >
+                    {
+                        props.options.map((opt, idx) => {
+                            if (props.onRenderOption) {
+                                return props.onRenderOption(opt)
+                            }
+                            return (
+                                <TertiaryButtonView
+                                    onPress={() => {
+                                        setVisible(false)
+                                        props.onSelect(opt.id, opt)
+                                    }}
+                                    style={{
+                                        padding: 0,
+                                        paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
+                                        paddingTop: idx == 0 ? theme.dimens.space.md : 0,
+                                    }}
+                                    key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
+                            )
+                        })
+                    }
+                </BottomSheet>
+
+                {
+                    displayType == 'button' ? (
+
+                        //@ts-ignore
+                        <ButtonView
+                            {...props}
+                            onPress={() => {
+                                setVisible(true)
+                            }}
+                            text={getSelected()?.title || getSelected()?.id || 'select'} style={props.style}>
+                        </ButtonView>
+                    ) : (
+                        //@ts-ignore
+                        <PressableView
+                            {...props}
+                            onPress={() => {
+                                setVisible(true)
+                            }}
+                        >
+                            <CompositeTextInputView
+                                {...props}
+                                value={getSelected()?.title || getSelected()?.id}
+                                onIconPress={() => { setVisible(true) }}
+                                icon={"caret-down"}
+                                pointerEvents="none"
+                                _textInputProps={{
+                                    caretHidden: true,
+                                    placeholder: props.title || 'select',
+                                    editable: false,
+                                    selectTextOnFocus: false
+                                }}
+                                hint={props.title || 'select'}
+                                initialText={getSelected()?.title || getSelected()?.id} />
+                        </PressableView>
+                    )
+                }
+            </VBox>
+
+        )
+    }
 }

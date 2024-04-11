@@ -5,7 +5,7 @@ import { Center, HBox } from "./Box";
 import { TextView, TextViewProps } from "./Text";
 import { getIcon } from "./Image";
 
-export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle }
+export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle, children?: any }
 
 export function TertiaryButtonView(props: ButtonViewProps) {
     const theme = useContext(ThemeContext)
@@ -13,9 +13,9 @@ export function TertiaryButtonView(props: ButtonViewProps) {
         <ButtonView
             {...props}
             underlayColor={props.underlayColor || theme.colors.transparent}
-            style={{
+            style={[{
                 backgroundColor: theme.colors.transparent,
-            }}
+            }, props.style]}
             textStyle={Object.assign({
                 fontSize: theme.dimens.font.lg,
                 color: theme.colors.accent
