@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VPage = exports.Center = exports.HBox = exports.VBox = exports.Box = void 0;
+exports.CardView = exports.VPage = exports.Center = exports.HBox = exports.VBox = exports.Box = void 0;
 const react_1 = require("react");
 const react_native_1 = require("react-native");
 const ThemeContext_1 = require("./ThemeContext");
@@ -110,4 +110,14 @@ const KeyboardAvoidingScrollView = (props) => {
         </react_native_2.KeyboardAvoidingView>);
 };
 exports.default = KeyboardAvoidingScrollView;
+function CardView(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<VBox {...props} style={[{
+                padding: theme.dimens.space.md,
+                borderRadius: theme.dimens.space.md,
+                backgroundColor: theme.colors.forground,
+                margin: theme.dimens.space.md
+            }, props.style]}/>);
+}
+exports.CardView = CardView;
 //# sourceMappingURL=Box.js.map

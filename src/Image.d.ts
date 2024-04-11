@@ -3,6 +3,7 @@ export type IconProps = {
     name: any;
     size?: number;
     color?: string;
+    onPress?: () => void;
 };
 export declare function Icon(props: ViewProps & IconProps): import("react").JSX.Element;
 /**
@@ -18,4 +19,4 @@ export declare function Avatar(props: ViewProps & {
     iconNameProps?: IconProps;
     style?: any;
 }): import("react").JSX.Element;
-export declare function getIcon(input: any): any;
+export declare function getIcon(Input: any): any;

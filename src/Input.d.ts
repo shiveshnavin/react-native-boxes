@@ -8,6 +8,16 @@ export declare function TextInputView(props: TextInputProps & {
     initialText?: string;
     pattern?: string;
 }): import("react").JSX.Element;
+export type CompositeTextInputViewProps = TextInputProps & {
+    hint?: string;
+    alertText?: string;
+    alertTextColor?: string;
+    pattern?: string;
+    initialText?: string;
+    icon?: 'close' | 'eye' | string | React.Component;
+    _textInputProps?: TextInputProps;
+    onIconPress?: ((event: GestureResponderEvent) => void) | undefined;
+};
 /**
  * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
  * to the scrollview else the icon click wont work
@@ -16,12 +26,4 @@ export declare function TextInputView(props: TextInputProps & {
  * @param props
  * @returns
  */
-export declare function CompositeTextInputView(props: TextInputProps & {
-    hint?: string;
-    alertText?: string;
-    alertTextColor?: string;
-    pattern?: string;
-    initialText?: string;
-    icon?: 'close' | 'eye' | string | React.Component;
-    onIconPress?: ((event: GestureResponderEvent) => void) | undefined;
-}): import("react").JSX.Element;
+export declare function CompositeTextInputView(props: CompositeTextInputViewProps): import("react").JSX.Element;

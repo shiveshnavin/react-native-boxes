@@ -12,3 +12,4 @@ export declare function VPage(props: ViewProps): React.JSX.Element;
  */
 declare const KeyboardAvoidingScrollView: React.FC<ScrollViewProps>;
 export default KeyboardAvoidingScrollView;
+export declare function CardView(props: ViewProps): React.JSX.Element;

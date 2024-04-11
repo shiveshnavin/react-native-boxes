@@ -37,7 +37,7 @@ const Message_1 = require("./Message");
 const Modal_1 = require("./Modal");
 const Image_1 = require("./Image");
 const utils_1 = require("./utils");
-const Box_1 = __importDefault(require("./Box"));
+const Box_1 = __importStar(require("./Box"));
 const Styles_1 = require("./Styles");
 function DemoScreen({ navigation }) {
     const theme = (0, react_1.useContext)(_1.ThemeContext);
@@ -61,6 +61,29 @@ function DemoScreen({ navigation }) {
         forceUpdate();
     }, [selectedTheme]);
     const [, forceUpdate] = (0, react_1.useReducer)(x => x + 1, 0);
+    const dataList = [
+        {
+            country: 'India',
+            captialSlogan: 'Ye delhi hai mere yaar!',
+            about: 'India is a promise land in the heart of asia. Soon there will be akhand bharat!',
+        },
+        {
+            country: 'Japan',
+            captialSlogan: 'Land of the Rising Sun',
+            about: 'Japan is an island nation in East Asia. It is known for its advanced technology, rich history, and unique culture.',
+        },
+        {
+            country: 'Italy',
+            captialSlogan: 'The Boot-Shaped Beauty',
+            about: 'Italy is a country located in Southern Europe. It is known for its historical landmarks, delicious food, and beautiful scenery.',
+        },
+        {
+            country: 'Brazil',
+            captialSlogan: 'Land of Samba and Carnival',
+            about: 'Brazil is the largest country in South America. It is known for its vibrant culture, stunning beaches, and diverse rainforest.',
+        },
+    ];
+    const [selCountry, setSelCountry] = (0, react_1.useState)(dataList[0].country);
     return (<react_native_safe_area_context_1.SafeAreaProvider>
       <_1.VBox style={{
             backgroundColor: theme.colors.background,
@@ -130,6 +153,43 @@ function DemoScreen({ navigation }) {
             setbottomsheetVisible(true);
         }} iconText='SN'/>
           </_1.Center>
+
+          <_1.Expand title='Datalist' initialExpand={false}>
+            <_1.SimpleDatalistView items={dataList} itemAdapter={(item) => {
+            const [isEnabled, setisEnabled] = (0, react_1.useState)(true);
+            return {
+                onPress: () => {
+                    console.log('presssss');
+                },
+                action: (<_1.PressableView onPress={(e) => {
+                        e.stopPropagation();
+                    }}>
+                      <react_native_1.Switch trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={'#f4f3f4'} ios_backgroundColor="#3e3e3e" value={isEnabled} onValueChange={(enab) => {
+                        setisEnabled(enab);
+                    }}/>
+                    </_1.PressableView>),
+                icon: (<Image_1.Avatar iconText={item.country.substr(0, 2).toUpperCase()}/>),
+                flexRatio: [2, 7, 1],
+                title: item.country,
+                subtitle: item.captialSlogan,
+                body: item.about
+            };
+        }}/>
+            <Box_1.Box style={{
+            height: 0.1,
+            width: '100%',
+            margin: theme.dimens.space.md,
+            backgroundColor: theme.colors.caption
+        }}/>
+            <_1.SimpleDatatlistViewItem icon={(<Image_1.Avatar iconText='GH'/>)} flexRatio={[2.5, 6.5, 1]} title='Go home' subtitle="Go big or Go home !" body="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available." action={(<Image_1.Icon name="arrow-right" onPress={() => {
+                console.log('pressed');
+            }}/>)}/>
+
+            <_1.SimpleDatatlistViewItem icon="home" title='Go home' subtitle="In publishing and graphic design" action={(<Image_1.Icon name="arrow-right"/>)}/>
+
+            <_1.SimpleDatatlistViewItem icon="home" title='Go home' subtitle="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available." action={(<Image_1.Icon name="arrow-right"/>)}/>
+          </_1.Expand>
+
           <_1.Expand title='Message Alert' initialExpand={false} style={{
             backgroundColor: theme.colors.forground
         }} titleBackgroundColor={theme.colors.forground}>
@@ -143,6 +203,26 @@ function DemoScreen({ navigation }) {
               <Message_1.AlertMessage text='Warning Message' type='warning'/>
             </_1.VBox>
 
+          </_1.Expand>
+          <_1.Expand title='Dropdowns' initialExpand={false}>
+            <Modal_1.DropDownView title={"Select Country"} forceDialogSelectOnWeb={true} onSelect={(id) => {
+            setSelCountry(id);
+        }} selectedId={selCountry} options={dataList.map((d) => {
+            return {
+                id: d.country,
+                value: d.captialSlogan,
+                title: d.captialSlogan
+            };
+        })}/>
+            <Modal_1.DropDownView displayType='button' title={"Select Country"} forceDialogSelectOnWeb={true} onSelect={(id) => {
+            setSelCountry(id);
+        }} selectedId={selCountry} options={dataList.map((d) => {
+            return {
+                id: d.country,
+                value: d.captialSlogan,
+                title: d.captialSlogan
+            };
+        })}/>
           </_1.Expand>
           <_1.Expand style={{
             padding: 0,

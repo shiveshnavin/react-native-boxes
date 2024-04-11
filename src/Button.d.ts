@@ -3,6 +3,7 @@ export type ButtonViewProps = TextProps & TouchableHighlightProps & {
     icon?: any;
     text?: string;
     textStyle?: TextStyle;
+    children?: any;
 };
 export declare function TertiaryButtonView(props: ButtonViewProps): import("react").JSX.Element;
 export declare function TransparentButton(props: TextProps & TouchableHighlightProps & {

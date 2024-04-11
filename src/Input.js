@@ -142,7 +142,7 @@ function CompositeTextInputView(props) {
                 fontSize: theme.dimens.font.sm,
                 color: !focused ? theme.colors.caption : theme.colors.accent,
             }}>{props.placeholder}</Text_1.TextView>}
-                <react_native_1.TextInput selectionColor={props.selectionColor || theme.colors.accent} secureTextEntry={props.secureTextEntry} placeholderTextColor={theme.colors.caption} placeholder={hintVisible ? '' : theme.i18n?.t(props.placeholder) || props.placeholder} keyboardType={props.keyboardType} returnKeyType={props.returnKeyType || 'default'} onFocus={(e) => {
+                <react_native_1.TextInput {...props._textInputProps} selectionColor={props.selectionColor || theme.colors.accent} secureTextEntry={props.secureTextEntry} placeholderTextColor={theme.colors.caption} placeholder={hintVisible ? '' : theme.i18n?.t(props.placeholder) || props.placeholder} keyboardType={props.keyboardType} returnKeyType={props.returnKeyType || 'default'} onFocus={(e) => {
             setFocused(true);
             props.onFocus && props.onFocus(e);
         }} onBlur={(e) => {

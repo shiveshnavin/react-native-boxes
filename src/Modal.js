@@ -23,7 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Expand = exports.BottomSheet = void 0;
+exports.DropDownView = exports.Expand = exports.BottomSheet = void 0;
+//@ts-nocheck
 const React = __importStar(require("react"));
 const react_1 = require("react");
 const react_native_1 = require("react-native");
@@ -32,6 +33,8 @@ const utils_1 = require("./utils");
 const ThemeContext_1 = require("./ThemeContext");
 const Box_1 = require("./Box");
 const Text_1 = require("./Text");
+const Button_1 = require("./Button");
+const Input_1 = require("./Input");
 const BottomSheet = (props) => {
     const [modalVisible, setModalVisible] = (0, react_1.useState)(false);
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
@@ -155,15 +158,17 @@ function Expand(props) {
             duration: props.duration || 200, // Animation duration in milliseconds
             useNativeDriver: true // Add this line for better performance
         }).start();
+        if (props.onChange) {
+            props.onChange(expanded);
+        }
+        expanded && props.onExpand && props.onExpand(expanded);
     }, [expanded]);
     (0, react_1.useEffect)(() => {
         setInitDone(true);
     }, []);
     const toggleExpand = () => {
-        if (props.onChange) {
-            props.onChange(!expanded);
-        }
-        setExpanded(!expanded);
+        let newValue = !expanded;
+        setExpanded(newValue);
     };
     var onLayoutContent = (event) => {
         if (!contentHeight) {
@@ -242,4 +247,72 @@ function Expand(props) {
         </Box_1.VBox>);
 }
 exports.Expand = Expand;
+const DropDownView = (props) => {
+    const displayType = props.displayType || 'input';
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    const [visible, setVisible] = (0, react_1.useState)(props.initialVisile || false);
+    const getSelected = () => {
+        let se = props.options.find(op => op.id == props.selectedId);
+        return se;
+    };
+    if (react_native_1.Platform.OS == 'web' && !props.forceDialogSelectOnWeb) {
+        return (<select defaultValue={props.selectedId} onChange={(e) => {
+                props.onSelect(e.target.value, props.options.find(o => o.id == e.target.value)?.value);
+            }} 
+        //@ts-ignore
+        style={Object.assign({
+                width: '100%',
+                padding: theme.dimens.space.md
+            }, props.style || {})}>
+                {props.options.map(opt => {
+                if (props.onRenderOption) {
+                    return props.onRenderOption(opt);
+                }
+                return (<option style={{
+                        padding: theme.dimens.space.md,
+                    }} key={opt.id} id={opt.id} value={opt.id}>{opt.title || opt.value}</option>);
+            })}
+            </select>);
+    }
+    else {
+        return (<Box_1.VBox style={props.style}>
+                <exports.BottomSheet visible={visible} onDismiss={() => {
+                setVisible(false);
+            }} title={props.title || ''}>
+                    {props.options.map((opt, idx) => {
+                if (props.onRenderOption) {
+                    return props.onRenderOption(opt);
+                }
+                return (<Button_1.TertiaryButtonView onPress={() => {
+                        setVisible(false);
+                        props.onSelect(opt.id, opt);
+                    }} style={{
+                        padding: 0,
+                        paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
+                        paddingTop: idx == 0 ? theme.dimens.space.md : 0,
+                    }} key={opt.id}>{opt.title || opt.value}</Button_1.TertiaryButtonView>);
+            })}
+                </exports.BottomSheet>
+
+                {displayType == 'button' ? (
+            //@ts-ignore
+            <Button_1.ButtonView {...props} onPress={() => {
+                    setVisible(true);
+                }} text={getSelected()?.title || getSelected()?.id || 'select'} style={props.style}>
+                        </Button_1.ButtonView>) : (
+            //@ts-ignore
+            <Button_1.PressableView {...props} onPress={() => {
+                    setVisible(true);
+                }}>
+                            <Input_1.CompositeTextInputView {...props} value={getSelected()?.title || getSelected()?.id} onIconPress={() => { setVisible(true); }} icon={"caret-down"} pointerEvents="none" _textInputProps={{
+                    caretHidden: true,
+                    placeholder: props.title || 'select',
+                    editable: false,
+                    selectTextOnFocus: false
+                }} hint={props.title || 'select'} initialText={getSelected()?.title || getSelected()?.id}/>
+                        </Button_1.PressableView>)}
+            </Box_1.VBox>);
+    }
+};
+exports.DropDownView = DropDownView;
 //# sourceMappingURL=Modal.js.map
