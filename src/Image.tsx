@@ -104,11 +104,10 @@ export function getIcon(Input: any, wrap?: boolean): any {
             )
         }
     }
-    if (wrap)
-        return (props: any) => {
-            return <>
-                {Input}
-            </>
-        }
-    return Input
+    return (props: any) => {
+        return <>
+            {Input}
+        </>
+
+    }
 }

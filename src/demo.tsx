@@ -342,10 +342,16 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
               color: 'red'
             }}
             title='Buttons'
-            initialExpand={false}>
+            initialExpand={true}>
             <VBox style={{
             }}>
               <VBox >
+
+                <ButtonView
+                  icon="google"
+                  style={{
+                  }}>Button Icon</ButtonView>
+
                 <ButtonView
                   icon={btnIcon}
                   style={{

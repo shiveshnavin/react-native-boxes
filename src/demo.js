@@ -251,9 +251,12 @@ function DemoScreen({ navigation }) {
           <_1.Expand iconStyle={{
             name: 'chevron-right',
             color: 'red'
-        }} title='Buttons' initialExpand={false}>
+        }} title='Buttons' initialExpand={true}>
             <_1.VBox style={{}}>
               <_1.VBox>
+
+                <_1.ButtonView icon="google" style={{}}>Button Icon</_1.ButtonView>
+
                 <_1.ButtonView icon={btnIcon} style={{}}>Button Icon</_1.ButtonView>
 
                 <_1.ButtonView style={{}}>Button Text</_1.ButtonView>

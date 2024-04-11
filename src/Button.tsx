@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable, TextStyle, SwitchProps, Switch } from "react-native";
+import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable, TextStyle, Switch, SwitchProps } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
 import { TextView, TextViewProps } from "./Text";
@@ -104,6 +104,7 @@ export function ButtonView(props: ButtonViewProps) {
         setIsPressed(false)
         if (props.onPressOut) props.onPressOut(e)
     }
+    const BtnIcon = getIcon(props.icon)
     return (
         <TouchableHighlight
             {...props}
@@ -127,11 +128,11 @@ export function ButtonView(props: ButtonViewProps) {
             }}>
 
                 {
-                    props.icon && (
+                    BtnIcon && (
                         <View style={{
                             margin: theme.dimens.space.sm
                         }}>
-                            {getIcon(props.icon)}
+                            <BtnIcon />
                         </View>
                     )
                 }
@@ -174,6 +175,8 @@ export function RightIconButton(props: ButtonViewProps) {
         setIsPressed(false)
         if (props.onPressOut) props.onPressOut(e)
     }
+    const BtnIcon = getIcon(props.icon)
+
     return (
         <TouchableHighlight
             {...props}
@@ -228,13 +231,13 @@ export function RightIconButton(props: ButtonViewProps) {
 
                 </Center>
                 {
-                    props.icon && (
+                    BtnIcon && (
                         <View style={{
                             position: 'absolute',
                             right: 0,
                             margin: theme.dimens.space.sm
                         }}>
-                            {getIcon(props.icon)}
+                            <BtnIcon />
                         </View>
                     )
                 }
@@ -242,7 +245,9 @@ export function RightIconButton(props: ButtonViewProps) {
             </HBox>
         </TouchableHighlight>
     )
+
 }
+
 
 export function LoadingButton(props: TextProps & TouchableHighlightProps
     & {
@@ -288,6 +293,8 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
             text={!_loading ? props.text : undefined} />
     )
 }
+
+
 
 export function PressableView(props: PressableProps) {
 

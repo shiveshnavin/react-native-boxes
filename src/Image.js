@@ -73,13 +73,11 @@ function getIcon(Input, wrap) {
             return (<Icon {...props} name={props.name || Input}/>);
         };
     }
-    if (wrap)
-        return (props) => {
-            return <>
-                {Input}
-            </>;
-        };
-    return Input;
+    return (props) => {
+        return <>
+            {Input}
+        </>;
+    };
 }
 exports.getIcon = getIcon;
 //# sourceMappingURL=Image.js.map

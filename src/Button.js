@@ -85,6 +85,7 @@ function ButtonView(props) {
         if (props.onPressOut)
             props.onPressOut(e);
     };
+    const BtnIcon = (0, Image_1.getIcon)(props.icon);
     return (<react_native_1.TouchableHighlight {...props} onPressIn={onPressIn} onPressOut={onPressOut} underlayColor={props.underlayColor || theme.colors.accentLight} style={[{
                 justifyContent: 'center',
                 alignContent: 'center',
@@ -101,10 +102,10 @@ function ButtonView(props) {
             backgroundColor: 'transparent'
         }}>
 
-                {props.icon && (<react_native_1.View style={{
+                {BtnIcon && (<react_native_1.View style={{
                 margin: theme.dimens.space.sm
             }}>
-                            {(0, Image_1.getIcon)(props.icon)}
+                            <BtnIcon />
                         </react_native_1.View>)}
 
                 {(props.text || props.children) && (<Text_1.TextView style={[{
@@ -140,6 +141,7 @@ function RightIconButton(props) {
         if (props.onPressOut)
             props.onPressOut(e);
     };
+    const BtnIcon = (0, Image_1.getIcon)(props.icon);
     return (<react_native_1.TouchableHighlight {...props} onPressIn={onPressIn} onPressOut={onPressOut} underlayColor={props.underlayColor || theme.colors.accentLight} style={[{
                 justifyContent: 'center',
                 alignContent: 'center',
@@ -183,12 +185,12 @@ function RightIconButton(props) {
                     {props.children}
 
                 </Box_1.Center>
-                {props.icon && (<react_native_1.View style={{
+                {BtnIcon && (<react_native_1.View style={{
                 position: 'absolute',
                 right: 0,
                 margin: theme.dimens.space.sm
             }}>
-                            {(0, Image_1.getIcon)(props.icon)}
+                            <BtnIcon />
                         </react_native_1.View>)}
 
             </Box_1.HBox>
