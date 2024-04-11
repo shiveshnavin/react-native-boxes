@@ -1,14 +1,14 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 import * as React from 'react'
-import { Alert, LayoutAnimation, SafeAreaView } from 'react-native';
-import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, DatatableViewItem, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox } from '.';
+import { Alert, LayoutAnimation, SafeAreaView, Switch } from 'react-native';
+import { BottomNavBar, ButtonView, Caption, Center, CompositeTextInputView, SimpleDatatlistViewItem, Expand, HBox, LoadingButton, PressableView, RightIconButton, SimpleToolbar, Subtitle, TextInputView, TextView, Theme, ThemeContext, Title, VBox, SimpleDatalistView } from '.';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AlertMessage } from './Message';
 import { BottomSheet, DropDownView } from './Modal';
 import { Avatar, Icon } from './Image';
 import { ReactWrapper } from './utils';
-import KeyboardAvoidingScrollView from './Box';
+import KeyboardAvoidingScrollView, { Box } from './Box';
 import { DarkColors, LightColors } from './Styles';
 
 export interface DemoScreenProps {
@@ -43,10 +43,30 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
 
-  const [selCountry, setSelCountry] = useState('india')
 
-
-
+  const dataList = [
+    {
+      country: 'India',
+      captialSlogan: 'Ye delhi hai mere yaar!',
+      about: 'India is a promise land in the heart of asia. Soon there will be akhand bharat!',
+    },
+    {
+      country: 'Japan',
+      captialSlogan: 'Land of the Rising Sun',
+      about: 'Japan is an island nation in East Asia. It is known for its advanced technology, rich history, and unique culture.',
+    },
+    {
+      country: 'Italy',
+      captialSlogan: 'The Boot-Shaped Beauty',
+      about: 'Italy is a country located in Southern Europe. It is known for its historical landmarks, delicious food, and beautiful scenery.',
+    },
+    {
+      country: 'Brazil',
+      captialSlogan: 'Land of Samba and Carnival',
+      about: 'Brazil is the largest country in South America. It is known for its vibrant culture, stunning beaches, and diverse rainforest.',
+    },
+  ];
+  const [selCountry, setSelCountry] = useState(dataList[0].country)
 
   return (
     <SafeAreaProvider>
@@ -146,14 +166,53 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
               iconText='SN' />
           </Center>
 
-          <Expand title='Datalist' initialExpand={true}>
-            <DatatableViewItem
+          <Expand title='Datalist' initialExpand={false}>
+            <SimpleDatalistView
+              items={dataList}
+              itemAdapter={(item) => {
+                const [isEnabled, setisEnabled] = useState(true)
+                return {
+                  onPress: () => {
+                    console.log('presssss')
+                  },
+                  action: (
+                    <PressableView
+                      onPress={(e) => {
+                        e.stopPropagation()
+                      }}>
+                      <Switch
+                        trackColor={{ false: '#767577', true: '#81b0ff' }}
+                        thumbColor={'#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        value={isEnabled}
+                        onValueChange={(enab) => {
+                          setisEnabled(enab)
+                        }}
+                      />
+                    </PressableView>
+
+                  ),
+                  icon: (
+                    <Avatar iconText={item.country.substr(0, 2).toUpperCase()} />
+                  ),
+                  flexRatio: [2, 7, 1],
+                  title: item.country,
+                  subtitle: item.captialSlogan,
+                  body: item.about
+                }
+              }}
+            />
+            <Box style={{
+              height: 0.1,
+              width: '100%',
+              margin: theme.dimens.space.md,
+              backgroundColor: theme.colors.caption
+            }} />
+            <SimpleDatatlistViewItem
               icon={(
                 <Avatar iconText='GH' />
               )}
-              flexRatio={{
-                left: 1.5, middle: 8, right: 0.5
-              }}
+              flexRatio={[2.5, 6.5, 1]}
               title='Go home'
               subtitle="Go big or Go home !"
               body="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available."
@@ -162,13 +221,13 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
               }} />)}
             />
 
-            <DatatableViewItem
+            <SimpleDatatlistViewItem
               icon="home"
               title='Go home'
               subtitle="In publishing and graphic design"
               action={(<Icon name="arrow-right" />)} />
 
-            <DatatableViewItem
+            <SimpleDatatlistViewItem
               icon="home"
               title='Go home'
               subtitle="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available."
@@ -194,8 +253,22 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
 
           </Expand>
           <Expand title='Dropdowns'
-            initialExpand={true}
+            initialExpand={false}
           >
+            <DropDownView
+              title={"Select Country"}
+              forceDialogSelectOnWeb={true}
+              onSelect={(id) => {
+                setSelCountry(id)
+              }}
+              selectedId={selCountry}
+              options={dataList.map((d) => {
+                return {
+                  id: d.country,
+                  value: d.captialSlogan,
+                  title: d.captialSlogan
+                }
+              })} />
             <DropDownView
               displayType='button'
               title={"Select Country"}
@@ -204,21 +277,13 @@ export function DemoScreen({ navigation }: DemoScreenProps) {
                 setSelCountry(id)
               }}
               selectedId={selCountry}
-              options={[{
-                id: 'india',
-                value: 'Indian Republic',
-                title: 'Indian Republic'
-              },
-              {
-                id: 'vietnam',
-                value: 'Vietnam Cong',
-                title: 'Vietnam Cong'
-              },
-              {
-                id: 'usa',
-                value: 'United States of America',
-                title: 'United States of America'
-              }]} />
+              options={dataList.map((d) => {
+                return {
+                  id: d.country,
+                  value: d.captialSlogan,
+                  title: d.captialSlogan
+                }
+              })} />
           </Expand>
           <Expand
             style={{

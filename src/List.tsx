@@ -7,29 +7,49 @@ import { useContext } from "react"
 import { ThemeContext } from "./ThemeContext"
 import { PressableView } from "./Button"
 
-export function DatatableView() {
 
+export type DatatableViewProps = {
+    items: any[],
+    itemAdapter: (item: any) => SimpleDatatableViewItemProps
+} & ViewProps
+export function SimpleDatalistView(props: DatatableViewProps) {
 
+    return (
+        <VBox style={[props.style]}>
+            {
+                props.items.map((item, id) => {
+                    let data = props.itemAdapter(item)
+                    return (
+                        <SimpleDatatlistViewItem
+                            {...data}
+                        />
+                    )
+                })
+            }
+        </VBox>
+
+    )
 }
 
-export type DatatableViewItemProps = {
+export type SimpleDatatableViewItemProps = {
     title?: string,
     icon?: string | any,
     subtitle?: string | React.ReactNode,
     body?: string | React.ReactNode,
     action?: React.ReactNode,
     onPress?: () => void,
-    flexRatio?: { left: number, middle: number, right: number }
-} & ViewProps
-export function DatatableViewItem(props: DatatableViewItemProps) {
+    flexRatio?: [number, number, number]
+}
+export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & ViewProps) {
     const RightIcon = getIcon(props.icon)
     const theme = useContext(ThemeContext)
-    const flexRatio = props.flexRatio || { left: 1, right: 1, middle: 8 }
-    const ttl = flexRatio.left + flexRatio.right + flexRatio.middle
+    let flexRatio = props.flexRatio || [1, 8, 1]
+    let [left, middle, right] = flexRatio
+    const ttl = left + right + middle
     const percentages = {
-        left: (flexRatio.left * 100) / ttl,
-        right: (flexRatio.right * 100) / ttl,
-        middle: (flexRatio.middle * 100) / ttl
+        left: (left * 100) / ttl,
+        right: (right * 100) / ttl,
+        middle: (middle * 100) / ttl
     }
     return (
         <PressableView onPress={props.onPress}>
@@ -57,6 +77,7 @@ export function DatatableViewItem(props: DatatableViewItemProps) {
                     }} />}
                 </Box>
                 <VBox style={{
+                    //@ts-ignore
                     paddingStart: flexRatio.left > 1 ? theme.dimens.space.md : 0,
                     width: `${percentages.middle}%`,
                     flexShrink: 1,
