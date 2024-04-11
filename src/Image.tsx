@@ -1,7 +1,7 @@
-import { Image, Pressable, ViewProps } from "react-native";
+import { ActivityIndicator, ActivityIndicatorProps, Image, Pressable, ViewProps } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
+import { Theme, ThemeContext } from "./ThemeContext";
 import { Center } from "./Box";
 import { Subtitle } from "./Text";
 
@@ -110,4 +110,16 @@ export function getIcon(Input: any, wrap?: boolean): any {
         </>
 
     }
+}
+
+
+export function Spinner(props: ActivityIndicatorProps) {
+    const theme = useContext(ThemeContext)
+    return (
+        <ActivityIndicator
+            size={theme.dimens.icon.md}
+            color={theme.colors.accent}
+            {...props}
+        />
+    )
 }

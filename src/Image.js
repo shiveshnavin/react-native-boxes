@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIcon = exports.Avatar = exports.Icon = void 0;
+exports.Spinner = exports.getIcon = exports.Avatar = exports.Icon = void 0;
 const react_native_1 = require("react-native");
 const FontAwesome_1 = __importDefault(require("@expo/vector-icons/FontAwesome"));
 const react_1 = require("react");
@@ -80,4 +80,9 @@ function getIcon(Input, wrap) {
     };
 }
 exports.getIcon = getIcon;
+function Spinner(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<react_native_1.ActivityIndicator size={theme.dimens.icon.md} color={theme.colors.accent} {...props}/>);
+}
+exports.Spinner = Spinner;
 //# sourceMappingURL=Image.js.map

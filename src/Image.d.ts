@@ -1,4 +1,4 @@
-import { ViewProps } from "react-native";
+import { ActivityIndicatorProps, ViewProps } from "react-native";
 export type IconProps = {
     name: any;
     size?: number;
@@ -20,3 +20,4 @@ export declare function Avatar(props: ViewProps & {
     style?: any;
 }): import("react").JSX.Element;
 export declare function getIcon(Input: any, wrap?: boolean): any;
+export declare function Spinner(props: ActivityIndicatorProps): import("react").JSX.Element;
