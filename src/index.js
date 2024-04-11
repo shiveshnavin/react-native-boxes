@@ -22,6 +22,7 @@ __exportStar(require("./Image"), exports);
 __exportStar(require("./Input"), exports);
 __exportStar(require("./Bar"), exports);
 __exportStar(require("./utils"), exports);
+__exportStar(require("./Message"), exports);
 __exportStar(require("./Styles"), exports);
 __exportStar(require("./demo"), exports);
 __exportStar(require("./ThemeContext"), exports);
