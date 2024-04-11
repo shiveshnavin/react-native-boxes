@@ -27,7 +27,7 @@ function SimpleDatatlistViewItem(props) {
         right: (right * 100) / ttl,
         middle: (middle * 100) / ttl
     };
-    return (<Button_1.PressableView onPress={props.onPress}>
+    return (<Button_1.PressableView {...props} onPress={props.onPress}>
             <Box_1.CardView style={[{
                 margin: 0,
                 marginBottom: theme.dimens.space.sm,

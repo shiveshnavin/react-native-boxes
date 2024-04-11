@@ -53,7 +53,7 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
         middle: (middle * 100) / ttl
     }
     return (
-        <PressableView onPress={props.onPress}>
+        <PressableView {...props} onPress={props.onPress} >
             <CardView
                 style={[{
                     margin: 0,
