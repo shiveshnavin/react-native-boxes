@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PressableView = exports.LoadingButton = exports.RightIconButton = exports.ButtonView = exports.TransparentButton = exports.TertiaryButtonView = void 0;
+exports.SwitchView = exports.PressableView = exports.LoadingButton = exports.RightIconButton = exports.ButtonView = exports.TransparentButton = exports.TertiaryButtonView = void 0;
 const react_1 = require("react");
 const react_native_1 = require("react-native");
 const ThemeContext_1 = require("./ThemeContext");
@@ -228,4 +228,12 @@ function PressableView(props) {
     return (<react_native_1.Pressable {...props} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, props.style]}/>);
 }
 exports.PressableView = PressableView;
+function SwitchView(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<react_native_1.Switch trackColor={{
+            false: theme.colors.caption,
+            true: theme.colors.success
+        }} thumbColor={theme.colors.text} ios_backgroundColor={theme.colors.caption} {...props}/>);
+}
+exports.SwitchView = SwitchView;
 //# sourceMappingURL=Button.js.map

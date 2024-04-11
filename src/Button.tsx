@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable, TextStyle } from "react-native";
+import { TextProps, TouchableHighlight, GestureResponderEvent, TouchableHighlightProps, View, ActivityIndicator, LayoutAnimation, PressableProps, Pressable, TextStyle, SwitchProps, Switch } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
 import { TextView, TextViewProps } from "./Text";
@@ -242,9 +242,7 @@ export function RightIconButton(props: ButtonViewProps) {
             </HBox>
         </TouchableHighlight>
     )
-
 }
-
 
 export function LoadingButton(props: TextProps & TouchableHighlightProps
     & {
@@ -291,10 +289,23 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
     )
 }
 
-
-
 export function PressableView(props: PressableProps) {
 
     //@ts-ignore
     return (<Pressable {...props} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, props.style]} />)
+}
+
+export function SwitchView(props: SwitchProps) {
+    const theme = useContext(ThemeContext)
+    return (
+        <Switch
+            trackColor={{
+                false: theme.colors.caption,
+                true: theme.colors.success
+            }}
+            thumbColor={theme.colors.text}
+            ios_backgroundColor={theme.colors.caption}
+            {...props}
+        />
+    )
 }
