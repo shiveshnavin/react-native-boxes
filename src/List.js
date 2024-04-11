@@ -9,6 +9,14 @@ const react_1 = require("react");
 const ThemeContext_1 = require("./ThemeContext");
 const Button_1 = require("./Button");
 function SimpleDatalistView(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    if (props.loading) {
+        return (<Box_1.Center style={{
+                padding: theme.dimens.space.xl * 2
+            }}>
+                <react_native_1.ActivityIndicator size={theme.dimens.icon.xl} color={theme.colors.accent}/>
+            </Box_1.Center>);
+    }
     return (<Box_1.VBox style={[props.style]}>
             {props.items.map((item, idx) => {
             let data = props.itemAdapter(item, idx, props.items);
@@ -28,13 +36,6 @@ function SimpleDatatlistViewItem(props) {
         right: (right * 100) / ttl,
         middle: (middle * 100) / ttl
     };
-    if (props.loading) {
-        return (<Box_1.Center style={{
-                padding: theme.dimens.space.xl * 2
-            }}>
-                <react_native_1.ActivityIndicator size={theme.dimens.icon.xl} color={theme.colors.accent}/>
-            </Box_1.Center>);
-    }
     return (<Button_1.PressableView {...props} onPress={props.onPress}>
             <Box_1.CardView style={[{
                 margin: 0,

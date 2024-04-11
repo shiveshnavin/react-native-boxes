@@ -10,10 +10,22 @@ import { PressableView } from "./Button"
 
 export type DatatableViewProps = {
     items: any[],
-    itemAdapter: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps
+    itemAdapter: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps,
+    loading?: boolean,
 } & ViewProps
 export function SimpleDatalistView(props: DatatableViewProps) {
-
+    const theme = useContext(ThemeContext)
+    if (props.loading) {
+        return (
+            <Center style={{
+                padding: theme.dimens.space.xl * 2
+            }}>
+                <ActivityIndicator
+                    size={theme.dimens.icon.xl}
+                    color={theme.colors.accent} />
+            </Center>
+        )
+    }
     return (
         <VBox style={[props.style]}>
             {
@@ -35,7 +47,6 @@ export function SimpleDatalistView(props: DatatableViewProps) {
 export type SimpleDatatableViewItemProps = {
     title?: string,
     icon?: string | any,
-    loading?: boolean,
     subtitle?: string | React.ReactNode,
     body?: string | React.ReactNode,
     action?: React.ReactNode,
@@ -52,17 +63,6 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
         left: (left * 100) / ttl,
         right: (right * 100) / ttl,
         middle: (middle * 100) / ttl
-    }
-    if (props.loading) {
-        return (
-            <Center style={{
-                padding: theme.dimens.space.xl * 2
-            }}>
-                <ActivityIndicator
-                    size={theme.dimens.icon.xl}
-                    color={theme.colors.accent} />
-            </Center>
-        )
     }
     return (
         <PressableView {...props} onPress={props.onPress} >
