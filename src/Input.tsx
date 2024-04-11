@@ -213,7 +213,7 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                         outline: 'none',
                     } : {
 
-                    }, fontStyles]}
+                    }, fontStyles, props._textInputProps?.style]}
                 />
                 {
                     alertVisible && <TextView

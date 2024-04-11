@@ -165,7 +165,7 @@ function CompositeTextInputView(props) {
             }, (0, utils_1.isWeb)() ? {
                 //@ts-ignore
                 outline: 'none',
-            } : {}, fontStyles]}/>
+            } : {}, fontStyles, props._textInputProps?.style]}/>
                 {alertVisible && <Text_1.TextView style={{
                 color: props.alertTextColor || theme.colors.critical,
                 padding: 0,
