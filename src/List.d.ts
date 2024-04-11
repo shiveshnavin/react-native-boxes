@@ -7,6 +7,7 @@ export declare function SimpleDatalistView(props: DatatableViewProps): import("r
 export type SimpleDatatableViewItemProps = {
     title?: string;
     icon?: string | any;
+    loading?: boolean;
     subtitle?: string | React.ReactNode;
     body?: string | React.ReactNode;
     action?: React.ReactNode;

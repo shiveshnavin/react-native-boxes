@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SimpleDatatlistViewItem = exports.SimpleDatalistView = void 0;
+const react_native_1 = require("react-native");
 const Box_1 = require("./Box");
 const Image_1 = require("./Image");
 const Text_1 = require("./Text");
@@ -27,6 +28,13 @@ function SimpleDatatlistViewItem(props) {
         right: (right * 100) / ttl,
         middle: (middle * 100) / ttl
     };
+    if (props.loading) {
+        return (<Box_1.Center style={{
+                padding: theme.dimens.space.xl * 2
+            }}>
+                <react_native_1.ActivityIndicator size={theme.dimens.icon.xl} color={theme.colors.accent}/>
+            </Box_1.Center>);
+    }
     return (<Button_1.PressableView {...props} onPress={props.onPress}>
             <Box_1.CardView style={[{
                 margin: 0,

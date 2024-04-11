@@ -1,5 +1,5 @@
-import { Text, View, ViewProps } from "react-native"
-import { Box, CardView, HBox, VBox } from "./Box"
+import { ActivityIndicator, Text, View, ViewProps } from "react-native"
+import { Box, CardView, Center, HBox, VBox } from "./Box"
 import { getIcon } from "./Image"
 import { Icon } from "@expo/vector-icons/build/createIconSet"
 import { Caption, Subtitle, TextView } from "./Text"
@@ -35,6 +35,7 @@ export function SimpleDatalistView(props: DatatableViewProps) {
 export type SimpleDatatableViewItemProps = {
     title?: string,
     icon?: string | any,
+    loading?: boolean,
     subtitle?: string | React.ReactNode,
     body?: string | React.ReactNode,
     action?: React.ReactNode,
@@ -51,6 +52,17 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
         left: (left * 100) / ttl,
         right: (right * 100) / ttl,
         middle: (middle * 100) / ttl
+    }
+    if (props.loading) {
+        return (
+            <Center style={{
+                padding: theme.dimens.space.xl * 2
+            }}>
+                <ActivityIndicator
+                    size={theme.dimens.icon.xl}
+                    color={theme.colors.accent} />
+            </Center>
+        )
     }
     return (
         <PressableView {...props} onPress={props.onPress} >
