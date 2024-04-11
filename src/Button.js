@@ -192,7 +192,9 @@ function RightIconButton(props) {
                 right: 0,
                 margin: theme.dimens.space.sm
             }}>
-                            <BtnIcon />
+                            <BtnIcon color={
+            //@ts-ignore
+            typeof props.icon == 'string' ? tstyle.color || theme.colors.invert.text : undefined}/>
                         </react_native_1.View>)}
 
             </Box_1.HBox>
