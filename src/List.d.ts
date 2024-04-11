@@ -1,7 +1,7 @@
 import { ViewProps } from "react-native";
 export type DatatableViewProps = {
     items: any[];
-    itemAdapter: (item: any) => SimpleDatatableViewItemProps;
+    itemAdapter: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps;
 } & ViewProps;
 export declare function SimpleDatalistView(props: DatatableViewProps): import("react").JSX.Element;
 export type SimpleDatatableViewItemProps = {

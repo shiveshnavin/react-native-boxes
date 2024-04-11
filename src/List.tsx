@@ -10,17 +10,18 @@ import { PressableView } from "./Button"
 
 export type DatatableViewProps = {
     items: any[],
-    itemAdapter: (item: any) => SimpleDatatableViewItemProps
+    itemAdapter: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps
 } & ViewProps
 export function SimpleDatalistView(props: DatatableViewProps) {
 
     return (
         <VBox style={[props.style]}>
             {
-                props.items.map((item, id) => {
-                    let data = props.itemAdapter(item)
+                props.items.map((item, idx) => {
+                    let data = props.itemAdapter(item, idx, props.items)
                     return (
                         <SimpleDatatlistViewItem
+                            key={idx}
                             {...data}
                         />
                     )

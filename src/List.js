@@ -9,9 +9,9 @@ const ThemeContext_1 = require("./ThemeContext");
 const Button_1 = require("./Button");
 function SimpleDatalistView(props) {
     return (<Box_1.VBox style={[props.style]}>
-            {props.items.map((item, id) => {
-            let data = props.itemAdapter(item);
-            return (<SimpleDatatlistViewItem {...data}/>);
+            {props.items.map((item, idx) => {
+            let data = props.itemAdapter(item, idx, props.items);
+            return (<SimpleDatatlistViewItem key={idx} {...data}/>);
         })}
         </Box_1.VBox>);
 }
