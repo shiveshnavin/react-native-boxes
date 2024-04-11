@@ -105,7 +105,9 @@ function ButtonView(props) {
                 {BtnIcon && (<react_native_1.View style={{
                 margin: theme.dimens.space.sm
             }}>
-                            <BtnIcon />
+                            <BtnIcon color={
+            //@ts-ignore
+            typeof props.icon == 'string' ? tstyle.color || theme.colors.invert.text : undefined}/>
                         </react_native_1.View>)}
 
                 {(props.text || props.children) && (<Text_1.TextView style={[{
