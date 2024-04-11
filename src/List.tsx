@@ -50,7 +50,7 @@ export type SimpleDatatableViewItemProps = {
     flexRatio?: [number, number, number]
 }
 export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & ViewProps) {
-    const RightIcon = getIcon(props.icon)
+    const RightIcon = getIcon(props.icon, true)
     const theme = useContext(ThemeContext)
     let flexRatio = props.flexRatio || [1, 8, 1]
     let [left, middle, right] = flexRatio

@@ -93,7 +93,7 @@ export function Avatar(props: ViewProps & {
 }
 
 
-export function getIcon(Input: any): any {
+export function getIcon(Input: any, wrap?: boolean): any {
     if (Input == undefined) {
         return undefined
     }
@@ -104,9 +104,11 @@ export function getIcon(Input: any): any {
             )
         }
     }
-    return (props: any) => {
-        return <>
-            {Input}
-        </>
-    }
+    if (wrap)
+        return (props: any) => {
+            return <>
+                {Input}
+            </>
+        }
+    return Input
 }

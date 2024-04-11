@@ -19,4 +19,4 @@ export declare function Avatar(props: ViewProps & {
     iconNameProps?: IconProps;
     style?: any;
 }): import("react").JSX.Element;
-export declare function getIcon(Input: any): any;
+export declare function getIcon(Input: any, wrap?: boolean): any;

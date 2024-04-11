@@ -25,7 +25,7 @@ function SimpleDatalistView(props) {
 }
 exports.SimpleDatalistView = SimpleDatalistView;
 function SimpleDatatlistViewItem(props) {
-    const RightIcon = (0, Image_1.getIcon)(props.icon);
+    const RightIcon = (0, Image_1.getIcon)(props.icon, true);
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
     let flexRatio = props.flexRatio || [1, 8, 1];
     let [left, middle, right] = flexRatio;

@@ -64,7 +64,7 @@ function Avatar(props) {
     return view;
 }
 exports.Avatar = Avatar;
-function getIcon(Input) {
+function getIcon(Input, wrap) {
     if (Input == undefined) {
         return undefined;
     }
@@ -73,11 +73,13 @@ function getIcon(Input) {
             return (<Icon {...props} name={props.name || Input}/>);
         };
     }
-    return (props) => {
-        return <>
-            {Input}
-        </>;
-    };
+    if (wrap)
+        return (props) => {
+            return <>
+                {Input}
+            </>;
+        };
+    return Input;
 }
 exports.getIcon = getIcon;
 //# sourceMappingURL=Image.js.map
