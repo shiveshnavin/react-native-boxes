@@ -121,7 +121,7 @@ function TransparentCenterToolbar(props) {
             width: '100%'
         }} textStyle={{
             color: theme.colors.text
-        }} homeIcon="" title={props.title} backgroundColor={theme.colors.transparent}/>);
+        }} homeIcon="" title={props.title} backgroundColor={theme.colors.transparent} {...props}/>);
 }
 exports.TransparentCenterToolbar = TransparentCenterToolbar;
 function BottomNavBar(props) {

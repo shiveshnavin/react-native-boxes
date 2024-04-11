@@ -138,8 +138,9 @@ export function TransparentCenterToolbar(props: SimpleToolbarProps) {
                 color: theme.colors.text
             }}
             homeIcon="" title={props.title}
-
-            backgroundColor={theme.colors.transparent} />
+            backgroundColor={theme.colors.transparent}
+            {...props}
+        />
     )
 }
 
