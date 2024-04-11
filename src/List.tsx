@@ -15,18 +15,15 @@ export type DatatableViewProps = {
 } & ViewProps
 export function SimpleDatalistView(props: DatatableViewProps) {
     const theme = useContext(ThemeContext)
-    if (props.loading) {
-        return (
-            <Center style={{
-                padding: theme.dimens.space.xl * 2
-            }}>
-                <ActivityIndicator
-                    size={theme.dimens.icon.xl}
-                    color={theme.colors.accent} />
-            </Center>
-        )
-    }
-    return (
+
+    return props.loading ?
+        <Center style={{
+            padding: theme.dimens.space.xl * 2
+        }}>
+            <ActivityIndicator
+                size={theme.dimens.icon.xl}
+                color={theme.colors.accent} />
+        </Center> :
         <VBox style={[props.style]}>
             {
                 props.items.map((item, idx) => {
@@ -41,7 +38,6 @@ export function SimpleDatalistView(props: DatatableViewProps) {
             }
         </VBox>
 
-    )
 }
 
 export type SimpleDatatableViewItemProps = {

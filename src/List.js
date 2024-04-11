@@ -10,19 +10,18 @@ const ThemeContext_1 = require("./ThemeContext");
 const Button_1 = require("./Button");
 function SimpleDatalistView(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
-    if (props.loading) {
-        return (<Box_1.Center style={{
+    return props.loading ?
+        <Box_1.Center style={{
                 padding: theme.dimens.space.xl * 2
             }}>
-                <react_native_1.ActivityIndicator size={theme.dimens.icon.xl} color={theme.colors.accent}/>
-            </Box_1.Center>);
-    }
-    return (<Box_1.VBox style={[props.style]}>
+            <react_native_1.ActivityIndicator size={theme.dimens.icon.xl} color={theme.colors.accent}/>
+        </Box_1.Center> :
+        <Box_1.VBox style={[props.style]}>
             {props.items.map((item, idx) => {
-            let data = props.itemAdapter(item, idx, props.items);
-            return (<SimpleDatatlistViewItem key={idx} {...data}/>);
-        })}
-        </Box_1.VBox>);
+                let data = props.itemAdapter(item, idx, props.items);
+                return (<SimpleDatatlistViewItem key={idx} {...data}/>);
+            })}
+        </Box_1.VBox>;
 }
 exports.SimpleDatalistView = SimpleDatalistView;
 function SimpleDatatlistViewItem(props) {
