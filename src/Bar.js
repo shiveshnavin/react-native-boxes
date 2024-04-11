@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BottomNavBar = exports.SimpleToolbar = exports.SimpleToolbarHeight = void 0;
+exports.BottomNavBar = exports.TransparentCenterToolbar = exports.SimpleToolbar = exports.SimpleToolbarHeight = void 0;
 const react_1 = require("react");
 const react_native_1 = require("react-native");
 const ThemeContext_1 = require("./ThemeContext");
@@ -115,6 +115,15 @@ function SimpleToolbar(props) {
         </Box_1.HBox>);
 }
 exports.SimpleToolbar = SimpleToolbar;
+function TransparentCenterToolbar(props) {
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<SimpleToolbar style={{
+            width: '100%'
+        }} textStyle={{
+            color: theme.colors.text
+        }} homeIcon="" title={props.title} backgroundColor={theme.colors.transparent}/>);
+}
+exports.TransparentCenterToolbar = TransparentCenterToolbar;
 function BottomNavBar(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
     const onDimens = props.onDimens;

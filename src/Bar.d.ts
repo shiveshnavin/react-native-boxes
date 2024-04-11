@@ -20,6 +20,7 @@ export interface SimpleToolbarProps extends ViewProps {
 }
 export declare const SimpleToolbarHeight = 40;
 export declare function SimpleToolbar(props: SimpleToolbarProps): React.JSX.Element;
+export declare function TransparentCenterToolbar(props: SimpleToolbarProps): React.JSX.Element;
 export declare function BottomNavBar(props: ViewProps & {
     options: Option[];
     selectedId: string;

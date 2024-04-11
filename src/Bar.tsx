@@ -126,6 +126,23 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
     )
 }
 
+
+export function TransparentCenterToolbar(props: SimpleToolbarProps) {
+    const theme = useContext(ThemeContext)
+    return (
+        <SimpleToolbar
+            style={{
+                width: '100%'
+            }}
+            textStyle={{
+                color: theme.colors.text
+            }}
+            homeIcon="" title={props.title}
+
+            backgroundColor={theme.colors.transparent} />
+    )
+}
+
 export function BottomNavBar(props: ViewProps &
 {
     options: Option[],
