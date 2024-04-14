@@ -41,6 +41,7 @@ exports.Colors = {
     semitransparent: '#111a1a1c',
     info: '#2196F3',
     success: '#4CAF50',
+    successBackground: '#388E3C',
     warning: '#FFA726',
     critical: '#F44336',
     invert: {
@@ -51,7 +52,7 @@ exports.Colors = {
     }
 };
 exports.LightColors = exports.Colors;
-exports.DarkColors = {
+exports.DarkColors = Object.assign(exports.Colors, {
     accent: '#1976D2',
     accentLight: '#2196F3',
     text: '#f2f2f2',
@@ -71,7 +72,7 @@ exports.DarkColors = {
         heading: '#fff',
         background: '#E6E6E6'
     }
-};
+});
 function extendValues(dimens, colors, fonts) {
     return {
         dimens: Object.assign(dimens || {}, exports.Dimens),

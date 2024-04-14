@@ -51,6 +51,7 @@ export declare class Theme {
         semitransparent: string;
         info: string;
         success: string;
+        successBackground: string;
         warning: string;
         critical: string;
         invert: {

@@ -37,6 +37,7 @@ export declare const Colors: {
     semitransparent: string;
     info: string;
     success: string;
+    successBackground: string;
     warning: string;
     critical: string;
     invert: {
@@ -58,6 +59,7 @@ export declare const LightColors: {
     semitransparent: string;
     info: string;
     success: string;
+    successBackground: string;
     warning: string;
     critical: string;
     invert: {
@@ -68,6 +70,27 @@ export declare const LightColors: {
     };
 };
 export declare const DarkColors: {
+    accent: string;
+    accentLight: string;
+    text: string;
+    caption: string;
+    heading: string;
+    background: string;
+    forground: string;
+    transparent: string;
+    semitransparent: string;
+    info: string;
+    success: string;
+    successBackground: string;
+    warning: string;
+    critical: string;
+    invert: {
+        text: string;
+        caption: string;
+        heading: string;
+        background: string;
+    };
+} & {
     accent: string;
     accentLight: string;
     text: string;
