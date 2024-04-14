@@ -54,7 +54,7 @@ export const Colors = {
 
 export const LightColors = Colors
 
-export const DarkColors = Object.assign(Colors, {
+export const DarkColors = {
     accent: '#1976D2',
     accentLight: '#2196F3',
     text: '#f2f2f2',
@@ -66,6 +66,7 @@ export const DarkColors = Object.assign(Colors, {
     semitransparent: '#111a1a1c',
     info: '#2196F3',
     success: '#4CAF50',
+    successBackground: '#388E3C',
     warning: '#FFA726',
     critical: '#F44336',
     invert: {
@@ -74,7 +75,7 @@ export const DarkColors = Object.assign(Colors, {
         heading: '#fff',
         background: '#E6E6E6'
     }
-})
+}
 
 export function extendValues(
     dimens: typeof Dimens,

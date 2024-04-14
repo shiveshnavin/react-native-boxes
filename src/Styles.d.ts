@@ -90,26 +90,6 @@ export declare const DarkColors: {
         heading: string;
         background: string;
     };
-} & {
-    accent: string;
-    accentLight: string;
-    text: string;
-    caption: string;
-    heading: string;
-    background: string;
-    forground: string;
-    transparent: string;
-    semitransparent: string;
-    info: string;
-    success: string;
-    warning: string;
-    critical: string;
-    invert: {
-        text: string;
-        caption: string;
-        heading: string;
-        background: string;
-    };
 };
 export declare function extendValues(dimens: typeof Dimens, colors: typeof Colors, fonts: typeof Fonts): {
     dimens: typeof Dimens;
