@@ -345,7 +345,8 @@ export const DropDownView = (props: DropDownViewProps) => {
                 //@ts-ignore
                 style={Object.assign({
                     width: '100%',
-                    padding: theme.dimens.space.md
+                    padding: theme.dimens.space.md,
+                    margin: theme.dimens.space.md
                 }, props.style || {})}>
                 {
                     props.options.map(opt => {
@@ -416,6 +417,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                             }}
                         >
                             <CompositeTextInputView
+                                placeholder={props.title}
                                 {...props}
                                 value={getSelected()?.title || getSelected()?.id}
                                 onIconPress={() => { setVisible(true) }}

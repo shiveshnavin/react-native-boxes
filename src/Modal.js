@@ -262,7 +262,8 @@ const DropDownView = (props) => {
         //@ts-ignore
         style={Object.assign({
                 width: '100%',
-                padding: theme.dimens.space.md
+                padding: theme.dimens.space.md,
+                margin: theme.dimens.space.md
             }, props.style || {})}>
                 {props.options.map(opt => {
                 if (props.onRenderOption) {
@@ -304,7 +305,7 @@ const DropDownView = (props) => {
             <Button_1.PressableView {...props} onPress={() => {
                     setVisible(true);
                 }}>
-                            <Input_1.CompositeTextInputView {...props} value={getSelected()?.title || getSelected()?.id} onIconPress={() => { setVisible(true); }} icon={"caret-down"} pointerEvents="none" _textInputProps={{
+                            <Input_1.CompositeTextInputView placeholder={props.title} {...props} value={getSelected()?.title || getSelected()?.id} onIconPress={() => { setVisible(true); }} icon={"caret-down"} pointerEvents="none" _textInputProps={{
                     caretHidden: true,
                     placeholder: props.title || 'select',
                     editable: false,
