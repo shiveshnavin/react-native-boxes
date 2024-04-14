@@ -239,7 +239,7 @@ function SwitchView(props) {
     return (<react_native_1.Switch trackColor={{
             false: theme.colors.caption,
             true: theme.colors.success
-        }} thumbColor={theme.colors.text} ios_backgroundColor={theme.colors.caption} {...props}/>);
+        }} thumbColor={props.value ? theme.colors.invert.text : theme.colors.text} ios_backgroundColor={theme.colors.caption} {...props}/>);
 }
 exports.SwitchView = SwitchView;
 //# sourceMappingURL=Button.js.map

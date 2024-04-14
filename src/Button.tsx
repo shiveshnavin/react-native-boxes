@@ -314,7 +314,7 @@ export function SwitchView(props: SwitchProps) {
                 false: theme.colors.caption,
                 true: theme.colors.success
             }}
-            thumbColor={theme.colors.text}
+            thumbColor={props.value ? theme.colors.invert.text : theme.colors.text}
             ios_backgroundColor={theme.colors.caption}
             {...props}
         />
