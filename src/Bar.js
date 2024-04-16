@@ -117,9 +117,9 @@ function SimpleToolbar(props) {
 exports.SimpleToolbar = SimpleToolbar;
 function TransparentCenterToolbar(props) {
     const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
-    return (<SimpleToolbar style={{
-            width: '100%'
-        }} textStyle={{
+    return (<SimpleToolbar style={[{
+                width: '100%'
+            }, props.style]} textStyle={{
             color: theme.colors.text
         }} homeIcon="" title={props.title} backgroundColor={theme.colors.transparent} {...props}/>);
 }

@@ -131,9 +131,9 @@ export function TransparentCenterToolbar(props: SimpleToolbarProps) {
     const theme = useContext(ThemeContext)
     return (
         <SimpleToolbar
-            style={{
+            style={[{
                 width: '100%'
-            }}
+            }, props.style]}
             textStyle={{
                 color: theme.colors.text
             }}
