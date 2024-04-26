@@ -21,3 +21,11 @@ export declare function Avatar(props: ViewProps & {
 }): import("react").JSX.Element;
 export declare function getIcon(Input: any, wrap?: boolean): any;
 export declare function Spinner(props: ActivityIndicatorProps): import("react").JSX.Element;
+export declare function StatusIcon(props: {
+    status: string | any;
+    colorMap?: {
+        status: string | any;
+        icon: string;
+        color: string;
+    }[];
+} & ViewProps): import("react").JSX.Element;

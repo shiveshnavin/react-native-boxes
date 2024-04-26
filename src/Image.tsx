@@ -123,3 +123,43 @@ export function Spinner(props: ActivityIndicatorProps) {
         />
     )
 }
+
+
+export function StatusIcon(props: { status: string | any, colorMap?: { status: string | any, icon: string, color: string }[] } & ViewProps) {
+    const theme = useContext(ThemeContext)
+    let color = theme.colors.info
+    let icon = 'check'
+    let fromColorMap = undefined
+    if (props.colorMap) {
+        fromColorMap = props.colorMap.find(mp => mp.status == props.status)
+    }
+    if (fromColorMap) {
+        color = fromColorMap.color
+        icon = fromColorMap.icon
+    }
+    else if (props.status == 'SUCCESS') {
+        icon = 'check'
+        color = theme.colors.success
+    } else if (props.status == 'FAILED') {
+        icon = 'close'
+        color = theme.colors.critical
+    } else if (props.status == 'PARTIAL_SUCCESS') {
+        icon = 'warning'
+        color = theme.colors.warning
+    } else if (props.status == 'IN_PROGRESS') {
+        icon = 'play'
+        color = theme.colors.accent
+    } else if (props.status == 'PAUSED') {
+        icon = 'pause'
+        color = theme.colors.text
+    } else {
+        icon = 'info'
+        color = theme.colors.text
+    }
+
+    return (
+        <Icon  {...props} name={icon} color={color} style={[{
+            paddingRight: theme.dimens.space.md
+        }, props.style]} />
+    )
+}
