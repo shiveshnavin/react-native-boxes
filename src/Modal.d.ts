@@ -37,3 +37,16 @@ export type DropDownViewProps = {
     forceDialogSelectOnWeb?: Boolean;
 } & ViewProps;
 export declare const DropDownView: (props: DropDownViewProps) => React.JSX.Element;
+export type ConfirmationDialogProps = {
+    visible: boolean;
+    title?: string | React.Component;
+    cancellable?: boolean;
+    onDismiss?: Function;
+    onConfirm: () => void;
+    onCancel?: () => void;
+    message?: string;
+    confirmText?: String;
+    cancelText?: String;
+    children?: any;
+};
+export declare function ConfirmationDialog(props: ConfirmationDialogProps): React.JSX.Element;

@@ -439,3 +439,49 @@ export const DropDownView = (props: DropDownViewProps) => {
         )
     }
 }
+
+
+export type ConfirmationDialogProps = {
+    visible: boolean,
+    title?: string | React.Component,
+    cancellable?: boolean
+    onDismiss?: Function
+
+    onConfirm: () => void,
+    onCancel?: () => void,
+    message?: string,
+    confirmText?: String,
+    cancelText?: String,
+    children?: any
+}
+
+export function ConfirmationDialog(props: ConfirmationDialogProps) {
+
+    const confirmText = props.confirmText || 'Confirm'
+    const cancelText = props.cancelText || 'Cancel'
+    const theme = useContext(ThemeContext)
+    return (
+        <BottomSheet
+            onDismiss={() => {
+                props.onDismiss && props.onDismiss()
+            }}
+            {...props}
+        >
+            <VBox>
+                {props.message && <TextView style={{
+                    padding: theme.dimens.space.lg,
+                    textAlign: 'center'
+                }}>{props.message}</TextView>}
+                <ButtonView text={confirmText as string} onPress={() => {
+                    props.onDismiss && props.onDismiss()
+                    props.onConfirm && props.onConfirm()
+                }} />
+                <TertiaryButtonView text={cancelText as string} onPress={() => {
+                    props.onDismiss && props.onDismiss()
+                    props.onCancel && props.onCancel()
+                }} />
+            </VBox>
+
+        </BottomSheet>
+    )
+}

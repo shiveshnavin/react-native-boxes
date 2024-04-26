@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DropDownView = exports.Expand = exports.BottomSheet = void 0;
+exports.ConfirmationDialog = exports.DropDownView = exports.Expand = exports.BottomSheet = void 0;
 //@ts-nocheck
 const React = __importStar(require("react"));
 const react_1 = require("react");
@@ -316,4 +316,29 @@ const DropDownView = (props) => {
     }
 };
 exports.DropDownView = DropDownView;
+function ConfirmationDialog(props) {
+    const confirmText = props.confirmText || 'Confirm';
+    const cancelText = props.cancelText || 'Cancel';
+    const theme = (0, react_1.useContext)(ThemeContext_1.ThemeContext);
+    return (<exports.BottomSheet onDismiss={() => {
+            props.onDismiss && props.onDismiss();
+        }} {...props}>
+            <Box_1.VBox>
+                {props.message && <Text_1.TextView style={{
+                padding: theme.dimens.space.lg,
+                textAlign: 'center'
+            }}>{props.message}</Text_1.TextView>}
+                <Button_1.ButtonView text={confirmText} onPress={() => {
+            props.onDismiss && props.onDismiss();
+            props.onConfirm && props.onConfirm();
+        }}/>
+                <Button_1.TertiaryButtonView text={cancelText} onPress={() => {
+            props.onDismiss && props.onDismiss();
+            props.onCancel && props.onCancel();
+        }}/>
+            </Box_1.VBox>
+
+        </exports.BottomSheet>);
+}
+exports.ConfirmationDialog = ConfirmationDialog;
 //# sourceMappingURL=Modal.js.map
