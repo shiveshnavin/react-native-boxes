@@ -226,7 +226,7 @@ function LoadingButton(props) {
                     theme.dimens.space.sm : theme.dimens.space.md
             }, props.style]} icon={_loading ?
             <react_native_1.ActivityIndicator size={loaderSize} color={loaderColor}/>
-            : undefined} text={!_loading ? props.text : undefined}/>);
+            : props.icon} text={!_loading ? props.text : undefined}/>);
 }
 exports.LoadingButton = LoadingButton;
 function PressableView(props) {

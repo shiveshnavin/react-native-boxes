@@ -292,7 +292,7 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
                 <ActivityIndicator
                     size={loaderSize}
                     color={loaderColor} />
-                : undefined
+                : props.icon
             }
             text={!_loading ? props.text : undefined} />
     )
