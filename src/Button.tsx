@@ -283,7 +283,6 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
             {...props}
             underlayColor={btnBgPressed}
             style={[{
-                width: _loading ? '100%' : '100%',
                 backgroundColor: btnBg,
                 padding: _loading && props.loaderStyle == 'transparent' ?
                     theme.dimens.space.sm : theme.dimens.space.md
