@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { StatusBar, TextStyle, ViewProps } from "react-native";
+import { StatusBar, TextStyle, View, ViewProps } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import * as React from 'react'
 import { Center, HBox } from "./Box";
-import { TextView } from "./Text";
+import { Caption, TextView } from "./Text";
 import { Icon, getIcon } from "./Image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PressableView } from "./Button";
@@ -213,4 +213,42 @@ export function BottomNavBar(props: ViewProps &
         </HBox>
     )
 
+}
+
+
+
+export type DividerProps = ViewProps & {
+    text?: string
+}
+export function Divider(props: DividerProps) {
+
+    const theme = useContext(ThemeContext)
+    return (
+        <Center style={{
+            marginTop: theme.dimens.space.md,
+            marginBottom: theme.dimens.space.md,
+            flexDirection: "row",
+            width: '100%',
+            justifyContent: 'space-between'
+        }}
+            {...props}
+        >
+            <View style={{
+                backgroundColor: theme.colors.caption,
+                width: props?.text ? '40%' : '50%',
+                height: 0.1
+            }} />
+            {
+                props?.text &&
+                <Caption>
+                    {props.text}
+                </Caption>
+            }
+            <View style={{
+                backgroundColor: theme.colors.caption,
+                width: props?.text ? '40%' : '50%',
+                height: 0.1
+            }} />
+        </Center>
+    )
 }
