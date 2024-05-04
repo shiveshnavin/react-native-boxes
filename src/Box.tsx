@@ -82,7 +82,7 @@ export function VPage(props: ViewProps) {
  * @param param0 
  * @returns 
  */
-const KeyboardAvoidingScrollView: React.FC<ScrollViewProps> = (props: ScrollViewProps) => {
+export const KeyboardAvoidingScrollView: React.FC<ScrollViewProps> = (props: ScrollViewProps) => {
     const theme = useContext(ThemeContext)
     let insets
     try {
@@ -110,8 +110,6 @@ const KeyboardAvoidingScrollView: React.FC<ScrollViewProps> = (props: ScrollView
         </KeyboardAvoidingView>
     )
 }
-
-export default KeyboardAvoidingScrollView
 
 export function CardView(props: ViewProps) {
 

@@ -8,7 +8,7 @@ import { AlertMessage } from './Message';
 import { BottomSheet, DropDownView } from './Modal';
 import { Avatar, Icon } from './Image';
 import { ReactWrapper } from './utils';
-import KeyboardAvoidingScrollView, { Box } from './Box';
+import { Box, KeyboardAvoidingScrollView } from './Box';
 import { DarkColors, LightColors } from './Styles';
 
 export interface DemoScreenProps {
