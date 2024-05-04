@@ -48,7 +48,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
                 alignContent: 'center',
                 alignItems: 'center',
                 padding: theme.dimens.space.md,
-                borderRadius: theme.dimens.space.xl,
+                borderRadius: theme.dimens.space.md,
                 margin: theme.dimens.space.sm,
                 backgroundColor: theme.colors.transparent,
             }, props.style]}>
@@ -116,7 +116,7 @@ export function ButtonView(props: ButtonViewProps) {
                 alignContent: 'center',
                 alignItems: 'center',
                 padding: theme.dimens.space.md,
-                borderRadius: theme.dimens.space.xl,
+                borderRadius: theme.dimens.space.md,
                 margin: theme.dimens.space.sm,
                 backgroundColor: theme.colors.accent,
             }, props.style]}>
@@ -190,7 +190,7 @@ export function RightIconButton(props: ButtonViewProps) {
                 alignContent: 'center',
                 alignItems: 'center',
                 padding: theme.dimens.space.md,
-                borderRadius: theme.dimens.space.xl,
+                borderRadius: theme.dimens.space.md,
                 margin: theme.dimens.space.sm,
                 backgroundColor: theme.colors.accent,
             }, props.style]}>
