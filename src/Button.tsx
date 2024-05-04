@@ -150,7 +150,7 @@ export function ButtonView(props: ButtonViewProps) {
                             //@ts-ignore
                             fontSize: tstyle.fontSize || theme.dimens.font.md,
                             //@ts-ignore
-                            fontFamily: tstyle.fontFamily || theme.fonts.Regular,
+                            fontFamily: tstyle.fontFamily || theme.fonts.Bold,
                             //@ts-ignore
                             color: tstyle.color || theme.colors.invert.text,
                         }, props.textStyle]}>

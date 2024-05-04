@@ -35,7 +35,7 @@ export function TextInputView(props: TextInputProps & {
                 setFocused(false)
                 props.onBlur && props.onBlur(e)
             }}
-            value={props.value || text}
+            value={props.value || text || ''}
             onChangeText={(newText) => {
                 if (props.pattern) {
                     const re = new RegExp(props.pattern);
@@ -68,16 +68,7 @@ export function TextInputView(props: TextInputProps & {
     )
 }
 
-export type CompositeTextInputViewProps = TextInputProps & {
-    hint?: string,
-    alertText?: string,
-    alertTextColor?: string,
-    pattern?: string,
-    initialText?: string,
-    icon?: 'close' | 'eye' | string | React.Component,
-    _textInputProps?: TextInputProps,
-    onIconPress?: ((event: GestureResponderEvent) => void) | undefined
-}
+
 /**
  * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
  * to the scrollview else the icon click wont work
@@ -86,7 +77,16 @@ export type CompositeTextInputViewProps = TextInputProps & {
  * @param props 
  * @returns 
  */
-export function CompositeTextInputView(props: CompositeTextInputViewProps) {
+export function CompositeTextInputView(props: TextInputProps & {
+    hint?: string,
+    alertText?: string,
+    alertTextColor?: string,
+    pattern?: string,
+    initialText?: string,
+    leftIcon?: 'edit' | string | React.Component,
+    icon?: 'close' | 'eye' | string | React.Component,
+    onIconPress?: ((event: GestureResponderEvent) => void) | undefined
+}) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
     const [alerttext, setAlertText] = useState(props.alertText)
@@ -142,6 +142,16 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
             }} name={props.icon} />
     ) : props.icon
 
+    //@ts-ignore
+    const LeftIconComponent: ReactNode = typeof props.leftIcon == 'string' ? (
+        <Icon
+            color={!focused ? theme.colors.caption : theme.colors.accent}
+            style={{
+                minWidth: isWeb() ? theme.dimens.icon.lg : theme.dimens.icon.sm,
+                padding: theme.dimens.space.sm / 2,
+            }} name={props.leftIcon} />
+    ) : props.leftIcon
+
     return (
         <HBox style={[{
             paddingEnd: theme.dimens.space.md,
@@ -160,7 +170,9 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
 
         }, props.style]}>
 
-
+            {
+                props.leftIcon != undefined && LeftIconComponent
+            }
             <VBox style={[{
                 flex: 1,
                 paddingBottom: alertVisible ? 0 : theme.dimens.space.sm
@@ -176,13 +188,12 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                         color: !focused ? theme.colors.caption : theme.colors.accent,
 
                     }}
-                >{props.placeholder}</TextView>}
+                >{props.placeholder || ''}</TextView>}
                 <TextInput
-                    {...props._textInputProps}
                     selectionColor={props.selectionColor || theme.colors.accent}
                     secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={theme.colors.caption}
-                    placeholder={hintVisible ? '' : theme.i18n?.t(props.placeholder) || props.placeholder}
+                    placeholder={hintVisible ? '' : theme.i18n?.t(props.placeholder) || props.placeholder || ''}
                     keyboardType={props.keyboardType}
                     returnKeyType={props.returnKeyType || 'default'}
                     onFocus={(e) => {
@@ -193,7 +204,7 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                         setFocused(false)
                         props.onBlur && props.onBlur(e)
                     }}
-                    value={props.value || text}
+                    value={props.value || text || ''}
                     onChangeText={(newText) => {
                         if (props.pattern) {
                             const re = new RegExp(props.pattern);
@@ -213,7 +224,7 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                         outline: 'none',
                     } : {
 
-                    }, fontStyles, props._textInputProps?.style]}
+                    }, fontStyles]}
                 />
                 {
                     alertVisible && <TextView
