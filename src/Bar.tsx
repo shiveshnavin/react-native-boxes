@@ -220,7 +220,7 @@ export function BottomNavBar(props: ViewProps &
 export type DividerProps = ViewProps & {
     text?: string
 }
-export function Divider(props: DividerProps) {
+export function DividerView(props: DividerProps) {
 
     const theme = useContext(ThemeContext)
     return (
