@@ -7,7 +7,11 @@ export const Storage = {
         return await AsyncStorage.getItem(key);
     },
 
-    async setKeyAsync(key: string, value: string) {
+    async setKeyAsync(key: string, value?: string) {
+        if (value == undefined) {
+            AsyncStorage.removeItem(key)
+            return
+        }
         if (typeof value == 'object')
             value = JSON.stringify(value)
         return await AsyncStorage.setItem(key, value);
