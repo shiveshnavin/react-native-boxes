@@ -1,6 +1,18 @@
 import { Platform } from "react-native";
 import { Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export const Storage = {
+    async getKeyAsync(key: string) {
+        return await AsyncStorage.getItem(key);
+    },
+
+    async setKeyAsync(key: string, value: string) {
+        if (typeof value == 'object')
+            value = JSON.stringify(value)
+        return await AsyncStorage.setItem(key, value);
+    }
+}
 
 export function ReactWrapper(component: any) {
     return (props: any) => {
