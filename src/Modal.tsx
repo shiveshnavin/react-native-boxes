@@ -491,7 +491,7 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
 }
 
 
-export default function WebBrowserView(props: {
+export function WebBrowserView(props: {
     url: string,
     title?: string,
     openMessage?: string,
