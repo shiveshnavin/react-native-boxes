@@ -1,14 +1,16 @@
-//@ts-nocheck
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Animated, Button, Easing, LayoutChangeEvent, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
+import { Animated, Button, Easing, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
 import { Icon, IconProps } from './Image';
-import { isDesktop } from './utils';
+import { getNavParamsFromDeeplink, isDesktop, isWeb } from './utils';
 import { ThemeContext } from './ThemeContext';
-import { Center, HBox, VBox } from './Box';
+import { Center, HBox, VBox, VPage } from './Box';
 import { Subtitle, TextView, Title } from './Text';
-import { ButtonView, ButtonViewProps, PressableView, TertiaryButtonView } from './Button';
-import { CompositeTextInputView, CompositeTextInputViewProps } from './Input';
+import { ButtonView, ButtonViewProps, LoadingButton, PressableView, TertiaryButtonView } from './Button';
+import { CompositeTextInputView } from './Input';
+import * as WebBrowser from 'expo-web-browser';
+import { TransparentCenterToolbar } from './Bar';
+
 
 export type BottomSheetProps = {
     visible: boolean,
@@ -340,6 +342,7 @@ export const DropDownView = (props: DropDownViewProps) => {
             <select
                 defaultValue={props.selectedId}
                 onChange={(e) => {
+                    //@ts-ignore
                     props.onSelect(e.target.value, props.options.find(o => o.id == e.target.value)?.value)
                 }}
                 //@ts-ignore
@@ -370,7 +373,7 @@ export const DropDownView = (props: DropDownViewProps) => {
         return (
             <VBox style={props.style}>
                 <BottomSheet
-                    visible={visible}
+                    visible={visible as boolean}
                     onDismiss={() => {
                         setVisible(false)
                     }}
@@ -423,6 +426,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 onIconPress={() => { setVisible(true) }}
                                 icon={"caret-down"}
                                 pointerEvents="none"
+                                //@ts-ignore
                                 _textInputProps={{
                                     caretHidden: true,
                                     placeholder: props.title || 'select',
@@ -484,4 +488,82 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
 
         </BottomSheet>
     )
+}
+
+
+export default function WebBrowserView(props: {
+    url: string,
+    title?: string,
+    openMessage?: string,
+    retryMessage?: string,
+    cancelMessage?: string;
+    onCancel: () => void,
+    navigation: {
+        navigate: (path: string, params: any) => void
+    }
+}) {
+    const [result, setResult] = useState(null);
+    const [loading, setLoading] = useState(false)
+    const _handlePressButtonAsync = async () => {
+        if (isWeb()) {
+            setLoading(true)
+            setTimeout(() => {
+                setLoading(false)
+            }, 5000)
+            //@ts-ignore
+            window.location.href = props.url
+        } else {
+            let result: any = await WebBrowser.openBrowserAsync(props.url);
+            setResult(result);
+        }
+    };
+
+    useEffect(() => {
+        if (result == null)
+            _handlePressButtonAsync()
+    }, [])
+    const theme = useContext(ThemeContext)
+    Linking.addEventListener('url', (url) => {
+        if (url?.url) {
+            let path = url?.url.split("://")[1]
+            if (path) {
+                const [root, params] = getNavParamsFromDeeplink(path)
+                props.navigation?.navigate(root, params)
+            }
+            Linking.removeAllListeners('url')
+        }
+    });
+    return (
+        <VPage >
+            <TransparentCenterToolbar title={props.title || ''} />
+            <Center style={{
+                paddingBottom: theme.dimens.space.xl,
+                flex: 1,
+            }}>
+                <Center style={{
+                    paddingBottom: theme.dimens.space.xl * 2,
+                }}>
+                    <Icon name="globe" size={theme.dimens.icon.xxl} />
+                    <Subtitle style={{
+                        padding: theme.dimens.space.xl,
+                        paddingTop: theme.dimens.space.lg,
+                        textAlign: 'center'
+                    }}>{props.openMessage || "Open in browser to continue."}</Subtitle>
+                </Center>
+                <LoadingButton
+                    loading={loading}
+                    onPress={() => {
+                        _handlePressButtonAsync()
+                    }}
+                    style={{
+                        width: '80%'
+                    }}>{props.retryMessage || "Retry"}</LoadingButton>
+                <TertiaryButtonView
+                    onPress={() => {
+                        props.onCancel && props.onCancel()
+                    }}
+                    text={props.cancelMessage || "Cancel"} />
+            </Center>
+        </VPage>
+    );
 }

@@ -131,15 +131,16 @@ export function TransparentCenterToolbar(props: SimpleToolbarProps) {
     const theme = useContext(ThemeContext)
     return (
         <SimpleToolbar
+            {...props}
             style={[{
                 width: '100%'
             }, props.style]}
             textStyle={{
                 color: theme.colors.text
             }}
-            homeIcon="" title={props.title}
+            homeIcon={props.homeIcon || ""}
+            title={props.title}
             backgroundColor={theme.colors.transparent}
-            {...props}
         />
     )
 }
