@@ -85,7 +85,8 @@ export function CompositeTextInputView(props: TextInputProps & {
     initialText?: string,
     leftIcon?: 'edit' | string | React.Component,
     icon?: 'close' | 'eye' | string | React.Component,
-    onIconPress?: ((event: GestureResponderEvent) => void) | undefined
+    onIconPress?: ((event: GestureResponderEvent) => void) | undefined,
+    textInputProps?: TextInputProps
 }) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
@@ -97,17 +98,11 @@ export function CompositeTextInputView(props: TextInputProps & {
     }
     const fontStyles: any = assignFields({}, props.style,
         [
-            "numberOfLines",
-            "returnKeyType",
-            "keyboardType",
-            "textContentType",
-            "multiline",
             "fontFamily",
             "fontSize",
             "fontWeight",
             "fontVariant",
-            "color",
-            "inputMode"
+            "color"
         ])
     var hintVisible = false
     if (props.placeholder && props.placeholder.length > 0 && focused) {
@@ -226,6 +221,7 @@ export function CompositeTextInputView(props: TextInputProps & {
                     } : {
 
                     }, fontStyles]}
+                    {...props.textInputProps}
                 />
                 {
                     alertVisible && <TextView
