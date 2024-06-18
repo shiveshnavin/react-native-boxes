@@ -97,6 +97,7 @@ export function CompositeTextInputView(props: TextInputProps & {
     }
     const fontStyles: any = assignFields({}, props.style,
         [
+            "numberOfLines",
             "returnKeyType",
             "keyboardType",
             "textContentType",
