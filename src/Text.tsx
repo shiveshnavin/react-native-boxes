@@ -65,3 +65,14 @@ export function Caption(props: TextProps) {
         ]} />
     )
 }
+
+export function TitleText(props: TextProps) {
+    return (
+        <TextView {...props} style={[
+            {
+                fontWeight: '700'
+            },
+            props.style
+        ]} />
+    )
+}
