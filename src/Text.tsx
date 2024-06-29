@@ -68,6 +68,7 @@ export function Caption(props: TextProps) {
     )
 }
 
+
 export function TitleText(props: TextProps) {
     const theme = useContext(ThemeContext)
     return (
