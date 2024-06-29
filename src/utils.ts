@@ -25,7 +25,7 @@ export function getNavParamsFromDeeplink(url: string) {
                 const params: any = {};
                 const queryParams = query.split("&");
                 queryParams?.forEach((pk) => {
-                    const [value, key] = pk.split("=")
+                    const [key, value] = pk.split("=")
                     params[key] = value;
                 });
                 cloneObj.params = params;
