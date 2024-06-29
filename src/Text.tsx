@@ -34,6 +34,7 @@ export function Subtitle(props: TextProps) {
                 fontSize: theme.dimens.font.lg,
                 color: theme.colors.text
             },
+            theme.styles.Subtitle,
             props.style
         ]} />
     )
@@ -48,6 +49,7 @@ export function Title(props: TextProps) {
                 fontSize: theme.dimens.font.xl,
                 color: theme.colors.heading
             },
+            theme.styles.Title,
             props.style
         ]} />
     )
@@ -67,11 +69,10 @@ export function Caption(props: TextProps) {
 }
 
 export function TitleText(props: TextProps) {
+    const theme = useContext(ThemeContext)
     return (
         <TextView {...props} style={[
-            {
-                fontWeight: '700'
-            },
+            theme.styles.TitleText,
             props.style
         ]} />
     )

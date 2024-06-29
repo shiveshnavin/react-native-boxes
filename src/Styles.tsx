@@ -112,6 +112,15 @@ export function createStyle(
             marginTop: dimens.space.xl,
             backgroundColor: colors.background,
         },
+        Subtitle: {
+            fontWeight: '700'
+        },
+        Title: {
+            fontWeight: '700'
+        },
+        TitleText: {
+            fontWeight: '700'
+        },
         center: {
             alignContent: 'center',
             justifyContent: 'center'
