@@ -4,13 +4,23 @@ import { ThemeContext } from "./ThemeContext";
 
 export type TextViewProps = TextProps & {
     skipI18n?: boolean
+    value?: string
+    text?: string
 }
 export function TextView(props: TextViewProps) {
     const theme = useContext(ThemeContext)
     let children = props.children
+    let value = props.value
+    let text = props.text
     if (theme.i18n && !props.skipI18n) {
         if (children && typeof children == 'string') {
             children = theme.i18n.t(children)
+        }
+        if (value) {
+            value = theme.i18n.t(value)
+        }
+        if (text) {
+            text = theme.i18n.t(text)
         }
     }
     return (
@@ -20,7 +30,7 @@ export function TextView(props: TextViewProps) {
                 color: theme.colors.text,
                 padding: theme.dimens.space.sm
             }, theme.styles.text, props.style]} >
-            {children}
+            {children || text || value}
         </Text>
     )
 }
