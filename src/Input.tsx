@@ -86,7 +86,7 @@ export function CompositeTextInputView(props: TextInputProps & {
     leftIcon?: 'edit' | string | React.Component,
     icon?: 'close' | 'eye' | string | React.Component,
     onIconPress?: ((event: GestureResponderEvent) => void) | undefined,
-    textInputProps?: TextInputProps
+    textInputProps?: TextInputProps,
 }) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
@@ -148,6 +148,7 @@ export function CompositeTextInputView(props: TextInputProps & {
             }} name={props.leftIcon} />
     ) : props.leftIcon
 
+    const TextComponent = props.readOnly ? TextView : TextInputView
     return (
         <HBox style={[{
             paddingEnd: theme.dimens.space.md,
@@ -185,7 +186,7 @@ export function CompositeTextInputView(props: TextInputProps & {
 
                     }}
                 >{props.placeholder || ''}</TextView>}
-                <TextInput
+                <TextComponent
                     selectionColor={props.selectionColor || theme.colors.accent}
                     secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={theme.colors.caption}
