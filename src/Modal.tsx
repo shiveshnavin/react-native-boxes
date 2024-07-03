@@ -420,6 +420,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                             }}
                         >
                             <CompositeTextInputView
+                                readOnly={true}
                                 placeholder={props.title}
                                 {...props}
                                 value={getSelected()?.title || getSelected()?.id}
