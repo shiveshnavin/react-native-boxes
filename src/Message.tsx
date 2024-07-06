@@ -12,6 +12,7 @@ export function AlertMessage(props:
     ViewProps & {
         text: string,
         type?: 'info' | 'success' | 'warning' | 'critical',
+        color?: string,
         onDismiss?: Function
 
     }) {
@@ -63,11 +64,11 @@ export function AlertMessage(props:
                     }}
                     name={icon}
                     size={theme.dimens.icon.md}
-                    color={theme.colors.invert.text} />
+                    color={props.color || theme.colors.invert.text} />
                 <TextView style={{
                     flexShrink: 1,
                     padding: 0,
-                    color: theme.colors.invert.text,
+                    color: props.color || theme.colors.invert.text,
                 }}>{props.text}
                 </TextView>
             </HBox>

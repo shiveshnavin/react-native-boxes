@@ -66,13 +66,15 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
                 style={[{
                     margin: 0,
                     marginBottom: theme.dimens.space.sm,
-                    padding: theme.dimens.space.md,
+                    padding: theme.dimens.space.sm,
                     alignItems: 'center',
                     flexDirection: 'row',
                     justifyContent: 'space-evenly'
                 }, props.style]}>
 
                 <Box style={{
+                    margin: 0,
+                    padding: 0,
                     justifyContent: 'center',
                     alignContent: 'center',
                     alignItems: 'center',
@@ -86,6 +88,8 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
                     }} />}
                 </Box>
                 <VBox style={{
+                    margin: 0,
+                    padding: 0,
                     //@ts-ignore
                     paddingStart: flexRatio.left > 1 ? theme.dimens.space.md : 0,
                     width: `${percentages.middle}%`,
@@ -101,9 +105,13 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
                     }}>{props.title}</Subtitle>)}
                     {props.subtitle && (<TextView style={{
                         marginTop: 0,
+                        padding: 0,
                         paddingTop: theme.dimens.space.sm,
                     }}>{props.subtitle}</TextView>)}
-                    {props.body && (<Caption >{props.body}</Caption>)}
+                    {props.body && (<Caption style={{
+                        padding: 0,
+                        margin: 0
+                    }}>{props.body}</Caption>)}
                 </VBox>
                 <Box style={{
                     alignItems: 'flex-end',

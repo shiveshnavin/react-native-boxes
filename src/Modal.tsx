@@ -481,10 +481,14 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
                     props.onDismiss && props.onDismiss()
                     props.onConfirm && props.onConfirm()
                 }} />
-                <TertiaryButtonView text={cancelText as string} onPress={() => {
-                    props.onDismiss && props.onDismiss()
-                    props.onCancel && props.onCancel()
-                }} />
+                <TertiaryButtonView
+                    style={{
+                        marginTop: 0
+                    }}
+                    text={cancelText as string} onPress={() => {
+                        props.onDismiss && props.onDismiss()
+                        props.onCancel && props.onCancel()
+                    }} />
             </VBox>
 
         </BottomSheet>
