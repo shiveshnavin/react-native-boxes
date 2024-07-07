@@ -258,7 +258,8 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
         loading: boolean,
         icon?: any,
         text?: string,
-        loaderStyle?: 'normal' | 'transparent'
+        loaderStyle?: 'normal' | 'transparent',
+        underlayColor?: string
     }) {
     const theme = useContext(ThemeContext)
     const [_loading, _setIsLoading] = useState(props.loading)
@@ -270,7 +271,7 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
     let loaderColor = theme.colors.invert.text
     let loaderSize = theme.dimens.icon.md
     let btnBg = theme.colors.accent
-    let btnBgPressed = theme.colors.accentLight
+    let btnBgPressed = props.underlayColor || theme.colors.accentLight
 
     if (_loading && props.loaderStyle == 'transparent') {
         loaderColor = theme.colors.accent
