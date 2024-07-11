@@ -54,6 +54,26 @@ export const BottomSheet = (props: BottomSheetProps) => {
         .onEnd(() => {
             props.onDismiss && props.onDismiss()
         })
+
+    const Wrapper = props.swipeToCloseDisabled ? ({ children }: any) => {
+        return (
+            <View style={[styles.modalContainer, {
+                backgroundColor: props.backgroundColor || theme.colors.forground
+            }]}>
+                {children}
+            </View>
+        )
+    } : ({ children }: any) => {
+        return (
+            <View style={[styles.modalContainer, {
+                backgroundColor: props.backgroundColor || theme.colors.forground
+            }]}>
+                <GestureDetector gesture={fling}>
+                    {children}
+                </GestureDetector>
+            </View>
+        )
+    }
     return (
         <View style={styles.container}>
             <Modal
@@ -92,43 +112,39 @@ export const BottomSheet = (props: BottomSheetProps) => {
                 visible={modalVisible}
                 onRequestClose={() => cancel()}
             >
-                <View style={[styles.modalContainer, {
-                    backgroundColor: props.backgroundColor || theme.colors.forground
-                }]}>
+                <Wrapper>
                     <View style={[{
                         paddingTop: theme.dimens.space.md,
                         paddingStart: theme.dimens.space.lg,
                         paddingEnd: theme.dimens.space.lg,
                     }]}>
-                        <GestureDetector gesture={fling}>
-                            <HBox style={{
-                                justifyContent: 'space-between',
-                                width: '100%'
-                            }}>
+                        <HBox style={{
+                            justifyContent: 'space-between',
+                            width: '100%'
+                        }}>
 
-                                <View style={{ width: theme.dimens.icon.md }} />
-                                {
-                                    typeof props.title == 'string' ? (
-                                        <Subtitle style={{
-                                            fontFamily: theme.fonts.Bold
-                                        }}>{props.title.toString()}</Subtitle>
-                                    ) : <>{props.title}</>
-                                }
-                                {
-                                    cancellable ? (<TouchableOpacity
-                                        style={{
-                                            padding: theme.dimens.space.sm
-                                        }}
-                                        onPress={() => {
-                                            cancel()
-                                        }}>
-                                        <CloseIcon />
-                                    </TouchableOpacity>) : (
-                                        <View style={{ width: theme.dimens.icon.md }} />
-                                    )
-                                }
-                            </HBox>
-                        </GestureDetector>
+                            <View style={{ width: theme.dimens.icon.md }} />
+                            {
+                                typeof props.title == 'string' ? (
+                                    <Subtitle style={{
+                                        fontFamily: theme.fonts.Bold
+                                    }}>{props.title.toString()}</Subtitle>
+                                ) : <>{props.title}</>
+                            }
+                            {
+                                cancellable ? (<TouchableOpacity
+                                    style={{
+                                        padding: theme.dimens.space.sm
+                                    }}
+                                    onPress={() => {
+                                        cancel()
+                                    }}>
+                                    <CloseIcon />
+                                </TouchableOpacity>) : (
+                                    <View style={{ width: theme.dimens.icon.md }} />
+                                )
+                            }
+                        </HBox>
                         <VBox style={{
                             width: '100%'
                         }}>
@@ -144,20 +160,18 @@ export const BottomSheet = (props: BottomSheetProps) => {
                                         {props.children}
                                     </ScrollView>
                                 ) : (
-                                    <GestureDetector gesture={fling}>
-                                        <VBox style={{
-                                            width: '100%'
-                                        }}>
-                                            {props.children}
-                                        </VBox>
-                                    </GestureDetector>
+                                    <VBox style={{
+                                        width: '100%'
+                                    }}>
+                                        {props.children}
+                                    </VBox>
                                 )
                             }
 
 
                         </VBox>
                     </View>
-                </View>
+                </Wrapper>
             </Modal>
         </View>
     );
