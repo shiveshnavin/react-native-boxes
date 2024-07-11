@@ -357,7 +357,14 @@ export type DropDownViewProps = {
     displayType?: 'button' | 'input',
     onRenderOption?: (opt: DropDownViewOption) => any,
     forceDialogSelectOnWeb?: Boolean
+    swipeToCloseDisabled?: boolean
 } & ViewProps
+
+/**
+ * set swipeToCloseDisabled = true if you face issues with scrolling
+ * @param props 
+ * @returns 
+ */
 export const DropDownView = (props: DropDownViewProps) => {
     const displayType = props.displayType || 'input'
     const theme = useContext(ThemeContext)
@@ -404,6 +411,7 @@ export const DropDownView = (props: DropDownViewProps) => {
         return (
             <VBox style={props.style}>
                 <BottomSheet
+                    swipeToCloseDisabled={props.swipeToCloseDisabled}
                     visible={visible as boolean}
                     onDismiss={() => {
                         setVisible(false)
