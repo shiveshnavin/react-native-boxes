@@ -24,6 +24,11 @@ export type BottomSheetProps = {
     swipeToCloseDisabled?: boolean
 
 }
+/**
+ * set swipeToCloseDisabled = true if you face issues with scrolling
+ * @param props 
+ * @returns 
+ */
 export const BottomSheet = (props: BottomSheetProps) => {
     const [modalVisible, setModalVisible] = useState(false);
     const theme = useContext(ThemeContext)
