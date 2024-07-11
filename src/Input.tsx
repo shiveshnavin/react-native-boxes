@@ -148,7 +148,7 @@ export function CompositeTextInputView(props: TextInputProps & {
             }} name={props.leftIcon} />
     ) : props.leftIcon
 
-    const TextComponent = props.readOnly ? TextView : TextInputView
+    const TextComponent = props.readOnly ? TextView : TextInput
     return (
         <HBox style={[{
             paddingEnd: theme.dimens.space.md,
