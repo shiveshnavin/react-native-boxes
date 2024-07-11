@@ -21,6 +21,7 @@ export type BottomSheetProps = {
     onDismiss?: Function
     backgroundColor?: string
     closeIcon?: string | React.ReactNode
+    swipeToCloseDisabled?: boolean
 
 }
 export const BottomSheet = (props: BottomSheetProps) => {
@@ -44,7 +45,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         return (<Icon color={theme.colors.caption} name="close" />)
     })
     const fling = Gesture.Fling()
-        .direction(Directions.UP | Directions.DOWN)
+        .direction(Directions.DOWN)
         .onEnd(() => {
             props.onDismiss && props.onDismiss()
         })
@@ -123,17 +124,24 @@ export const BottomSheet = (props: BottomSheetProps) => {
                         <VBox style={{
                             width: '100%'
                         }}>
-                            <GestureDetector gesture={fling}>
-                                <ScrollView
-                                    nestedScrollEnabled={true}
-                                    showsVerticalScrollIndicator={false}
-                                    style={{
-                                        flex: 1,
-                                        maxHeight: 500,
-                                    }}>
-                                    {props.children}
-                                </ScrollView>
-                            </GestureDetector>
+                            {
+                                props.swipeToCloseDisabled ? (
+                                    <ScrollView
+                                        nestedScrollEnabled={true}
+                                        showsVerticalScrollIndicator={false}
+                                        style={{
+                                            flex: 1,
+                                            maxHeight: 500,
+                                        }}>
+                                        {props.children}
+                                    </ScrollView>
+                                ) : (
+                                    <GestureDetector gesture={fling}>
+                                        {props.children}
+                                    </GestureDetector>
+                                )
+                            }
+
 
                         </VBox>
                     </View>
