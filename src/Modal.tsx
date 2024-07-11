@@ -100,32 +100,35 @@ export const BottomSheet = (props: BottomSheetProps) => {
                         paddingStart: theme.dimens.space.lg,
                         paddingEnd: theme.dimens.space.lg,
                     }]}>
-                        <HBox style={{
-                            justifyContent: 'space-between',
-                            width: '100%'
-                        }}>
-                            <View style={{ width: theme.dimens.icon.md }} />
-                            {
-                                typeof props.title == 'string' ? (
-                                    <Subtitle style={{
-                                        fontFamily: theme.fonts.Bold
-                                    }}>{props.title.toString()}</Subtitle>
-                                ) : <>{props.title}</>
-                            }
-                            {
-                                cancellable ? (<TouchableOpacity
-                                    style={{
-                                        padding: theme.dimens.space.sm
-                                    }}
-                                    onPress={() => {
-                                        cancel()
-                                    }}>
-                                    <CloseIcon />
-                                </TouchableOpacity>) : (
-                                    <View style={{ width: theme.dimens.icon.md }} />
-                                )
-                            }
-                        </HBox>
+                        <GestureDetector gesture={fling}>
+                            <HBox style={{
+                                justifyContent: 'space-between',
+                                width: '100%'
+                            }}>
+
+                                <View style={{ width: theme.dimens.icon.md }} />
+                                {
+                                    typeof props.title == 'string' ? (
+                                        <Subtitle style={{
+                                            fontFamily: theme.fonts.Bold
+                                        }}>{props.title.toString()}</Subtitle>
+                                    ) : <>{props.title}</>
+                                }
+                                {
+                                    cancellable ? (<TouchableOpacity
+                                        style={{
+                                            padding: theme.dimens.space.sm
+                                        }}
+                                        onPress={() => {
+                                            cancel()
+                                        }}>
+                                        <CloseIcon />
+                                    </TouchableOpacity>) : (
+                                        <View style={{ width: theme.dimens.icon.md }} />
+                                    )
+                                }
+                            </HBox>
+                        </GestureDetector>
                         <VBox style={{
                             width: '100%'
                         }}>
