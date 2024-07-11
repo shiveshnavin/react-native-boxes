@@ -10,6 +10,7 @@ import { ButtonView, ButtonViewProps, LoadingButton, PressableView, TertiaryButt
 import { CompositeTextInputView } from './Input';
 import * as WebBrowser from 'expo-web-browser';
 import { TransparentCenterToolbar } from './Bar';
+import { GestureDetector, Gesture, Directions } from 'react-native-gesture-handler';
 
 
 export type BottomSheetProps = {
@@ -42,7 +43,11 @@ export const BottomSheet = (props: BottomSheetProps) => {
     const CloseIcon = getIcon(props.closeIcon) || (() => {
         return (<Icon color={theme.colors.caption} name="close" />)
     })
-
+    const fling = Gesture.Fling()
+        .direction(Directions.UP | Directions.DOWN)
+        .onEnd(() => {
+            props.onDismiss && props.onDismiss()
+        })
     return (
         <View style={styles.container}>
             <Modal
@@ -118,15 +123,18 @@ export const BottomSheet = (props: BottomSheetProps) => {
                         <VBox style={{
                             width: '100%'
                         }}>
-                            <ScrollView
-                                nestedScrollEnabled={true}
-                                showsVerticalScrollIndicator={false}
-                                style={{
-                                    flex: 1,
-                                    maxHeight: 500,
-                                }}>
-                                {props.children}
-                            </ScrollView>
+                            <GestureDetector gesture={fling}>
+                                <ScrollView
+                                    nestedScrollEnabled={true}
+                                    showsVerticalScrollIndicator={false}
+                                    style={{
+                                        flex: 1,
+                                        maxHeight: 500,
+                                    }}>
+                                    {props.children}
+                                </ScrollView>
+                            </GestureDetector>
+
                         </VBox>
                     </View>
                 </View>
