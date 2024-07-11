@@ -142,7 +142,11 @@ export const BottomSheet = (props: BottomSheetProps) => {
                                     </ScrollView>
                                 ) : (
                                     <GestureDetector gesture={fling}>
-                                        {props.children}
+                                        <VBox style={{
+                                            width: '100%'
+                                        }}>
+                                            {props.children}
+                                        </VBox>
                                     </GestureDetector>
                                 )
                             }
