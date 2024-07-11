@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Animated, Button, Easing, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
-import { Icon, IconProps } from './Image';
+import { getIcon, Icon, IconProps } from './Image';
 import { getNavParamsFromDeeplink, isDesktop, isWeb } from './utils';
 import { ThemeContext } from './ThemeContext';
 import { Center, HBox, VBox, VPage } from './Box';
@@ -18,6 +18,9 @@ export type BottomSheetProps = {
     cancellable?: boolean
     children: any
     onDismiss?: Function
+    backgroundColor?: string
+    closeIcon?: string | React.ReactNode
+
 }
 export const BottomSheet = (props: BottomSheetProps) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -35,6 +38,10 @@ export const BottomSheet = (props: BottomSheetProps) => {
             props.onDismiss()
         }
     }
+
+    const CloseIcon = getIcon(props.closeIcon) || (() => {
+        return (<Icon color={theme.colors.caption} name="close" />)
+    })
 
     return (
         <View style={styles.container}>
@@ -75,7 +82,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                 onRequestClose={() => cancel()}
             >
                 <View style={[styles.modalContainer, {
-                    backgroundColor: theme.colors.forground
+                    backgroundColor: props.backgroundColor || theme.colors.forground
                 }]}>
                     <View style={[{
                         paddingTop: theme.dimens.space.md,
@@ -102,8 +109,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                                     onPress={() => {
                                         cancel()
                                     }}>
-                                    <Icon
-                                        color={theme.colors.caption} name="close" />
+                                    <CloseIcon />
                                 </TouchableOpacity>) : (
                                     <View style={{ width: theme.dimens.icon.md }} />
                                 )
