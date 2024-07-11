@@ -120,6 +120,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                                 )
                             }
                         </HBox>
+
                         <VBox style={{
                             width: '100%'
                         }}>
