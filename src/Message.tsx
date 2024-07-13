@@ -5,6 +5,7 @@ import { ThemeContext } from "./ThemeContext";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Platform, Pressable, Text, ViewProps } from "react-native";
 import { TextView } from "./Text";
+import { isDesktop } from "./utils";
 
 
 
@@ -40,6 +41,7 @@ export function AlertMessage(props:
     return (
         <HBox style={[{
             flex: 1,
+            minHeight: isDesktop() ? undefined : '10%',
             margin: theme.dimens.space.sm,
             backgroundColor: theme.colors[type] || color,
             alignItems: 'center',
