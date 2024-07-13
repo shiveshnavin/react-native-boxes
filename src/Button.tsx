@@ -79,7 +79,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
                             //@ts-ignore
                             fontSize: tstyle.fontSize,
                             //@ts-ignore
-                            fontFamily: tstyle.fontFamily,
+                            fontFamily: tstyle.fontFamily || theme.fonts.Bold,
                             //@ts-ignore
                             color: isPressed ? (props.underlayColor || theme.colors.accent) : tstyle.color || theme.colors.text,
                         }}>
