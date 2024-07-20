@@ -231,6 +231,11 @@ export function Expand(props: ViewProps & {
     const [fadeAnim] = useState(new Animated.Value(0));
 
     useEffect(() => {
+        if (props.initialExpand != undefined)
+            setExpanded(props.initialExpand)
+    }, [props.initialExpand])
+
+    useEffect(() => {
         Animated.timing(spinValue, {
             toValue: expanded ? 1 : 0,
             duration: props.duration || 200,
