@@ -484,7 +484,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 readOnly={true}
                                 placeholder={props.title}
                                 {...props}
-                                value={getSelected()?.title || getSelected()?.id}
+                                value={getSelected()?.title || getSelected()?.id || props.title}
                                 onIconPress={() => { setVisible(true) }}
                                 icon={"caret-down"}
                                 pointerEvents="none"
