@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Animated, Button, Easing, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps } from 'react-native';
+import { Animated, Button, Easing, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
 import { getIcon, Icon, IconProps } from './Image';
 import { getNavParamsFromDeeplink, isDesktop, isWeb } from './utils';
 import { ThemeContext } from './ThemeContext';
@@ -518,7 +518,9 @@ export type ConfirmationDialogProps = {
     message?: string,
     confirmText?: String,
     cancelText?: String,
-    children?: any
+    children?: any,
+    noSheet?: boolean,
+    style?: ViewStyle
 }
 
 export function ConfirmationDialog(props: ConfirmationDialogProps) {
@@ -526,8 +528,12 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
     const confirmText = props.confirmText || 'Confirm'
     const cancelText = props.cancelText || 'Cancel'
     const theme = useContext(ThemeContext)
+    const Conatiner = props?.noSheet ? VBox : BottomSheet
     return (
-        <BottomSheet
+        <Conatiner
+            style={[props?.noSheet ? {
+                display: props.visible ? 'flex' : 'none'
+            } : {}, props.style]}
             onDismiss={() => {
                 props.onDismiss && props.onDismiss()
             }}
@@ -552,7 +558,7 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
                     }} />
             </VBox>
 
-        </BottomSheet>
+        </Conatiner>
     )
 }
 
