@@ -540,6 +540,8 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
             {...props}
         >
             <VBox>
+                {(props?.noSheet && props.title) ? <Center><Subtitle>{props.title as any}</Subtitle></Center> : null}
+
                 {props.message && <TextView style={{
                     padding: theme.dimens.space.lg,
                     textAlign: 'center'
