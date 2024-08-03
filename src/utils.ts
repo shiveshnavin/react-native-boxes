@@ -4,6 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function getNavParamsFromDeeplink(url: string) {
+    if (url?.startsWith("/")) {
+        url = url.substring(1)
+    }
     let parts = url.split("/");
 
     let root, rootParams: any = {};
