@@ -2,7 +2,7 @@ import { ActivityIndicator, Text, View, ViewProps } from "react-native"
 import { Box, CardView, Center, HBox, VBox } from "./Box"
 import { getIcon } from "./Image"
 import { Icon } from "@expo/vector-icons/build/createIconSet"
-import { Caption, Subtitle, TextView } from "./Text"
+import { Caption, Subtitle, TextView, TitleText } from "./Text"
 import { useContext } from "react"
 import { ThemeContext } from "./ThemeContext"
 import { PressableView } from "./Button"
@@ -49,10 +49,12 @@ export type SimpleDatatableViewItemProps = {
     onPress?: () => void,
     flexRatio?: [number, number, number]
 }
+
+
 export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & ViewProps) {
-    const RightIcon = getIcon(props.icon, true)
+    const Icon = getIcon(props.icon, true)
     const theme = useContext(ThemeContext)
-    let flexRatio = props.flexRatio || [1, 8, 1]
+    let flexRatio = props.flexRatio || [1.5, 7.5, 1]
     let [left, middle, right] = flexRatio
     const ttl = left + right + middle
     const percentages = {
@@ -80,7 +82,7 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
                     width: `${percentages.left}%`,
                     maxWidth: 30
                 }}>
-                    {RightIcon && <RightIcon style={{
+                    {Icon && <Icon style={{
                         padding: theme.dimens.space.md,
                         paddingStart: 0,
                     }} />}
@@ -95,14 +97,14 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
                     justifyContent: 'flex-start',
                     alignContent: 'flex-start',
                 }}>
-                    {props.title && (<Subtitle style={{
+                    {props.title && (<TitleText style={{
                         marginBottom: 0,
                         paddingBottom: 0,
-                    }}>{props.title}</Subtitle>)}
+                        padding: 0,
+                    }}>{props.title}</TitleText>)}
                     {props.subtitle && (<TextView style={{
                         marginTop: 0,
                         padding: 0,
-                        paddingTop: theme.dimens.space.sm,
                     }}>{props.subtitle}</TextView>)}
                     {props.body && (<Caption style={{
                         margin: 0,
