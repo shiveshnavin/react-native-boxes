@@ -81,7 +81,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
                             //@ts-ignore
                             fontFamily: tstyle.fontFamily || theme.fonts.Bold,
                             //@ts-ignore
-                            color: isPressed ? (props.underlayColor || theme.colors.accent) : tstyle.color || theme.colors.text,
+                            color: isPressed ? (props.underlayColor || theme.colors.accentLight) : tstyle.color || theme.colors.accent,
                         }}>
                             {props.text || props.children}
                         </TextView>
