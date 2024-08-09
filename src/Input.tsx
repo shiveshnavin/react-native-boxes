@@ -68,16 +68,7 @@ export function TextInputView(props: TextInputProps & {
     )
 }
 
-
-/**
- * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
- * to the scrollview else the icon click wont work
- * In case, you textinput is getting hidden due to keyboard see https://stackoverflow.com/a/77563800/6865753
-
- * @param props 
- * @returns 
- */
-export function CompositeTextInputView(props: TextInputProps & {
+export type CompositeTextInputViewProps = TextInputProps & {
     hint?: string,
     alertText?: string,
     alertTextColor?: string,
@@ -87,7 +78,17 @@ export function CompositeTextInputView(props: TextInputProps & {
     icon?: 'close' | 'eye' | string | React.Component,
     onIconPress?: ((event: GestureResponderEvent) => void) | undefined,
     textInputProps?: TextInputProps,
-}) {
+    onDone?: (txt: string) => void
+}
+/**
+ * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
+ * to the scrollview else the icon click wont work
+ * In case, you textinput is getting hidden due to keyboard see https://stackoverflow.com/a/77563800/6865753
+
+ * @param props 
+ * @returns 
+ */
+export function CompositeTextInputView(props: CompositeTextInputViewProps) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
     const [alerttext, setAlertText] = useState(props.alertText)
@@ -187,6 +188,9 @@ export function CompositeTextInputView(props: TextInputProps & {
                     }}
                 >{props.placeholder || ''}</TextView>}
                 <TextComponent
+                    onSubmitEditing={(e) => {
+                        props.onDone && props.onDone(text!)
+                    }}
                     selectionColor={props.selectionColor || theme.colors.accent}
                     secureTextEntry={props.secureTextEntry}
                     placeholderTextColor={theme.colors.caption}
