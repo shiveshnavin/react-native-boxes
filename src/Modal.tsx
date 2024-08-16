@@ -7,7 +7,7 @@ import { ThemeContext } from './ThemeContext';
 import { Center, HBox, VBox, VPage } from './Box';
 import { Subtitle, TextView, Title } from './Text';
 import { ButtonView, ButtonViewProps, LoadingButton, PressableView, TertiaryButtonView } from './Button';
-import { CompositeTextInputView } from './Input';
+import { CompositeTextInputView, CompositeTextInputViewProps } from './Input';
 import * as WebBrowser from 'expo-web-browser';
 import { TransparentCenterToolbar } from './Bar';
 import { GestureDetector, Gesture, Directions } from 'react-native-gesture-handler';
@@ -380,7 +380,7 @@ export type DropDownViewProps = {
     onRenderOption?: (opt: DropDownViewOption) => any,
     forceDialogSelectOnWeb?: Boolean
     swipeToCloseDisabled?: boolean
-} & ViewProps
+} & CompositeTextInputViewProps
 
 /**
  * set swipeToCloseDisabled = true if you face issues with scrolling

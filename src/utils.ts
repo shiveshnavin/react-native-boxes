@@ -3,9 +3,20 @@ import { Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+function extractPathFromUrl(url: string): string {
+    const pathStartIndex = url.indexOf('/', url.indexOf('//') + 2);
+    if (pathStartIndex === -1) {
+        return '';
+    }
+    return url.substring(pathStartIndex + 1); // +1 to remove leading '/'
+}
+
 export function getNavParamsFromDeeplink(url: string) {
     if (url?.startsWith("/")) {
         url = url.substring(1)
+    }
+    if (url?.startsWith("http")) {
+        url = extractPathFromUrl(url)
     }
     let parts = url.split("/");
 

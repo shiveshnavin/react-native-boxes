@@ -217,6 +217,7 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                         }
                     }}
                     style={[{
+                        paddingStart: props.readOnly ? theme.dimens.space.xs : undefined,
                         color: theme.colors.text,
                         fontSize: theme.dimens.font.md,
                         fontFamily: theme.fonts.Regular,
