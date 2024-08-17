@@ -3,19 +3,22 @@ import * as React from "react";
 import { useContext } from 'react'
 import { ThemeContext } from "./ThemeContext";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Platform, Pressable, Text, ViewProps } from "react-native";
+import { Platform, Pressable, Text, ViewProps, ViewStyle } from "react-native";
 import { TextView } from "./Text";
 import { isDesktop } from "./utils";
+import { TransparentButton } from "./Button";
 
 
 
 export function AlertMessage(props:
-    ViewProps & {
+    {
         text: string,
         type?: 'info' | 'success' | 'warning' | 'critical',
         color?: string,
-        onDismiss?: Function
-
+        onDismiss?: () => void
+        action?: React.ReactNode
+        style?: ViewStyle
+        onPress?: () => void
     }) {
     const theme = useContext(ThemeContext)
     const type = props.type || 'info'
@@ -74,6 +77,7 @@ export function AlertMessage(props:
                 }}>{props.text}
                 </TextView>
             </HBox>
+            {props.action}
             {
                 props.onDismiss && <Pressable
                     style={{
