@@ -96,6 +96,17 @@ export function isWeb() {
     return Platform.OS == 'web'
 }
 
+export function isNative() {
+    return Platform.OS !== 'web'
+}
+
+export function isAndroid() {
+    return Platform.OS == 'android'
+}
+
+export function isIOS() {
+    return Platform.OS == 'ios'
+}
 
 export function isDesktop() {
     const windowWidth = Dimensions.get('window').width;
