@@ -379,7 +379,7 @@ export type DropDownViewProps = {
     initialVisile?: Boolean,
     title?: string,
     displayType?: 'button' | 'input',
-    onRenderOption?: (opt: DropDownViewOption, setSelected?: (selectedId: string, opt: DropDownViewOption) => void) => any,
+    onRenderOption?: (opt: DropDownViewOption, setSelected: (selectedId: string, opt: DropDownViewOption) => void) => any,
     forceDialogSelectOnWeb?: Boolean
     swipeToCloseDisabled?: boolean
 } & CompositeTextInputViewProps
