@@ -469,6 +469,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 }
                                 return (
                                     <PressableView
+                                        key={opt.id}
                                         onPress={() => {
                                             setVisible(false)
                                             props.onSelect(opt.id, opt)
