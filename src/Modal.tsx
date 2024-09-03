@@ -442,6 +442,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                 {
                     (visible && props.listType == 'horizontal-list') ? (
                         <FlatList
+                            showsHorizontalScrollIndicator={false}
                             style={[{
                                 marginTop: theme.dimens.space.sm,
                                 marginBottom: theme.dimens.space.sm,
