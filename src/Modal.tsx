@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Animated, Button, Easing, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
+import { Animated, Button, Easing, FlatList, LayoutChangeEvent, Linking, Modal, Platform, Pressable, ScrollView, StyleProp, StyleSheet, TextStyle, TouchableHighlight, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
 import { getIcon, Icon, IconProps } from './Image';
 import { getNavParamsFromDeeplink, isDesktop, isWeb } from './utils';
 import { ThemeContext } from './ThemeContext';
 import { Center, HBox, VBox, VPage } from './Box';
-import { Subtitle, TextView, Title } from './Text';
+import { Caption, Subtitle, TextView, Title } from './Text';
 import { ButtonView, ButtonViewProps, LoadingButton, PressableView, TertiaryButtonView } from './Button';
 import { CompositeTextInputView, CompositeTextInputViewProps } from './Input';
 import * as WebBrowser from 'expo-web-browser';
@@ -369,6 +369,7 @@ export type DropDownViewOption = {
     value: any
     title?: string
 }
+
 export type DropDownViewProps = {
     options: DropDownViewOption[]
     selectedId: string,
@@ -376,6 +377,7 @@ export type DropDownViewProps = {
 
     initialVisile?: Boolean,
     title?: string,
+    listType?: 'sheet' | 'horizontal-list'
     displayType?: 'button' | 'input',
     onRenderOption?: (opt: DropDownViewOption) => any,
     forceDialogSelectOnWeb?: Boolean
@@ -396,7 +398,7 @@ export const DropDownView = (props: DropDownViewProps) => {
         let se = props.options.find(op => op.id == props.selectedId)
         return se
     };
-
+    const shouldShowLabel = props.listType == 'horizontal-list' ? !visible : true
     if (Platform.OS == 'web' && !props.forceDialogSelectOnWeb) {
         return (
             <select
@@ -428,83 +430,138 @@ export const DropDownView = (props: DropDownViewProps) => {
             </select>
         )
     }
-
     else {
         return (
             <VBox style={props.style}>
-                <BottomSheet
-                    swipeToCloseDisabled={props.swipeToCloseDisabled}
-                    visible={visible as boolean}
-                    onDismiss={() => {
-                        setVisible(false)
-                    }}
-                    title={props.title || ''} >
-                    {
-                        props.options.map((opt, idx) => {
-                            if (props.onRenderOption) {
-                                return props.onRenderOption(opt)
-                            }
-                            return (
-                                <TertiaryButtonView
-                                    onPress={() => {
-                                        setVisible(false)
-                                        props.onSelect(opt.id, opt)
-                                    }}
-                                    style={{
-                                        padding: 0,
-                                        paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
-                                        paddingTop: idx == 0 ? theme.dimens.space.md : 0,
-                                    }}
-                                    key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
-                            )
-                        })
-                    }
-                </BottomSheet>
 
                 {
-                    displayType == 'button' ? (
+                    (visible && props.listType == 'horizontal-list') ? (
+                        <FlatList
+                            ItemSeparatorComponent={() => {
+                                return (
+                                    <View
+                                        style={{
+                                            height: "100%",
+                                            width: theme.dimens.space.sm,
+                                            backgroundColor: theme.colors.forground,
 
-                        //@ts-ignore
-                        <ButtonView
-                            {...props}
-                            onPress={() => {
-                                setVisible(true)
+                                        }}
+                                    />
+                                );
                             }}
-                            text={getSelected()?.title || getSelected()?.id || 'select'} style={props.style}>
-                        </ButtonView>
-                    ) : (
-                        //@ts-ignore
-                        <PressableView
-                            {...props}
-                            onPress={() => {
-                                setVisible(true)
+                            horizontal={true}
+                            data={props.options}
+                            renderItem={(item) => {
+                                const opt = item.item
+                                if (props.onRenderOption) {
+                                    return props.onRenderOption(opt)
+                                }
+                                return (
+                                    <PressableView
+                                        onPress={() => {
+                                            props.onSelect(opt.id, opt)
+                                        }}>
+                                        <Center style={{
+                                            borderRadius: theme.dimens.space.md,
+                                            width: theme.dimens.space.xl * 1.5,
+                                            height: theme.dimens.space.xl * 1.5,
+                                            backgroundColor: props.selectedId == opt?.id ?
+                                                theme.colors.accent : theme.colors.background,
+                                            padding: theme.dimens.space.md
+                                        }}>
+                                            <Caption style={{
+                                                color: theme.colors.text,
+                                            }}>{opt?.title || opt.id}</Caption>
+
+                                        </Center>
+                                    </PressableView>
+                                )
                             }}
-                        >
-                            <CompositeTextInputView
-                                readOnly={true}
-                                placeholder={props.title}
-                                {...props}
-                                value={getSelected()?.title || getSelected()?.id || props.title}
-                                onIconPress={() => { setVisible(true) }}
-                                icon={"caret-down"}
-                                pointerEvents="none"
-                                //@ts-ignore
-                                _textInputProps={{
-                                    caretHidden: true,
-                                    placeholder: props.title || 'select',
-                                    editable: false,
-                                    selectTextOnFocus: false
+                            keyExtractor={(item) => item?.id || `${Date.now()}`}
+                            extraData={props.selectedId}
+                        />
+                    ) :
+
+                        (
+                            <BottomSheet
+                                swipeToCloseDisabled={props.swipeToCloseDisabled}
+                                visible={visible as boolean}
+                                onDismiss={() => {
+                                    setVisible(false)
                                 }}
-                                hint={props.title || 'select'}
-                                initialText={getSelected()?.title || getSelected()?.id} />
-                        </PressableView>
+                                title={props.title || ''} >
+                                {
+                                    props.options.map((opt, idx) => {
+                                        if (props.onRenderOption) {
+                                            return props.onRenderOption(opt)
+                                        }
+                                        return (
+                                            <TertiaryButtonView
+                                                onPress={() => {
+                                                    setVisible(false)
+                                                    props.onSelect(opt.id, opt)
+                                                }}
+                                                style={{
+                                                    padding: 0,
+                                                    paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
+                                                    paddingTop: idx == 0 ? theme.dimens.space.md : 0,
+                                                }}
+                                                key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
+                                        )
+                                    })
+                                }
+                            </BottomSheet>
+                        )
+                }
+
+                {
+                    shouldShowLabel && (
+                        displayType == 'button' ? (
+
+                            //@ts-ignore
+                            <ButtonView
+                                {...props}
+                                onPress={() => {
+                                    setVisible(true)
+                                }}
+                                text={getSelected()?.title || getSelected()?.id || 'select'} style={props.style}>
+                            </ButtonView>
+                        ) : (
+                            //@ts-ignore
+                            <PressableView
+                                {...props}
+                                onPress={() => {
+                                    setVisible(true)
+                                }}
+                            >
+                                <CompositeTextInputView
+                                    readOnly={true}
+                                    placeholder={props.title}
+                                    {...props}
+                                    value={getSelected()?.title || getSelected()?.id || props.title}
+                                    onIconPress={() => { setVisible(true) }}
+                                    icon={"caret-down"}
+                                    pointerEvents="none"
+                                    //@ts-ignore
+                                    _textInputProps={{
+                                        caretHidden: true,
+                                        placeholder: props.title || 'select',
+                                        editable: false,
+                                        selectTextOnFocus: false
+                                    }}
+                                    hint={props.title || 'select'}
+                                    initialText={getSelected()?.title || getSelected()?.id} />
+                            </PressableView>
+                        )
                     )
                 }
+
             </VBox>
 
         )
     }
 }
+
 
 
 export type ConfirmationDialogProps = {
