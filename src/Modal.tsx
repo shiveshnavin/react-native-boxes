@@ -364,20 +364,20 @@ export function Expand(props: ViewProps & {
     );
 }
 
+
 export type DropDownViewOption = {
     id: string
     value: any
     title?: string
 }
-
 export type DropDownViewProps = {
+    listType?: 'sheet' | 'horizontal-list'
     options: DropDownViewOption[]
     selectedId: string,
     onSelect: (selectedId: string, opt: DropDownViewOption) => void
 
     initialVisile?: Boolean,
     title?: string,
-    listType?: 'sheet' | 'horizontal-list'
     displayType?: 'button' | 'input',
     onRenderOption?: (opt: DropDownViewOption) => any,
     forceDialogSelectOnWeb?: Boolean
@@ -393,6 +393,7 @@ export const DropDownView = (props: DropDownViewProps) => {
     const displayType = props.displayType || 'input'
     const theme = useContext(ThemeContext)
     const [visible, setVisible] = useState(props.initialVisile || false)
+    const flatlistRef = useRef<FlatList<any>>()
 
     const getSelected = (): DropDownViewOption | undefined => {
         let se = props.options.find(op => op.id == props.selectedId)
@@ -437,6 +438,12 @@ export const DropDownView = (props: DropDownViewProps) => {
                 {
                     (visible && props.listType == 'horizontal-list') ? (
                         <FlatList
+                            style={[{
+                                marginTop: theme.dimens.space.sm,
+                                marginBottom: theme.dimens.space.sm,
+                            }, props.style]}
+                            //@ts-ignore
+                            ref={flatlistRef}
                             ItemSeparatorComponent={() => {
                                 return (
                                     <View
@@ -459,13 +466,15 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 return (
                                     <PressableView
                                         onPress={() => {
+                                            setVisible(false)
                                             props.onSelect(opt.id, opt)
                                         }}>
                                         <Center style={{
+                                            borderWidth: 1,
                                             borderRadius: theme.dimens.space.md,
-                                            width: theme.dimens.space.xl * 1.5,
-                                            height: theme.dimens.space.xl * 1.5,
-                                            backgroundColor: props.selectedId == opt?.id ?
+                                            width: theme.dimens.space.xl * 1.4,
+                                            height: theme.dimens.space.xl * 1.4,
+                                            borderColor: props.selectedId == opt?.id ?
                                                 theme.colors.accent : theme.colors.background,
                                             padding: theme.dimens.space.md
                                         }}>
@@ -561,6 +570,7 @@ export const DropDownView = (props: DropDownViewProps) => {
         )
     }
 }
+
 
 
 
