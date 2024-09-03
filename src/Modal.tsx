@@ -379,7 +379,7 @@ export type DropDownViewProps = {
     initialVisile?: Boolean,
     title?: string,
     displayType?: 'button' | 'input',
-    onRenderOption?: (opt: DropDownViewOption) => any,
+    onRenderOption?: (opt: DropDownViewOption, setSelected?: (selectedId: string, opt: DropDownViewOption) => void) => any,
     forceDialogSelectOnWeb?: Boolean
     swipeToCloseDisabled?: boolean
 } & CompositeTextInputViewProps
@@ -399,6 +399,10 @@ export const DropDownView = (props: DropDownViewProps) => {
         let se = props.options.find(op => op.id == props.selectedId)
         return se
     };
+    const onSelect = (selectedId: string, opt: DropDownViewOption) => {
+        props.onSelect(selectedId, opt)
+        setVisible(false)
+    }
     const shouldShowLabel = props.listType == 'horizontal-list' ? !visible : true
     if (Platform.OS == 'web' && !props.forceDialogSelectOnWeb) {
         return (
@@ -417,7 +421,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                 {
                     props.options.map(opt => {
                         if (props.onRenderOption) {
-                            return props.onRenderOption(opt)
+                            return props.onRenderOption(opt, onSelect)
                         }
                         return (
                             <option
@@ -461,7 +465,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                             renderItem={(item) => {
                                 const opt = item.item
                                 if (props.onRenderOption) {
-                                    return props.onRenderOption(opt)
+                                    return props.onRenderOption(opt, onSelect)
                                 }
                                 return (
                                     <PressableView
@@ -502,7 +506,7 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 {
                                     props.options.map((opt, idx) => {
                                         if (props.onRenderOption) {
-                                            return props.onRenderOption(opt)
+                                            return props.onRenderOption(opt, onSelect)
                                         }
                                         return (
                                             <TertiaryButtonView
@@ -570,8 +574,6 @@ export const DropDownView = (props: DropDownViewProps) => {
         )
     }
 }
-
-
 
 
 export type ConfirmationDialogProps = {
