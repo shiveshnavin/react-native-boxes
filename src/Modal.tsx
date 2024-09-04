@@ -406,32 +406,49 @@ export const DropDownView = (props: DropDownViewProps) => {
     const shouldShowLabel = props.listType == 'horizontal-list' ? !visible : true
     if (Platform.OS == 'web' && !props.forceDialogSelectOnWeb) {
         return (
-            <select
-                defaultValue={props.selectedId}
-                onChange={(e) => {
+            <>
+                <select
+                    value={props.selectedId}
+                    defaultValue={props.selectedId}
+                    onChange={(e) => {
+                        //@ts-ignore
+                        props.onSelect(e.target.value, props.options.find(o => o.id == e.target.value))
+                    }}
                     //@ts-ignore
-                    props.onSelect(e.target.value, props.options.find(o => o.id == e.target.value)?.value)
-                }}
-                //@ts-ignore
-                style={Object.assign({
-                    padding: theme.dimens.space.md,
-                    margin: theme.dimens.space.md
-                }, props.style || {})}>
-                {
-                    props.options.map(opt => {
-                        if (props.onRenderOption) {
-                            return props.onRenderOption(opt, onSelect)
+                    style={Object.assign({
+                        color: theme.colors.text,
+                        backgroundColor: theme.colors.background,
+                        padding: theme.dimens.space.lg,
+                        margin: theme.dimens.space.md,
+                        paddingStart: theme.dimens.space.sm,
+                        borderWidth: 1.5,
+                        borderRadius: theme.dimens.space.sm,
+                        borderColor: theme.colors.caption,
+                    }, props.style || {})}>
+                    <optgroup>
+
+                        {
+                            props.options.map(opt => {
+                                if (props.onRenderOption) {
+                                    return props.onRenderOption(opt, onSelect)
+                                }
+                                return (
+                                    <option
+                                        style={{
+                                            fontFamily: theme.fonts.Regular,
+                                            backgroundColor: theme.colors.background,
+                                            color: theme.colors.text,
+                                            padding: theme.dimens.space.md,
+                                            paddingTop: theme.dimens.space.lg,
+                                            paddingBottom: theme.dimens.space.lg,
+                                        }}
+                                        key={opt.id} id={opt.id} value={opt.id}>{opt.title || opt.value}</option>
+                                )
+                            })
                         }
-                        return (
-                            <option
-                                style={{
-                                    padding: theme.dimens.space.md,
-                                }}
-                                key={opt.id} id={opt.id} value={opt.id}>{opt.title || opt.value}</option>
-                        )
-                    })
-                }
-            </select>
+                    </optgroup>
+                </select>
+            </>
         )
     }
     else {
@@ -575,6 +592,7 @@ export const DropDownView = (props: DropDownViewProps) => {
         )
     }
 }
+
 
 
 export type ConfirmationDialogProps = {
