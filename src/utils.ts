@@ -11,6 +11,19 @@ function extractPathFromUrl(url: string): string {
     return url.substring(pathStartIndex + 1); // +1 to remove leading '/'
 }
 
+function extractQueryParams(part: string) {
+    if (!part) {
+        return {}
+    }
+    const query = part.split("?")[1];
+    const params: any = {};
+    const queryParams = query.split("&");
+    queryParams?.forEach((pk) => {
+        const [key, value] = pk.split("=")
+        params[key] = value;
+    });
+    return params
+}
 export function getNavParamsFromDeeplink(url: string) {
     if (url?.startsWith("/")) {
         url = url.substring(1)
@@ -35,14 +48,7 @@ export function getNavParamsFromDeeplink(url: string) {
 
             if (part?.indexOf("?") > -1) {
                 cloneObj.screen = part.split("?")[0];
-                const query = part.split("?")[1];
-                const params: any = {};
-                const queryParams = query.split("&");
-                queryParams?.forEach((pk) => {
-                    const [key, value] = pk.split("=")
-                    params[key] = value;
-                });
-                cloneObj.params = params;
+                cloneObj.params = extractQueryParams(part);
             } else {
                 cloneObj.screen = part;
             }
@@ -53,6 +59,10 @@ export function getNavParamsFromDeeplink(url: string) {
             }
         }
         rootParams = lastCloneObj;
+    } else {
+        let qParts = root.split("?")
+        rootParams = extractQueryParams(root)
+        root = qParts[0]
     }
     return [root, rootParams];
 }
