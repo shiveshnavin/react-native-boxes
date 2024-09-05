@@ -16,7 +16,10 @@ function extractQueryParams(part: string) {
         return {}
     }
     const query = part.split("?")[1];
-    const params: any = {};
+    const params: any = {}
+    if (!query) {
+        return {}
+    };
     const queryParams = query.split("&");
     queryParams?.forEach((pk) => {
         const [key, value] = pk.split("=")
