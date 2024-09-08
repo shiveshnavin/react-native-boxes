@@ -164,7 +164,14 @@ export function BottomNavBar(props: ViewProps &
         return (
             <PressableView
                 style={{
-                    paddingTop: theme.dimens.space.sm
+                    flex: 1,
+                    backgroundColor: 'red',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: 0,
+                    padding: theme.dimens.space.md,
+                    paddingTop: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
+                    paddingBottom: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                 }}
                 key={op.id}
                 onPress={() => {
@@ -193,10 +200,9 @@ export function BottomNavBar(props: ViewProps &
             }}
             {...props}
             style={[{
+                flex: 1,
+                margin: 0,
                 marginBottom: theme?.insets?.bottom || 0,
-                padding: theme.dimens.space.md,
-                paddingTop: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
-                paddingBottom: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                 backgroundColor: theme.colors.forground,
                 zIndex: 100,
                 width: '100%',
