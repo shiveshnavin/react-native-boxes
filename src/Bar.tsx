@@ -165,7 +165,6 @@ export function BottomNavBar(props: ViewProps &
             <PressableView
                 style={{
                     flex: 1,
-                    backgroundColor: 'red',
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: 0,
