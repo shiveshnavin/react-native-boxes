@@ -12,3 +12,4 @@ export * from './demo';
 export * from './ThemeContext';
 export * from './I18n'
 export * from './List'
+export * from './Analytics'

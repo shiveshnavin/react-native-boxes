@@ -4,7 +4,7 @@ import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
 import { TextView, TextViewProps } from "./Text";
 import { getIcon } from "./Image";
-import { TrackerUtils, UAType, ViewType } from "./Analytics";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle, children?: any }
 
@@ -43,7 +43,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
             {...props}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -115,7 +115,7 @@ export function ButtonView(props: ButtonViewProps) {
             {...props}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props['aria-label'] ? props['aria-label'] + '-' : '') + (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props['aria-label'] ? props['aria-label'] + '-' : '') + (props.text || TrackerUtils.textOf(props.children)))
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -193,7 +193,7 @@ export function RightIconButton(props: ButtonViewProps) {
             {...props}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -335,7 +335,7 @@ export function SwitchView(props: SwitchProps & { text: string, orientation: 'ro
                 ios_backgroundColor={theme.colors.caption}
                 onValueChange={(value) => {
                     props.onValueChange && props.onValueChange(value)
-                    theme.onTrack(UAType.CLICK, ViewType.SWITCH, (props.text) + '-' + value, { value })
+                    theme.onTrack(TrackingActionType.CLICK, TrackingViewType.SWITCH, (props.text) + '-' + value, { value })
                 }}
                 {...props}
             />

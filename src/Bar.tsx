@@ -8,7 +8,7 @@ import { Icon, getIcon } from "./Image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PressableView } from "./Button";
 import { isDesktop, isWeb } from "./utils";
-import { UAType, ViewType } from "./Analytics";
+import { TrackingActionType, TrackingViewType } from "./Analytics";
 
 export interface Option {
     id: string,
@@ -89,7 +89,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                     margin: 0,
                 }}>
                     <PressableView onPress={() => {
-                        theme.onTrack(UAType.CLICK, ViewType.TOOLBAR, 'back')
+                        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.TOOLBAR, 'back')
                         props.onHomePress && props.onHomePress()
                     }}>
                         {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.invert.text} />}
@@ -111,7 +111,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                                     key={opt.id}
                                     accessibilityHint={title}
                                     onPress={() => {
-                                        theme.onTrack(UAType.CLICK, ViewType.TOOLBAR, 'option-' + opt.id)
+                                        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.TOOLBAR, 'option-' + opt.id)
                                         opt.onClick && opt.onClick(opt.id)
                                     }}>
                                     <ActionIcon
@@ -178,7 +178,7 @@ export function BottomNavBar(props: ViewProps &
                 key={op.id}
                 onPress={() => {
                     op.onClick && op.onClick(op.id)
-                    theme.onTrack(UAType.CLICK, ViewType.BOTTOMBAR, 'option-' + op.id)
+                    theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BOTTOMBAR, 'option-' + op.id)
                     props.onSelect(op.id)
                 }}>
                 <Center >

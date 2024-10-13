@@ -1,4 +1,4 @@
-export const ViewType = {
+export const TrackingViewType = {
     BUTTON: 'button',
     TEXT: 'text',
     DIALOG: 'dialog',
@@ -21,7 +21,7 @@ export const TrackerUtils = {
         return "undefined"
     }
 }
-export const UAType = {
+export const TrackingActionType = {
     CLICK: 'click',
     VIEW: 'view',
     NAVIGATE: 'navigate'
