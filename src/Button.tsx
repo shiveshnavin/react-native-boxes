@@ -341,7 +341,9 @@ export function SwitchView(props: SwitchProps & { text?: string, orientation?: '
             />
             {
                 props.text && (
-                    <TextView>{props.text}</TextView>
+                    <TextView style={{
+                        paddingStart: theme.dimens.space.md
+                    }}>{props.text}</TextView>
                 )
             }
         </HBox>
