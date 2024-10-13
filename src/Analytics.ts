@@ -8,7 +8,8 @@ export const TrackingViewType = {
     SWITCH: 'switch',
     IMAGE: 'image',
     TOOLBAR: 'toolbar',
-    BOTTOMBAR: 'bottombar'
+    BOTTOMBAR: 'bottombar',
+    PAGE: 'page'
 }
 export const TrackerUtils = {
     textOf(value: any) {
