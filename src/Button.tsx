@@ -318,7 +318,7 @@ export function PressableView(props: PressableProps) {
     return (<Pressable {...props} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, props.style]} />)
 }
 
-export function SwitchView(props: SwitchProps & { text?: string, orientation?: 'row' | 'column' }) {
+export function SwitchView(props: SwitchProps & { text?: string, orientation?: "row" | "column" | "row-reverse" | "column-reverse" | undefined }) {
     const theme = useContext(ThemeContext)
     return (
         <HBox style={[{
