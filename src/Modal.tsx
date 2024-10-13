@@ -11,6 +11,7 @@ import { CompositeTextInputView, CompositeTextInputViewProps } from './Input';
 import * as WebBrowser from 'expo-web-browser';
 import { TransparentCenterToolbar } from './Bar';
 import { GestureDetector, Gesture, Directions } from 'react-native-gesture-handler';
+import { TrackerUtils, UAType, ViewType } from './Analytics';
 
 
 export type BottomSheetProps = {
@@ -37,6 +38,8 @@ export const BottomSheet = (props: BottomSheetProps) => {
 
     useEffect(() => {
         setModalVisible(props.visible)
+        if (props.visible)
+            theme.onTrack(UAType.VIEW, ViewType.DIALOG, (TrackerUtils.textOf(props.title)))
     }, [props.visible])
 
     function cancel() {
@@ -264,6 +267,7 @@ export function Expand(props: ViewProps & {
     const toggleExpand = () => {
         let newValue = !expanded
         setExpanded(newValue);
+        theme.onTrack(UAType.CLICK, ViewType.DIALOG, (newValue ? 'expand' : 'collaps') + '-' + props.title)
     };
     var onLayoutContent = (event: LayoutChangeEvent) => {
         if (!contentHeight) {
@@ -402,6 +406,11 @@ export const DropDownView = (props: DropDownViewProps) => {
     };
     const onSelect = (selectedId: string, opt: DropDownViewOption) => {
         props.onSelect(selectedId, opt)
+        theme.onTrack(UAType.CLICK, ViewType.DROPDOWN, 'select-' + props.title, {
+            value: selectedId,
+            title: opt.title,
+            displayType: displayType
+        })
         setVisible(false)
     }
     const shouldShowLabel = props.listType == 'horizontal-list' ? !visible : true
@@ -656,11 +665,12 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
                     padding: theme.dimens.space.lg,
                     textAlign: 'center'
                 }}>{props.message}</TextView>}
-                <ButtonView text={confirmText as string} onPress={() => {
+                <ButtonView aria-label={props.title as string} text={confirmText as string} onPress={() => {
                     props.onDismiss && props.onDismiss()
                     props.onConfirm && props.onConfirm()
                 }} />
                 <TertiaryButtonView
+                    aria-label={props.title as string}
                     style={{
                         marginTop: 0
                     }}
@@ -703,6 +713,10 @@ export function WebBrowserView(props: {
     };
 
     useEffect(() => {
+        theme.onTrack(UAType.VIEW, ViewType.WEBVIEW, 'webview-' + props.title, {
+            url: props.url,
+            message: props.openMessage
+        })
         if (result == null)
             _handlePressButtonAsync()
     }, [])

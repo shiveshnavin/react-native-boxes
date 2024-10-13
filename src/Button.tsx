@@ -4,6 +4,7 @@ import { ThemeContext } from "./ThemeContext";
 import { Center, HBox } from "./Box";
 import { TextView, TextViewProps } from "./Text";
 import { getIcon } from "./Image";
+import { TrackerUtils, UAType, ViewType } from "./Analytics";
 
 export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle, children?: any }
 
@@ -40,6 +41,10 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
     return (
         <TouchableHighlight
             {...props}
+            onPress={(e) => {
+                props.onPress && props.onPress(e)
+                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+            }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             underlayColor={theme.colors.transparent}
@@ -108,6 +113,10 @@ export function ButtonView(props: ButtonViewProps) {
     return (
         <TouchableHighlight
             {...props}
+            onPress={(e) => {
+                props.onPress && props.onPress(e)
+                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props['aria-label'] ? props['aria-label'] + '-' : '') + (props.text || TrackerUtils.textOf(props.children)))
+            }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             underlayColor={props.underlayColor || theme.colors.accentLight}
@@ -182,6 +191,10 @@ export function RightIconButton(props: ButtonViewProps) {
     return (
         <TouchableHighlight
             {...props}
+            onPress={(e) => {
+                props.onPress && props.onPress(e)
+                theme.onTrack(UAType.CLICK, ViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+            }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             underlayColor={props.underlayColor || theme.colors.accentLight}
@@ -301,22 +314,37 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
 
 
 export function PressableView(props: PressableProps) {
-
     //@ts-ignore
     return (<Pressable {...props} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, props.style]} />)
 }
 
-export function SwitchView(props: SwitchProps) {
+export function SwitchView(props: SwitchProps & { text: string, orientation: 'row' | 'column' }) {
     const theme = useContext(ThemeContext)
     return (
-        <Switch
-            trackColor={{
-                false: theme.colors.caption,
-                true: theme.colors.success
-            }}
-            thumbColor={props.value ? theme.colors.invert.text : theme.colors.text}
-            ios_backgroundColor={theme.colors.caption}
-            {...props}
-        />
+        <HBox style={[{
+            flexDirection: props.orientation || 'row',
+            alignContent: 'center',
+            alignItems: 'center'
+        }, props.style]}>
+            <Switch
+                trackColor={{
+                    false: theme.colors.caption,
+                    true: theme.colors.success
+                }}
+                thumbColor={props.value ? theme.colors.invert.text : theme.colors.text}
+                ios_backgroundColor={theme.colors.caption}
+                onValueChange={(value) => {
+                    props.onValueChange && props.onValueChange(value)
+                    theme.onTrack(UAType.CLICK, ViewType.SWITCH, (props.text) + '-' + value, { value })
+                }}
+                {...props}
+            />
+            {
+                props.text && (
+                    <TextView>{props.text}</TextView>
+                )
+            }
+        </HBox>
+
     )
 }
