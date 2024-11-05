@@ -161,7 +161,7 @@ export function ButtonView(props: ButtonViewProps) {
                             //@ts-ignore
                             fontFamily: tstyle.fontFamily || theme.fonts.Bold,
                             //@ts-ignore
-                            color: tstyle.color || theme.colors.invert.text,
+                            color: tstyle.color || "#fff",
                         }, props.textStyle]}>
                             {props.text || props.children}
                         </TextView>
@@ -236,7 +236,7 @@ export function RightIconButton(props: ButtonViewProps) {
                                 //@ts-ignore
                                 fontFamily: tstyle.fontFamily,
                                 //@ts-ignore
-                                color: tstyle.color || theme.colors.invert.text,
+                                color: tstyle.color || "#fff",
                             }}>
                                 {props.text}
                             </TextView>
