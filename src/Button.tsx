@@ -254,7 +254,7 @@ export function RightIconButton(props: ButtonViewProps) {
                         }}>
                             <BtnIcon color={
                                 //@ts-ignore
-                                typeof props.icon == 'string' ? tstyle.color || theme.colors.invert.text : undefined} />
+                                typeof props.icon == 'string' ? tstyle.color || "#fff" : undefined} />
                         </View>
                     )
                 }
