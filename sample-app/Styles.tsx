@@ -68,10 +68,11 @@ export const DarkColors = {
     warning: '#FFA726',
     critical: '#F44336',
     invert: {
-        text: '#fff',
-        caption: '#fff',
-        heading: '#fff',
-        background: '#E6E6E6'
+        text: '#444444',
+        caption: '#A9A9A9',
+        heading: '#222222',
+        background: '#E6E6E6',
+        forground: '#fff'
     }
 }
 
