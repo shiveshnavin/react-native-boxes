@@ -626,6 +626,7 @@ export const DropDownView = (props: DropDownViewProps) => {
 }
 
 
+
 export type ConfirmationDialogProps = {
     visible: boolean,
     title?: string | React.Component,
@@ -642,10 +643,16 @@ export type ConfirmationDialogProps = {
     style?: ViewStyle
 }
 
-export function ConfirmationDialog(props: ConfirmationDialogProps) {
 
-    const confirmText = props.confirmText || 'Confirm'
-    const cancelText = props.cancelText || 'Cancel'
+export function ConfirmationDialog(props: ConfirmationDialogProps) {
+    return <GenericDialog {...props} confirmText={props.confirmText || 'common.confirm'} cancelText={props.cancelText || 'common.cancel'} />
+}
+
+
+export function GenericDialog(props: ConfirmationDialogProps) {
+
+    const confirmText = props.confirmText
+    const cancelText = props.cancelText
     const theme = useContext(ThemeContext)
     const Conatiner = props?.noSheet ? VBox : BottomSheet
     return (
@@ -683,6 +690,7 @@ export function ConfirmationDialog(props: ConfirmationDialogProps) {
         </Conatiner>
     )
 }
+
 
 
 export function WebBrowserView(props: {
