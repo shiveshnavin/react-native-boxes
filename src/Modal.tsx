@@ -643,7 +643,6 @@ export type ConfirmationDialogProps = {
     style?: ViewStyle
 }
 
-
 export function ConfirmationDialog(props: ConfirmationDialogProps) {
     return <GenericDialog {...props} confirmText={props.confirmText || 'common.confirm'} cancelText={props.cancelText || 'common.cancel'} />
 }
