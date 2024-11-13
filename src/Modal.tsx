@@ -671,19 +671,24 @@ export function GenericDialog(props: ConfirmationDialogProps) {
                     padding: theme.dimens.space.lg,
                     textAlign: 'center'
                 }}>{props.message}</TextView>}
-                <ButtonView aria-label={props.title as string} text={confirmText as string} onPress={() => {
-                    props.onDismiss && props.onDismiss()
-                    props.onConfirm && props.onConfirm()
-                }} />
-                <TertiaryButtonView
-                    aria-label={props.title as string}
-                    style={{
-                        marginTop: 0
-                    }}
-                    text={cancelText as string} onPress={() => {
+                {
+                    confirmText && <ButtonView aria-label={props.title as string} text={confirmText as string} onPress={() => {
                         props.onDismiss && props.onDismiss()
-                        props.onCancel && props.onCancel()
+                        props.onConfirm && props.onConfirm()
                     }} />
+                }
+                {
+                    cancelText && <TertiaryButtonView
+                        aria-label={props.title as string}
+                        style={{
+                            marginTop: 0
+                        }}
+                        text={cancelText as string} onPress={() => {
+                            props.onDismiss && props.onDismiss()
+                            props.onCancel && props.onCancel()
+                        }} />
+                }
+
             </VBox>
 
         </Conatiner>
