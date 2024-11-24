@@ -30,8 +30,8 @@ export const Fonts = {
 }
 
 export const Colors = {
-    accent: '#1976D2',
-    accentLight: '#2196F3',
+    accent: '#086CFE',
+    accentLight: '#337DFF',
     text: '#444444',
     caption: '#A9A9A9',
     heading: '#222222',
@@ -55,8 +55,8 @@ export const Colors = {
 export const LightColors = Colors
 
 export const DarkColors = {
-    accent: '#1976D2',
-    accentLight: '#2196F3',
+    accent: '#086CFE',
+    accentLight: '#337DFF',
     text: '#f2f2f2',
     caption: '#565656',
     heading: '#dddddd',
