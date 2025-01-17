@@ -383,7 +383,7 @@ export type DropDownViewProps = {
     initialVisile?: Boolean,
     title?: string,
     displayType?: 'button' | 'input',
-    onRenderList?: (opt: DropDownViewOption[]) => any,
+    onRenderList?: (opt: DropDownViewOption[], onSelect: (selectedId: string, opt: DropDownViewOption) => void) => any,
     onRenderOption?: (opt: DropDownViewOption, setSelected: (selectedId: string, opt: DropDownViewOption) => void) => any,
     onEmptyListPlaceholder?: (dismiss?: () => void) => React.ReactNode
     forceDialogSelectOnWeb?: Boolean
@@ -554,7 +554,10 @@ export const DropDownView = (props: DropDownViewProps) => {
                                         (
 
                                             props.onRenderList ?
-                                                props.onRenderList(props.options) :
+                                                props.onRenderList(props.options, (selectedId: string, opt: DropDownViewOption) => {
+                                                    setVisible(false)
+                                                    props.onSelect(selectedId, opt)
+                                                }) :
                                                 (
                                                     props.options.map((opt, idx) => {
                                                         if (props.onRenderOption) {
