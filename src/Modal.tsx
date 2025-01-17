@@ -132,7 +132,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                                     <Subtitle style={{
                                         fontFamily: theme.fonts.Bold
                                     }}>{props.title.toString()}</Subtitle>
-                                ) : <>{props.title}</>
+                                ) : (props.title as any)
                             }
                             {
                                 cancellable ? (<TouchableOpacity
@@ -152,7 +152,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                             width: '100%'
                         }}>
                             {
-                                props.swipeToCloseDisabled ? (
+                                props.swipeToCloseDisabled && isWeb() ? (
                                     <ScrollView
                                         nestedScrollEnabled={true}
                                         showsVerticalScrollIndicator={false}
@@ -383,6 +383,7 @@ export type DropDownViewProps = {
     initialVisile?: Boolean,
     title?: string,
     displayType?: 'button' | 'input',
+    onRenderList?: (opt: DropDownViewOption[]) => any,
     onRenderOption?: (opt: DropDownViewOption, setSelected: (selectedId: string, opt: DropDownViewOption) => void) => any,
     onEmptyListPlaceholder?: (dismiss?: () => void) => React.ReactNode
     forceDialogSelectOnWeb?: Boolean
@@ -552,24 +553,28 @@ export const DropDownView = (props: DropDownViewProps) => {
                                         :
                                         (
 
-                                            props.options.map((opt, idx) => {
-                                                if (props.onRenderOption) {
-                                                    return props.onRenderOption(opt, onSelect)
-                                                }
-                                                return (
-                                                    <TertiaryButtonView
-                                                        onPress={() => {
-                                                            setVisible(false)
-                                                            props.onSelect(opt.id, opt)
-                                                        }}
-                                                        style={{
-                                                            padding: 0,
-                                                            paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
-                                                            paddingTop: idx == 0 ? theme.dimens.space.md : 0,
-                                                        }}
-                                                        key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
+                                            props.onRenderList ?
+                                                props.onRenderList(props.options) :
+                                                (
+                                                    props.options.map((opt, idx) => {
+                                                        if (props.onRenderOption) {
+                                                            return props.onRenderOption(opt, onSelect)
+                                                        }
+                                                        return (
+                                                            <TertiaryButtonView
+                                                                onPress={() => {
+                                                                    setVisible(false)
+                                                                    props.onSelect(opt.id, opt)
+                                                                }}
+                                                                style={{
+                                                                    padding: 0,
+                                                                    paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
+                                                                    paddingTop: idx == 0 ? theme.dimens.space.md : 0,
+                                                                }}
+                                                                key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
+                                                        )
+                                                    })
                                                 )
-                                            })
                                         )
 
                                 }
