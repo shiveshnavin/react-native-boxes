@@ -106,7 +106,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                             return (
                                 <PressableView
                                     style={{
-                                        paddingStart: theme.dimens.space.md
+                                        padding: theme.dimens.space.md
                                     }}
                                     key={opt.id}
                                     accessibilityHint={title}
