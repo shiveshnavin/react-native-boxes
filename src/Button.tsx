@@ -151,6 +151,7 @@ export function ButtonView(props: ButtonViewProps) {
                 {
                     (props.text || props.children) && (
                         <TextView style={[{
+                            width: '100%',
                             opacity: isPressed ? .7 : 1,
                             fontWeight: "500",
                             justifyContent: 'center',
