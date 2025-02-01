@@ -136,6 +136,7 @@ export function ButtonView(props: ButtonViewProps) {
                 backgroundColor: 'transparent'
             }}>
 
+
                 {
                     BtnIcon && (
                         <View style={{
