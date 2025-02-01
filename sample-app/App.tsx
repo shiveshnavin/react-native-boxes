@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { DemoScreen, Theme, ThemeContext } from './react-native-boxes'
+import { DemoScreen, Theme, ThemeContext } from 'react-native-boxes'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-2
+
 export default function App() {
   const theme = new Theme()
+
+  loadAsync({
+    'Regular': require('./assets/fonts/Regular.ttf'),
+    'Bold': require('./assets/fonts/Bold.ttf'),
+    'Styled': require('./assets/fonts/Styled.ttf'),
+  })
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaProvider>
@@ -22,3 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+function loadAsync(arg0: { Regular: any; Bold: any; Styled: any; }) {
+  throw new Error('Function not implemented.');
+}
+
