@@ -281,9 +281,10 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
     const theme = useContext(ThemeContext)
     const [_loading, _setIsLoading] = useState(props.loading)
     useEffect(() => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if (props.loading != _loading)
+        if (props.loading != _loading) {
+            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
             _setIsLoading(props.loading)
+        }
     }, [props.loading]);
     let loaderColor = theme.colors.invert.text
     let loaderSize = theme.dimens.icon.md
