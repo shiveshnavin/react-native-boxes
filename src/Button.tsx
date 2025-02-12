@@ -283,8 +283,8 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
     useEffect(() => {
         if (props.loading != _loading) {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-            _setIsLoading(props.loading)
         }
+        _setIsLoading(props.loading)
     }, [props.loading]);
     let loaderColor = theme.colors.invert.text
     let loaderSize = theme.dimens.icon.md
