@@ -1,6 +1,6 @@
 {
   "name": "react-native-boxes",
-  "version": "1.4.64",
+  "version": "1.4.65",
   "description": "A react native library for rapid development of UI using boxes",
   "main": "src/index.js",
   "scripts": {
