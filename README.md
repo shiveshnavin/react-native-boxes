@@ -434,3 +434,76 @@ Support for Fontawesome icon names from https://icons.expo.fyi/
 ![desktop sheet](https://github.com/user-attachments/assets/6fbaacb0-c134-43ca-af8c-6089c3b32cc7)
 
 
+
+### Internationalization
+Install your favorite js library.
+
+<details>
+    <summary>Code sample</summary>
+
+    import { I18n } from 'i18n-js';
+
+    const I18nProvider = new I18n({
+      en: {
+        watchlist: {
+          hello: 'Hello!'
+        }
+      },
+      hi: {
+        watchlist: {
+          hello: 'नमस्ते !'
+        }
+      },
+      hinglish: {
+        watchlist: {
+          hello: 'Namaste !'
+        }
+      },
+      es: {
+        watchlist: {
+          hello: 'Hola!'
+        }
+      }
+    });
+    I18nProvider.missingBehavior = "guess";
+    
+
+    export default function App(){
+        const [locale, setLocale] = useState('en')
+        I18nProvider.locale = locale
+        const theme = new Theme('appname', colorScheme === 'dark' ? DarkColors : Colors);
+        theme.i18n = I18nProvider
+        
+          
+        return (
+            <ThemeContext.Provider value={theme} >
+            <Center>
+                  <Title>watchlist.hello</Title>
+                </Center>
+                <Center>
+                  <HBox>
+                    <TransparentButton text='English' onPress={() => {
+                      setLocale('en')
+                    }} />
+                    <TransparentButton text='Hindi' onPress={() => {
+                      setLocale('hi')
+        
+                    }} />
+                  </HBox>
+                  <HBox>
+                    <TransparentButton text='Hinglish' onPress={() => {
+                      setLocale('hinglish')
+        
+                    }} />
+                    <TransparentButton text='Spanish' onPress={() => {
+                      setLocale('es')
+        
+                    }} />
+                  </HBox>
+            </Center>
+         </ThemeContext.Provider>
+     )
+     }
+</details>
+
+
