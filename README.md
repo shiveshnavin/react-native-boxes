@@ -17,9 +17,9 @@ Out-of-the box comes with:
 - Modals (Dialogboxes, Selection bottomsheet, Horizontal selection etc.)
 - Expand box (Animated)
 - Lists (Simple data list)
+- Webview (In app web browser)
 - Internationalization (I18n)
 - Analytics (Clicks, Impression tracking)
-- Webview (In app web browser)
 
 ## Install
 
