@@ -1,4 +1,5 @@
 # React Native Boxes
+A simple to use react library that does all the UI heavy lifting for you so that you can focus on value and not code !
 
 ## Install
 
