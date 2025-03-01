@@ -25,7 +25,8 @@ Make sure you have following dependencies installed. The versions can be satisfy
 ![image](https://github.com/user-attachments/assets/402682fc-35aa-42bc-905d-da6509aec269)
 
 <details>
- 
+    <summary>Section A</summary>
+    
     export default function AppBottomBar() {
       const theme = useContext(ThemeContext)
       const router = useRouter()
@@ -63,5 +64,4 @@ Make sure you have following dependencies installed. The versions can be satisfy
       )
     }
     
- 
 </details>
