@@ -12,6 +12,7 @@ Out-of-the box comes with:
 - Texts (Title, Subtitle, Text, Caption etc.)
 - Buttons (Simple, Transparent, Loading etc.)
 - Images and Icons (Icons, Avatars, Images etc.)
+- Font (Specify Regular, Styled and Bold fonts)
 - Bars (Toolbars, Bottom nav bars etc.)
 - Modals (Dialogboxes, Selection bottomsheet, Horizontal selection etc.)
 - Expand box (Animated)
