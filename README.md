@@ -42,6 +42,7 @@ Make sure you have following dependencies installed. The versions can be any sat
 At the root of your app you must add a theme context and thats it! You are good to go. 
 ```
 import { Colors, DarkColors, Theme } from 'react-native-boxes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App(){ 
     const colorScheme = 'dark'
