@@ -366,6 +366,28 @@ Support for Fontawesome icon names from https://icons.expo.fyi/
     
 </details>
 
+### Toolbar with buttons
+
+![image](https://github.com/user-attachments/assets/69924f9b-6fbf-47ca-b756-b34f705f1abf)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <TransparentCenterToolbar
+        homeIcon={"arrow-left"}
+        title="Watchlist"
+        options={[{
+          id: 'search',
+          icon: 'search',
+          onClick: () => {
+            console.log('Search clicked')
+          }
+        }]}
+      />
+    
+</details>
+
+
 
 ### Divider
 
