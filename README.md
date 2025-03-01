@@ -1,4 +1,9 @@
 # React Native Boxes
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Web](https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)
+
+
 A simple to use react library that does all the UI heavy lifting for you so that you can focus on value and not code !
 
 Out-of-the box comes with:
