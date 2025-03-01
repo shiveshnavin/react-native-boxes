@@ -29,6 +29,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 ![image](https://github.com/user-attachments/assets/85488495-4225-4a88-86b3-ecead70f647d)
 
 <details>
+    <summary>Code sample</summary>
     
     <VPage>
       <Title>Watchlist1</Title>
@@ -40,6 +41,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 ![image](https://github.com/user-attachments/assets/71ea1680-5b43-42b6-81c6-f03799912e95)
  
 <details>
+    <summary>Code sample</summary>
 
     <Center>
         <Title>Watchlist</Title>
@@ -52,6 +54,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 ![image](https://github.com/user-attachments/assets/b4d765c6-5879-4880-a28c-3aca0e88a07b)
 
 <details>
+    <summary>Code sample</summary>
     
     <VBox>
         <Title>Watchlist</Title>
@@ -65,6 +68,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 ![image](https://github.com/user-attachments/assets/0b868e4e-d637-4ac9-a695-20bd420f1fad)
 
 <details>
+    <summary>Code sample</summary>
     
       <HBox>
         <Title>Watchlist1</Title>
