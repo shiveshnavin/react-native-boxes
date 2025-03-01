@@ -162,3 +162,19 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 
 
 
+
+### Expand
+ ![Recording 2025-03-01 201906](https://github.com/user-attachments/assets/b69d5ea1-d6d3-4285-b1b1-b8aaeb5536bb)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <Expand title='Expand Watchlist' >
+        <TextView>INFY</TextView>
+        <TextView>TCS</TextView>
+      </Expand>
+    
+</details>
+
+
+
