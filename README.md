@@ -434,7 +434,15 @@ Support for Fontawesome icon names from https://icons.expo.fyi/
 
 ![desktop sheet](https://github.com/user-attachments/assets/6fbaacb0-c134-43ca-af8c-6089c3b32cc7)
 
+### Web view
+Opens a webview on native and a `iframe` on Web
 
+<details>
+    <summary>Code sample</summary>
+
+    <WebBrowserView url='https://www.google.com' title='Google'/>
+    
+</details>
 
 ### Internationalization
 
