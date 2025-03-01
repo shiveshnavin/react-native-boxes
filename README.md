@@ -1,6 +1,19 @@
 # React Native Boxes
 A simple to use react library that does all the UI heavy lifting for you so that you can focus on value and not code !
 
+Out-of-the box comes with:
+- Themes
+- Layouts (Vertical, Horizontal, Centered etc.)
+- Texts (Title, Subtitle, Text, Caption etc.)
+- Buttons (Simple, Transparent, Loading etc.)
+- Images and Icons (Icons, Avatars, Images etc.)
+- Bars (Toolbars, Bottom nav bars etc.)
+- Modals (Dialogboxes, Selection bottomsheet, Horizontal selection etc.)
+- Expand box (Animated)
+- Lists (Simple data list)
+- Internationalization (I18n)
+- Analytics (Clicks, Impression tracking)
+
 ## Install
 
 ```
@@ -9,7 +22,7 @@ npm install react-native-boxes
 
 ## Dependencies
 
-Make sure you have following dependencies installed. The versions can be satisfying version but must not have ny breaking changes.
+Make sure you have following dependencies installed. The versions can be any satisfying version but must not have any breaking changes.
 
 ```
     "@expo/vector-icons": "^13.0.0",
@@ -19,8 +32,89 @@ Make sure you have following dependencies installed. The versions can be satisfy
     "react-native-gesture-handler":"~2.14.0"
 ```
 
+## Usage
+At the root of your app you must add a theme context and thats it! You are good to go.
+```
+import { Colors, DarkColors, Theme } from 'react-native-boxes';
+
+export default function App(){ 
+    const colorScheme = 'dark'
+    const theme = new Theme('my-app', colorScheme === 'dark' ? DarkColors : Colors);
+    return (
+        <ThemeContext.Provider value={theme} >
+                <WatchlistPage />
+        </ThemeContext.Provider>
+    )
+}
+```
+
 
 ## Components
+
+### Themes
+Dark colors and Light colors come out of the box.
+
+Dark Colors
+
+![image](https://github.com/user-attachments/assets/e95508cb-497a-4341-a32f-cacdf2daea07)
+
+
+Light Colors
+
+![image](https://github.com/user-attachments/assets/ed97e567-2160-487a-85f9-c1a21abbca86)
+
+
+<details>
+    <summary>Customizing theme</summary>
+    
+    import { Colors, Theme } from 'react-native-boxes';
+    ...
+    
+    const MyColors = Object.assign(Colors, {
+        accent: '#086CFE',
+        accentLight: '#337DFF',
+        text: '#444444',
+        caption: '#A9A9A9',
+        heading: '#222222',
+        background: '#E6E6E6',
+        forground: '#fff',
+        transparent: 'transparent',
+        semitransparent: '#111a1a1c',
+        info: '#2196F3',
+        success: '#4CAF50',
+        successBackground: '#388E3C',
+        warning: '#FFA726',
+        critical: '#F44336',
+        invert: {
+            text: '#fff',
+            caption: '#fff',
+            heading: '#fff',
+            background: '#1a1a1c'
+        }
+    })
+     const theme = new Theme('my-app', MyColors);
+    return (
+        <ThemeContext.Provider value={theme} >
+                <WatchlistPage />
+        </ThemeContext.Provider>
+    )
+                    
+</details>
+
+You can also customize sizes, dimensions etc, but it is not recommended.
+<details>
+    <summary>Customizing other theme options</summary>
+
+    const theme = new Theme(
+        appname = '',
+        colors  ,
+        dimens ,
+        fonts  ,
+        styles , 
+    )
+        
+</details>
+
 
 ### Layouts
 
@@ -78,7 +172,6 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
       
 </details>
 
- 
 
 ### Texts
 ![image](https://github.com/user-attachments/assets/5346a25f-a22e-495e-994e-a2bd2931de5d)
@@ -161,8 +254,6 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 </details>
 
 
-
-
 ### Expand
  ![Recording 2025-03-01 201906](https://github.com/user-attachments/assets/b69d5ea1-d6d3-4285-b1b1-b8aaeb5536bb)
 
@@ -172,9 +263,47 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
     <Expand title='Expand Watchlist' >
         <TextView>INFY</TextView>
         <TextView>TCS</TextView>
-      </Expand>
+    </Expand>
     
 </details>
 
+
+### Toolbars
+ 
+### Simple Toolbar
+![image](https://github.com/user-attachments/assets/c49c8292-4e35-4c9a-813e-3478abc1da11)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <SimpleToolbar title="Watchlist" />
+    
+</details>
+
+### Transparent Center Toolbar 
+![image](https://github.com/user-attachments/assets/7b07ae8c-751c-43b2-90a6-3fb6ef97ab49)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <SimpleToolbar title="Watchlist" />
+    
+</details>
+
+
+
+
+### Divider
+![image](https://github.com/user-attachments/assets/553f6f23-853d-4233-b771-2b731674c8fd)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <Expand title='Expand Watchlist' >
+        <TextView>INFY</TextView>
+        <TextView>TCS</TextView>
+    </Expand>
+    
+</details>
 
 
