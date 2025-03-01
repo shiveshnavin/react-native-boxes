@@ -25,7 +25,9 @@ Make sure you have following dependencies installed. The versions can be satisfy
 ![image](https://github.com/user-attachments/assets/402682fc-35aa-42bc-905d-da6509aec269)
 
 <details>
-    <summary>Section A</summary>
+    <summary>Code sample</summary>
+    Icons are from Fontawesome 
+    https://icons.expo.fyi/Index
     
     export default function AppBottomBar() {
       const theme = useContext(ThemeContext)
@@ -65,3 +67,70 @@ Make sure you have following dependencies installed. The versions can be satisfy
     }
     
 </details>
+
+
+### Layouts
+
+#### Center
+![image](https://github.com/user-attachments/assets/71ea1680-5b43-42b6-81c6-f03799912e95)
+ 
+```
+    <Center>
+    <Title>Watchlist</Title>
+    <Caption>Coming soon  </Caption>
+    </Center>
+```
+ 
+#### VBox
+![image](https://github.com/user-attachments/assets/b4d765c6-5879-4880-a28c-3aca0e88a07b)
+
+```
+    <VBox>
+        <Title>Watchlist</Title>
+        <Caption>Coming soon  </Caption>
+    </VBox>
+```
+ 
+
+#### HBox
+![image](https://github.com/user-attachments/assets/0b868e4e-d637-4ac9-a695-20bd420f1fad)
+
+```
+      <HBox>
+        <Title>Watchlist1</Title>
+        <Title>Watchlist2</Title>
+      </HBox>
+```
+ 
+
+### Texts
+![image](https://github.com/user-attachments/assets/5346a25f-a22e-495e-994e-a2bd2931de5d)
+
+<details>
+    <summary>Code sample</summary>
+    Icons are from Fontawesome 
+    https://icons.expo.fyi/Index
+    
+    <Title>Watchlist Title</Title>
+      <TextView>
+        This is a text with a simple example from a watchlist screen. You can add stocks to your watchlist and see their performance. You can also add alerts to get notified when a stock reaches a certain price.
+      </TextView>
+      <Subtitle>This is a subtitle for watchlist</Subtitle>
+      <TitleText>
+        This is a title text that explains what a watchlist is.
+      </TitleText>
+      <TextView>
+        A watchlist is a list of stocks that you are interested in.
+      </TextView>
+      <TitleText>
+        This is a another title text that explains what a watchlist is.
+      </TitleText>
+      <TextView>
+        A watchlist is a list of stocks that you are interested in.
+      </TextView>
+      <Caption>
+        This is a caption. All investments are subject to market risk. Please do your own research before investing in any stock. This app is for educational purposes only.
+      </Caption>
+    
+</details>
+
