@@ -19,6 +19,7 @@ Out-of-the box comes with:
 - Lists (Simple data list)
 - Internationalization (I18n)
 - Analytics (Clicks, Impression tracking)
+- Webview (In app web browser)
 
 ## Install
 
@@ -437,6 +438,9 @@ Support for Fontawesome icon names from https://icons.expo.fyi/
 
 ### Internationalization
 Install your favorite js library.
+![locale](https://github.com/user-attachments/assets/48d3ea46-482f-49f3-8010-52433f15551c)
+
+
 
 <details>
     <summary>Code sample</summary>
@@ -502,8 +506,26 @@ Install your favorite js library.
                   </HBox>
             </Center>
          </ThemeContext.Provider>
-     )
+        )
      }
 </details>
 
 
+
+### Analytics
+If you wanna track the users clicks and impressions on each component, just add a `onTrack` hook to your theme.
+
+```
+action : TrackingActionType = click | view | navigate
+view : TrackingViewType = button | dropdown...
+text : The text related to the component if present
+extra : Depending on component, come contextual info. For e.g. the WebView impression gives {url, title} extra
+```
+
+<details>
+
+    const theme = new Theme('appname', DarkColors);  
+    theme.onTrack = (action, view, text, extras) => {
+        myTracker.track(`${action}-${text}-${text}`, extras)
+    }
+</details>
