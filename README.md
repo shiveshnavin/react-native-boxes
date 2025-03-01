@@ -8,7 +8,7 @@ A simple to use react library that does all the UI heavy lifting for you so that
 
 Out-of-the box comes with:
 - Themes
-- Layouts (Vertical, Horizontal, Centered etc.)
+- Layouts (Cards, Vertical, Horizontal, Centered etc.)
 - Texts (Title, Subtitle, Text, Caption etc.)
 - Buttons (Simple, Transparent, Loading etc.)
 - Images and Icons (Icons, Avatars, Images etc.)
