@@ -211,6 +211,74 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 </details>
 
 
+### Images
+
+#### Avatars
+
+![image](https://github.com/user-attachments/assets/0e6b7ce7-9302-40b8-a570-4e166f6a423d)
+
+
+- With icon
+- With image url
+- With text
+
+<details>
+    <summary>Code sample</summary>
+
+    
+    <Avatar iconName='user' />
+    <Avatar iconUrl='https://avatars.githubusercontent.com/u/16799797?v=4' />
+    <Avatar iconText='SN' />
+          
+</details>
+
+#### Icons
+Support for Fontawesome icon names from https://icons.expo.fyi/
+
+![image](https://github.com/user-attachments/assets/b36ac996-556d-4027-ac6a-454bd65d7a50)
+
+<details>
+    <summary>Code sample</summary>
+    
+    <Icon name='home' size={50} />
+    <Title>Light Theme Watchlist</Title>
+          
+</details>
+
+### Buttons
+
+<details>
+    <summary>Simple button code sample</summary>
+    
+    <ButtonView text='Simple Button' />
+    
+</details>
+
+![image](https://github.com/user-attachments/assets/55c063be-5a24-434b-b027-2ca0b88878f6)
+
+
+<details>
+    <summary>Transparent button code sample</summary>
+    
+    <TransparentButton text='Transparent Button' />
+    
+</details>
+
+![image](https://github.com/user-attachments/assets/e45fa3ff-ab51-4241-9c2a-62d01cfd365e)
+
+
+<details>
+    <summary>Loading button code sample</summary>
+    
+    const [loading, setLoading] = useState(false)
+
+    <LoadingButton loading={loading} text='Loading Button' onPress={() => {
+        setLoading((prev) => !prev)
+      }} />
+    
+</details> 
+
+![ezgif-451f0321da765b](https://github.com/user-attachments/assets/7bd832ac-c5d1-4dbf-8faf-5aa9f3a72cc7)
 
 ### Bottombar
 ![image](https://github.com/user-attachments/assets/402682fc-35aa-42bc-905d-da6509aec269)
@@ -277,6 +345,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 ### Toolbars
  
 ### Simple Toolbar
+
 ![image](https://github.com/user-attachments/assets/c49c8292-4e35-4c9a-813e-3478abc1da11)
 
 <details>
@@ -287,6 +356,7 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 </details>
 
 ### Transparent Center Toolbar 
+
 ![image](https://github.com/user-attachments/assets/7b07ae8c-751c-43b2-90a6-3fb6ef97ab49)
 
 <details>
@@ -297,9 +367,8 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
 </details>
 
 
-
-
 ### Divider
+
 ![image](https://github.com/user-attachments/assets/553f6f23-853d-4233-b771-2b731674c8fd)
 
 <details>
@@ -311,5 +380,32 @@ Your root tag for pages. Consists of vertical alignment and some basic padding.
     </Expand>
     
 </details>
+
+### Modals
+
+#### Bottomsheet on mobile
+ 
+![mobile sheet](https://github.com/user-attachments/assets/96c64fb9-9b00-49e3-8c4e-785772e0e880)
+
+<details>
+    <summary>Code sample</summary>
+
+
+      <BottomSheet title="Bottomsheet About Watchlists" visible={showDialog} onDismiss={() => setShowDialog(false)}>
+        <TextView>
+          This is a simple dialog that can be used to show more information to the user. It is a bottom sheet that can host any content.
+        </TextView>
+        <HBox />
+        <TextView>
+          Watchlists are a great way to keep track of your favorite stocks. You can add stocks to your watchlist and see their performance. You can also add alerts to get notified when a stock reaches a certain price.
+        </TextView>
+        <TertiaryButtonView text='Goto Watchlist' onPress={() => setShowDialog(false)} />
+      </BottomSheet>
+      
+</details>
+
+#### Bottomsheet on Desktop (web)
+
+![desktop sheet](https://github.com/user-attachments/assets/6fbaacb0-c134-43ca-af8c-6089c3b32cc7)
 
 
