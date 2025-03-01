@@ -320,7 +320,7 @@ export function Expand(props: ViewProps & {
                         <Icon
                             color={theme.colors.text}
                             {...props.iconStyle}
-                            name={props.iconName || 'chevron-right'}
+                            name={props.iconName || 'chevron-circle-right'}
                         />
                     </Animated.View>
                     <HBox style={{
@@ -358,7 +358,9 @@ export function Expand(props: ViewProps & {
                 onLayout={onLayoutContent}>
                 {
                     (expanded || initDone) && (
-                        <VBox onLayout={onLayoutContent} >
+                        <VBox onLayout={onLayoutContent}  style={{
+                            paddingStart: theme.dimens.space.md * 3
+                        }}>
                             {props.children}
                         </VBox>
                     )
