@@ -24,7 +24,7 @@ Make sure you have following dependencies installed. The versions can be satisfy
 ### Bottombar
 ![image](https://github.com/user-attachments/assets/402682fc-35aa-42bc-905d-da6509aec269)
 
-<details open>
+<details>
  
     export default function AppBottomBar() {
       const theme = useContext(ThemeContext)
