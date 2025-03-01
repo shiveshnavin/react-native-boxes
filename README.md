@@ -437,7 +437,9 @@ Support for Fontawesome icon names from https://icons.expo.fyi/
 
 
 ### Internationalization
+
 Install your favorite js library.
+
 ![locale](https://github.com/user-attachments/assets/48d3ea46-482f-49f3-8010-52433f15551c)
 
 
