@@ -521,7 +521,7 @@ If you wanna track the users clicks and impressions on each component, just add 
 action : TrackingActionType = click | view | navigate
 view : TrackingViewType = button | dropdown...
 text : The text related to the component if present
-extra : Depending on component, come contextual info. For e.g. the WebView impression gives {url, title} extra
+extra : Depending on component, some contextual info. For e.g. the WebView impression gives {url, title} extra
 ```
 
 <details>
