@@ -39,7 +39,7 @@ Make sure you have following dependencies installed. The versions can be any sat
 ```
 
 ## Usage
-At the root of your app you must add a theme context and thats it! You are good to go.
+At the root of your app you must add a theme context and thats it! You are good to go. 
 ```
 import { Colors, DarkColors, Theme } from 'react-native-boxes';
 
@@ -48,12 +48,14 @@ export default function App(){
     const theme = new Theme('my-app', colorScheme === 'dark' ? DarkColors : Colors);
     return (
         <ThemeContext.Provider value={theme} >
+            <GestureHandlerRootView> 
                 <WatchlistPage />
+            </GestureHandlerRootView>
         </ThemeContext.Provider>
     )
 }
 ```
-
+Optional: If you are also gonna use bottomsheets, Add `GestureHandlerRootView`
 
 ## Components
 
