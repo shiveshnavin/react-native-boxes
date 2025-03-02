@@ -1,7 +1,6 @@
-import { ActivityIndicator, Text, View, ViewProps } from "react-native"
+import { ActivityIndicator, Text, TextStyle, View, ViewProps, ViewStyle } from "react-native"
 import { Box, CardView, Center, HBox, VBox } from "./Box"
-import { getIcon } from "./Image"
-import { Icon } from "@expo/vector-icons/build/createIconSet"
+import { getIcon, Icon } from "./Image"
 import { Caption, Subtitle, TextView, TitleText } from "./Text"
 import { useContext } from "react"
 import { ThemeContext } from "./ThemeContext"
@@ -121,4 +120,173 @@ export function SimpleDatatlistViewItem(props: SimpleDatatableViewItemProps & Vi
             </CardView>
         </PressableView>
     )
+}
+
+
+
+
+export function InfoRow(props: {
+    title: string,
+    text: string,
+    icon?: string | React.ReactNode,
+    color?: string,
+    style?: ViewStyle,
+    textStyle?: TextStyle,
+    onPress?: () => void
+}) {
+    const theme = useContext(ThemeContext)
+    const InfoIcon = getIcon(props.icon)
+    return (
+        <PressableView onPress={props.onPress} style={{
+            opacity: props.onPress ? undefined : 1
+        }}>
+            <HBox style={{
+                paddingStart: theme.dimens.space.sm,
+                paddingBottom: theme.dimens.space.sm,
+                alignItems: 'center',
+            }}>
+                {InfoIcon && (<InfoIcon
+                    size={theme.dimens.icon.md * 1.25}
+                    color={props.color}
+                    style={{
+                        paddingEnd: theme.dimens.space.sm,
+                        paddingStart: theme.dimens.space.sm,
+                    }} />)}
+                <VBox style={[{
+                    flex: 1,
+                    paddingStart: theme.dimens.space.sm,
+                }, props.style]}>
+                    <HBox style={{
+                        alignItems: 'center',
+                    }}>
+
+                        <TitleText style={{
+                            color: props.color,
+                            marginBottom: 0,
+                            paddingBottom: 0,
+                            flexWrap: 'wrap'
+                        }}>
+                            {props.title || ' '}
+                        </TitleText>
+                    </HBox>
+                    <TextView style={[{
+                        marginTop: 0,
+                        paddingTop: 0,
+                    }, props.textStyle]}>
+                        {props.text || ' '}
+                    </TextView>
+                </VBox>
+            </HBox>
+
+        </PressableView>
+    )
+}
+export function IconRow(props: {
+    text: string,
+    icon?: string | React.ReactNode,
+    onPress?: () => void,
+    color?: string
+}) {
+    const theme = useContext(ThemeContext)
+    const LeftIcon = getIcon(props.icon)
+    return (
+        <PressableView onPress={props.onPress}>
+            <HBox style={{
+                marginBottom: theme.dimens.space.md,
+                alignItems: 'center'
+            }}>
+                <LeftIcon style={{
+                    width: theme.dimens.icon.md,
+                    marginRight: theme.dimens.space.md
+                }} color={props.color || theme.colors.text} />
+                <TitleText style={{
+                    color: props.color || theme.colors.text
+                }}>{props.text}</TitleText>
+            </HBox>
+        </PressableView>
+    )
+}
+
+
+
+export function SettingRow({
+    text,
+    icon,
+    style,
+    color,
+    colorDesc,
+    description,
+    rightIcon,
+    onPress,
+}: {
+    text: string;
+    icon?: string | any;
+    color?: string;
+    colorDesc?: string;
+    description?: string;
+    rightIcon?: string | any;
+    style?: ViewStyle;
+    onPress: () => void;
+}) {
+    const theme = useContext(ThemeContext);
+    const RightIcon = getIcon(rightIcon);
+    const LeftIcon = getIcon(icon);
+    return (
+
+        <PressableView onPress={onPress} style={{
+            width: '100%',
+
+        }}>
+            <HBox
+                style={[
+                    {
+                        width: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingTop: theme.dimens.space.lg,
+                        paddingLeft: theme.dimens.space.lg,
+                        paddingBottom: theme.dimens.space.md,
+                    },
+                    style,
+                ]}
+            >
+                <HBox style={{
+                    flex: 1,
+                    alignItems: "center",
+                }}>
+                    {icon && (
+                        typeof icon == 'string' ? <Icon name={icon}
+                            size={theme.dimens.icon.md}
+                            color={color || theme.colors.text}
+                            style={{
+                                paddingBottom: description ? theme.dimens.space.md : 0,
+                            }} /> : (LeftIcon && <LeftIcon />)
+                    )}
+
+                    <VBox style={{
+                        paddingStart: theme.dimens.space.lg,
+                        flex: 1
+                    }}>
+                        <TitleText
+                            style={{
+                                color: color || theme.colors.text,
+                                fontFamily: theme.fonts.Styled,
+                                paddingTop: 0,
+                                paddingBottom: 0,
+                            }}
+                        >
+                            {text}
+                        </TitleText>
+
+                        {description && <Caption style={{
+                            color: colorDesc || theme.colors.caption,
+                        }}>{description}</Caption>}
+                    </VBox>
+                </HBox>
+
+                {rightIcon && <RightIcon />}
+            </HBox>
+
+        </PressableView>
+    );
 }
