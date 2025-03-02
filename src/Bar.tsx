@@ -269,6 +269,7 @@ export type ProgressBarViewProps = ViewProps & {
     progressColor?: String
     pendingColor?: String
 }
+
 export function ProgressBarView(props: ProgressBarViewProps) {
     const { progress } = props
     const theme = useContext(ThemeContext)
