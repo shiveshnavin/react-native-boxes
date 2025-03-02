@@ -262,3 +262,34 @@ export function DividerView(props: DividerProps) {
         </Center>
     )
 }
+
+
+export type ProgressBarViewProps = ViewProps & {
+    progress: number
+    progressColor?: String
+    pendingColor?: String
+}
+export function ProgressBarView(props: ProgressBarViewProps) {
+    const { progress } = props
+    const theme = useContext(ThemeContext)
+    return (
+        <View style={[{
+            marginTop: theme.dimens.space.md,
+            flexDirection: 'row',
+            height: theme.dimens.icon.sm / 3,
+            width: '100%',
+            backgroundColor: '#d3d3d3',
+            borderRadius: 5,
+            overflow: 'hidden',
+        }, props.style]}>
+            <View style={{
+                width: `${progress}%`,
+                backgroundColor: `${props.progressColor || theme.colors.accentLight}`,
+            }} />
+            <View style={{
+                width: `${100 - progress}%`,
+                backgroundColor: `${props.pendingColor || theme.colors.background}`,
+            }} />
+        </View>
+    );
+}
