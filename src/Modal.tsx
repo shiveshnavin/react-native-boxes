@@ -350,7 +350,7 @@ export function Expand(props: ViewProps & {
             <ExpandIcon />
             <Animated.View
                 style={{
-                    zIndex: -1,
+                    zIndex: 1,
                     transform: [{ translateY: fadeAnim }],
                     height: expanded ? 'auto' : 0,
                     overflow: 'hidden'
