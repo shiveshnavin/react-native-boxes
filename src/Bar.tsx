@@ -171,7 +171,6 @@ export function BottomNavBar(props: ViewProps &
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: 0,
-                    padding: theme.dimens.space.md,
                     paddingTop: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                     paddingBottom: !hasText ? theme.dimens.space.lg : theme.dimens.space.md,
                 }}
