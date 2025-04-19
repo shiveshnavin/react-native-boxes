@@ -202,7 +202,7 @@ export function BottomNavBar(props: ViewProps &
             }}
             {...props}
             style={[{
-                borderWidth: 1,
+                borderWidth: 3,
                 borderColor: theme.colors.background,
                 borderRadius: theme.dimens.space.md,
                 width: isDesktop() ? '50%' : '100%',
