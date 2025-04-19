@@ -202,16 +202,17 @@ export function BottomNavBar(props: ViewProps &
             }}
             {...props}
             style={[{
+                width: isDesktop() ? '50%' : '100%',
+                position: 'absolute',
+                bottom: 0,
+                left: isDesktop() ? '25%' : 0,
+                right: isDesktop() ? '25%' : 0,
                 flex: 1,
                 margin: 0,
                 marginBottom: theme?.insets?.bottom || 0,
                 backgroundColor: theme.colors.forground,
                 zIndex: 100,
-                width: '100%',
                 justifyContent: 'space-around',
-                left: 0,
-                bottom: 0,
-                position: 'absolute'
             }, props.style]}
         >
             {
