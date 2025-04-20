@@ -217,6 +217,7 @@ export function Expand(props: ViewProps & {
     title?: string,
     iconName?: string,
     iconPosition?: 'left' | 'right',
+    leftPadding?: number,
     titleStyle?: StyleProp<TextStyle>,
     titleBackgroundColor?: string,
     iconStyle?: IconProps,
@@ -358,8 +359,8 @@ export function Expand(props: ViewProps & {
                 onLayout={onLayoutContent}>
                 {
                     (expanded || initDone) && (
-                        <VBox onLayout={onLayoutContent}  style={{
-                            paddingStart: theme.dimens.space.md * 3
+                        <VBox onLayout={onLayoutContent} style={{
+                            paddingStart: props.leftPadding !== undefined ? props.leftPadding : theme.dimens.space.md * 3
                         }}>
                             {props.children}
                         </VBox>
