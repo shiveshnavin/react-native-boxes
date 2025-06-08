@@ -36,7 +36,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
     let cancellable = props.cancellable != undefined ?
         props.cancellable : true
     let swipeToCloseDisabled = props.swipeToCloseDisabled != undefined ?
-        props.swipeToCloseDisabled : false
+        props.swipeToCloseDisabled : true
     useEffect(() => {
         setModalVisible(props.visible)
         if (props.visible)
