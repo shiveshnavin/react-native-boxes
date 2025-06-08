@@ -5,16 +5,20 @@ import { Caption, Subtitle, TextView, TitleText } from "./Text"
 import { useContext } from "react"
 import { ThemeContext } from "./ThemeContext"
 import { PressableView } from "./Button"
-
+import React from 'react'
 
 export type DatatableViewProps = {
     items: any[],
-    itemAdapter: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps,
+    itemAdapter?: (item: any, idx: number, list: any) => SimpleDatatableViewItemProps,
     loading?: boolean,
+    onRender?: (item: any, idx: number, list: any) => React.Component | React.JSX.Element | Element | any
 } & ViewProps
 export function SimpleDatalistView(props: DatatableViewProps) {
     const theme = useContext(ThemeContext)
-
+    if (!props.itemAdapter && !props.onRender) {
+        console.warn('SimpleDatalistView: must provide either itemAdapter or onRender')
+        return null
+    }
     return props.loading ?
         <Center style={{
             padding: theme.dimens.space.xl * 2
@@ -26,7 +30,10 @@ export function SimpleDatalistView(props: DatatableViewProps) {
         <VBox style={[props.style]}>
             {
                 props.items.map((item, idx) => {
-                    let data = props.itemAdapter(item, idx, props.items)
+                    if (props.onRender) {
+                        return props.onRender?.(item, idx, props.items)
+                    }
+                    let data = props.itemAdapter?.(item, idx, props.items)
                     return (
                         <SimpleDatatlistViewItem
                             key={idx}
@@ -38,6 +45,7 @@ export function SimpleDatalistView(props: DatatableViewProps) {
         </VBox>
 
 }
+
 
 export type SimpleDatatableViewItemProps = {
     title?: string,
