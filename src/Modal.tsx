@@ -35,7 +35,8 @@ export const BottomSheet = (props: BottomSheetProps) => {
     const theme = useContext(ThemeContext)
     let cancellable = props.cancellable != undefined ?
         props.cancellable : true
-
+    let swipeToCloseDisabled = props.swipeToCloseDisabled != undefined ?
+        props.swipeToCloseDisabled : false
     useEffect(() => {
         setModalVisible(props.visible)
         if (props.visible)
@@ -58,7 +59,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
             props.onDismiss && props.onDismiss()
         })
 
-    const Wrapper = props.swipeToCloseDisabled ? ({ children }: any) => {
+    const Wrapper = swipeToCloseDisabled ? ({ children }: any) => {
         return (
             <View style={[styles.modalContainer, {
                 backgroundColor: props.backgroundColor || theme.colors.forground
