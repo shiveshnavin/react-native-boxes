@@ -5,6 +5,7 @@
 
 
 A simple to use react library that does all the UI heavy lifting for you so that you can focus on value and not code !
+![collage](https://github.com/user-attachments/assets/9174e501-eb08-46ec-8a38-90e8ec8931c5)
 
 Out-of-the box comes with:
 - Themes
