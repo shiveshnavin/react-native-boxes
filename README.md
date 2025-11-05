@@ -1,8 +1,8 @@
 <h1 align="center">React Native Boxes</h1>
 
 <p align="center">
-  A simple-to-use React Native library that does all the UI heavy lifting for you — 
-  so you can focus on value, not boilerplate code!
+  A simple-to-use React Native UI SDK that does all the UI heavy lifting for you — 
+  so you can focus on value, not boilerplate code! Built using barebone react-native and Expo components with almost no third-party dependencies.
 </p>
 
 <p align="center">
