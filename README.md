@@ -1,11 +1,25 @@
-# React Native Boxes
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![Web](https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)
-![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)
+<h1 align="center">React Native Boxes</h1>
+
+<p align="center">
+  A simple-to-use React Native library that does all the UI heavy lifting for you — 
+  so you can focus on value, not boilerplate code!
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
+  <img src="https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Web">
+  <img src="https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9174e501-eb08-46ec-8a38-90e8ec8931c5" 
+       alt="collage" width="512px">
+</p>
+
+<br>
 
 
-A simple to use react library that does all the UI heavy lifting for you so that you can focus on value and not code !
-![collage](https://github.com/user-attachments/assets/9174e501-eb08-46ec-8a38-90e8ec8931c5)
+
 
 Out-of-the box comes with:
 - Themes
