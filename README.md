@@ -508,6 +508,7 @@ Install your favorite js library.
         }
       }
     });
+    I18nProvider.locale = 'hi'
     I18nProvider.missingBehavior = "guess";
     
 
