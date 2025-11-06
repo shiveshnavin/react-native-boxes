@@ -143,11 +143,13 @@ You can also customize sizes, dimensions etc, but it is not recommended.
 
 ### Fonts
 
-Rename and add your fonts in `assets/fonts/`. The following fonts will be picked by default from this folder. Use the `Theme` to add/customize fonts.
+Load the below font names. Different components use different font families.
 ```
-Bold.ttf
-Regular.ttf
-Styled.ttf
+  loadAsync({
+    'Regular': require('./assets/fonts/Regular.ttf'), // Used in all general texts
+    'Bold': require('./assets/fonts/Bold.ttf'), // Used in Buttons and Headings
+    'Styled': require('./assets/fonts/Styled.ttf'), // Used in special places
+  })
 ```
 
 ### Layouts
