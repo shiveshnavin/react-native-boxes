@@ -487,6 +487,9 @@ Install your favorite js library.
       en: {
         watchlist: {
           hello: 'Hello!'
+        },
+        home:{
+          title:'Hello %{name} !'
         }
       },
       hi: {
@@ -546,6 +549,16 @@ Install your favorite js library.
      }
 </details>
 
+For Skipping localization wrap your string with `{{YOUR STRING}}`, this will directly output your string.
+```
+<TextView text={`{{This String will not be localized. Nope}}`} /> 
+```
+
+For using placeholders in your locales, 
+
+```
+<TextView text={`{{  ${theme.i18n.t('home.title',{ name: 'Shivesh Navin' })}  }}` />
+```
 
 
 ### Analytics
