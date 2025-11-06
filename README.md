@@ -550,7 +550,21 @@ Install your favorite js library.
      }
 </details>
 
-For Skipping localization wrap your string with `{{YOUR STRING}}`, this will directly output your string.
+For Skipping localization, you can add create custom middleware like below and wrap your string with `{{YOUR STRING}}`, this will directly output your string.
+```
+let tOriginal = I18nProvider.t.bind(I18nProvider)
+I18nProvider.t = (scope, options) => {
+    if (scope == undefined)
+        return ''
+    if (typeof scope == 'string') {
+        if (scope.startsWith("{{") && scope.endsWith("}}")) {
+            return scope.replace("{{", "").replace("}}", "")
+        }
+    }
+    return tOriginal(scope, options)
+}
+```
+
 ```
 <TextView text={`{{This String will not be localized. Nope}}`} /> 
 ```
