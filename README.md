@@ -146,7 +146,6 @@ You can also customize sizes, dimensions etc, but it is not recommended.
 Rename and add your fonts in `assets/fonts/`. The following fonts will be picked by default from this folder. Use the `Theme` to add/customize fonts.
 ```
 Bold.ttf
-Prod-Bold.ttf
 Regular.ttf
 Styled.ttf
 ```
