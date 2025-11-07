@@ -92,7 +92,7 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                         theme.onTrack(TrackingActionType.CLICK, TrackingViewType.TOOLBAR, 'back')
                         props.onHomePress && props.onHomePress()
                     }}>
-                        {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.invert.text} />}
+                        {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.text} />}
                     </PressableView>
                 </Center>
                 <HBox style={{
