@@ -46,9 +46,10 @@ export const Colors = {
     critical: '#F44336',
     invert: {
         text: '#fff',
-        caption: '#fff',
-        heading: '#fff',
-        background: '#1a1a1c'
+        caption: '#565656',
+        heading: '#dddddd',
+        background: '#212121',
+        forground: '#191919',
     }
 }
 
@@ -70,10 +71,11 @@ export const DarkColors = {
     warning: '#FFA726',
     critical: '#F44336',
     invert: {
-        text: '#fff',
-        caption: '#fff',
-        heading: '#fff',
-        background: '#E6E6E6'
+        heading: '#222222',
+        text: '#444444',
+        caption: '#A9A9A9',
+        background: '#E6E6E6',
+        forground: '#fff',
     }
 }
 
