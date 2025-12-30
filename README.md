@@ -52,7 +52,8 @@ Make sure you have following dependencies installed. The versions can be any sat
     "@react-native-async-storage/async-storage": "1.23.1",
     "react-native": "^0.73.6",
     "react-native-safe-area-context": "^4.9.0",
-    "react-native-gesture-handler":"~2.14.0"
+    "react-native-gesture-handler":"~2.14.0",
+    "expo-web-browser": "^13.0.3"
 ```
 
 ## Usage
