@@ -25,7 +25,7 @@ This document provides detailed information about the input props and usage for 
 The `Theme` class is used to configure the application's appearance and behavior.
 
 **Constructor Parameters:**
-- `appname` (string): Name of the application
+- `name` (string): Theme name
 - `colors` (typeof Colors): Color scheme object (default: `Colors`)
 - `dimens` (typeof Dimens): Dimensions object (default: `Dimens`)
 - `fonts` (typeof Fonts): Fonts configuration (default: `Fonts`)
@@ -34,7 +34,7 @@ The `Theme` class is used to configure the application's appearance and behavior
 - `onTrack` (AnalyticTracker): Analytics tracking function (optional)
 
 **Properties:**
-- `appname`: Application name
+- `name`: Theme name
 - `colors`: Color configuration
 - `dimens`: Dimension configuration
 - `fonts`: Font configuration

@@ -6,7 +6,8 @@ import { EdgeInsets } from "react-native-safe-area-context"
 import { AnalyticTracker } from "./Analytics"
 const DEFAULT_STYLE = createStyle(Dimens, Colors, Fonts)
 export class Theme {
-    appname: string = ''
+    private appname: string = 'deprecated-field'
+    name: string = ''
     styles: typeof DEFAULT_STYLE
     dimens: typeof Dimens
     colors: typeof Colors
@@ -15,14 +16,15 @@ export class Theme {
     onTrack: AnalyticTracker
     insets?: EdgeInsets
     randomColor = randomColor
-    constructor(appname = '',
+    constructor(name = '',
         colors = Colors,
         dimens = Dimens,
         fonts = Fonts,
         styles = DEFAULT_STYLE,
         i18n = _i18n,
         onTrack = () => { }) {
-        this.appname = appname
+        this.name = name
+        this.appname = name
         this.fonts = fonts ?? Fonts
         this.colors = colors ?? Colors
         this.dimens = dimens ?? Dimens

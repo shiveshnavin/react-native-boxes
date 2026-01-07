@@ -133,7 +133,7 @@ You can also customize sizes, dimensions etc, but it is not recommended.
     <summary>Customizing other theme options</summary>
 
     const theme = new Theme(
-        appname = '',
+        name = '',
         colors  ,
         dimens ,
         fonts  ,
@@ -516,7 +516,7 @@ Install your favorite js library.
     export default function App(){
         const [locale, setLocale] = useState('en')
         I18nProvider.locale = locale
-        const theme = new Theme('appname', colorScheme === 'dark' ? DarkColors : Colors);
+        const theme = new Theme('dark', colorScheme === 'dark' ? DarkColors : Colors);
         theme.i18n = I18nProvider
         
           
@@ -589,7 +589,7 @@ extra : Depending on component, some contextual info. For e.g. the WebView impre
 
 <details>
 
-    const theme = new Theme('appname', DarkColors);  
+    const theme = new Theme('dark', DarkColors);  
     theme.onTrack = (action, view, text, extras) => {
         myTracker.track(`${action}-${text}-${text}`, extras)
     }
