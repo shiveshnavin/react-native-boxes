@@ -23,6 +23,7 @@ export type BottomSheetProps = {
     backgroundColor?: string
     closeIcon?: string | React.ReactNode
     swipeToCloseDisabled?: boolean
+    containerStyle?: StyleProp<ViewStyle>
 
 }
 /**
@@ -79,7 +80,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         )
     }
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, props.containerStyle]}>
             <Modal
                 onDismiss={() => {
 
