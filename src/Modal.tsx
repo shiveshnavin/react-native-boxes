@@ -122,6 +122,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
                         paddingTop: theme.dimens.space.md,
                         paddingStart: theme.dimens.space.lg,
                         paddingEnd: theme.dimens.space.lg,
+                        paddingBottom: theme.insets?.bottom || 0
                     }]}>
                         <HBox style={{
                             justifyContent: 'space-between',
