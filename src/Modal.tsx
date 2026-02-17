@@ -26,162 +26,99 @@ export type BottomSheetProps = {
     containerStyle?: StyleProp<ViewStyle>
 
 }
-/**
- * set swipeToCloseDisabled = true if you face issues with scrolling
- * @param props 
- * @returns 
- */
+
+
 export const BottomSheet = (props: BottomSheetProps) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const theme = useContext(ThemeContext)
-    let cancellable = props.cancellable != undefined ?
-        props.cancellable : true
-    let swipeToCloseDisabled = props.swipeToCloseDisabled != undefined ?
-        props.swipeToCloseDisabled : true
+    const theme = useContext(ThemeContext);
+    const [modalVisible, setModalVisible] = useState(props.visible);
+    const cancellable = props.cancellable !== undefined ? props.cancellable : true;
     useEffect(() => {
-        setModalVisible(props.visible)
-        if (props.visible)
-            theme.onTrack(TrackingActionType.VIEW, TrackingViewType.DIALOG, (TrackerUtils.textOf(props.title)))
-    }, [props.visible])
-
-    function cancel() {
-        setModalVisible(false)
-        if (props.onDismiss) {
-            props.onDismiss()
+        setModalVisible(props.visible);
+        if (props.visible) {
+            theme.onTrack(TrackingActionType.VIEW, TrackingViewType.DIALOG, TrackerUtils.textOf(props.title));
         }
-    }
+    }, [props.visible]);
 
-    const CloseIcon = getIcon(props.closeIcon) || (() => {
-        return (<Icon color={theme.colors.caption} name="close" />)
-    })
-    const fling = Gesture.Fling()
-        .direction(Directions.DOWN)
-        .onEnd(() => {
-            props.onDismiss && props.onDismiss()
-        })
+    const handleDismiss = () => {
+        setModalVisible(false);
+        props.onDismiss && props.onDismiss();
+    };
 
-    const Wrapper = swipeToCloseDisabled ? ({ children }: any) => {
-        return (
-            <View style={[styles.modalContainer, {
-                backgroundColor: props.backgroundColor || theme.colors.forground
-            }]}>
-                {children}
+    const CloseIcon = getIcon(props.closeIcon) || (() => <Icon color={theme.colors.caption} name="close" />);
+
+    // Sheet header
+    const SheetHeader = (
+        <HBox style={{ justifyContent: 'space-between', width: '100%' }}>
+            <View style={{ width: theme.dimens.icon.md }} />
+            {typeof props.title === 'string' ? (
+                <Subtitle style={{ fontFamily: theme.fonts.Bold }}>{props.title}</Subtitle>
+            ) : (props.title as any)}
+            {cancellable ? (
+                <TouchableOpacity style={{ padding: theme.dimens.space.sm }} onPress={handleDismiss}>
+                    <CloseIcon />
+                </TouchableOpacity>
+            ) : (
+                <View style={{ width: theme.dimens.icon.md }} />
+            )}
+        </HBox>
+    );
+
+    // Sheet body
+    const SheetBody = (
+        <VBox style={{ width: '100%' }}>
+            {isWeb() ? (
+                <ScrollView
+                    nestedScrollEnabled={true}
+                    showsVerticalScrollIndicator={false}
+                    style={{ flex: 1, maxHeight: 500 }}>
+                    {props.children}
+                </ScrollView>
+            ) : (
+                <VBox style={{ width: '100%' }}>{props.children}</VBox>
+            )}
+        </VBox>
+    );
+
+    // The sheet itself
+    const Sheet = (
+        <View
+            style={[
+                styles.modalContainer,
+                { backgroundColor: props.backgroundColor || theme.colors.forground },
+                props.containerStyle,
+            ]}
+        >
+            <View style={{
+                paddingTop: theme.dimens.space.md,
+                paddingStart: theme.dimens.space.lg,
+                paddingEnd: theme.dimens.space.lg,
+                paddingBottom: theme.insets?.bottom || 0
+            }}>
+                {SheetHeader}
+                {SheetBody}
             </View>
-        )
-    } : ({ children }: any) => {
-        return (
-            <View style={[styles.modalContainer, {
-                backgroundColor: props.backgroundColor || theme.colors.forground
-            }]}>
-                <GestureDetector gesture={fling}>
-                    {children}
-                </GestureDetector>
-            </View>
-        )
-    }
-    return (
-        <View style={[styles.container, props.containerStyle]}>
-            <Modal
-                onDismiss={() => {
-
-                }}
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    cancel()
-                }}
-            >
-                <TouchableHighlight
-                    onPress={() => {
-                        cancel()
-                    }}
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-                    }}>
-                    <View />
-                </TouchableHighlight>
-
-            </Modal>
-
-            <Modal
-                onDismiss={() => {
-                    cancel()
-                }}
-                style={{
-                    flex: 1
-                }}
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => cancel()}
-            >
-                <Wrapper>
-                    <View style={[{
-                        paddingTop: theme.dimens.space.md,
-                        paddingStart: theme.dimens.space.lg,
-                        paddingEnd: theme.dimens.space.lg,
-                        paddingBottom: theme.insets?.bottom || 0
-                    }]}>
-                        <HBox style={{
-                            justifyContent: 'space-between',
-                            width: '100%'
-                        }}>
-
-                            <View style={{ width: theme.dimens.icon.md }} />
-                            {
-                                typeof props.title == 'string' ? (
-                                    <Subtitle style={{
-                                        fontFamily: theme.fonts.Bold
-                                    }}>{props.title.toString()}</Subtitle>
-                                ) : (props.title as any)
-                            }
-                            {
-                                cancellable ? (<TouchableOpacity
-                                    style={{
-                                        padding: theme.dimens.space.sm
-                                    }}
-                                    onPress={() => {
-                                        cancel()
-                                    }}>
-                                    <CloseIcon />
-                                </TouchableOpacity>) : (
-                                    <View style={{ width: theme.dimens.icon.md }} />
-                                )
-                            }
-                        </HBox>
-                        <VBox style={{
-                            width: '100%'
-                        }}>
-                            {
-                                props.swipeToCloseDisabled && isWeb() ? (
-                                    <ScrollView
-                                        nestedScrollEnabled={true}
-                                        showsVerticalScrollIndicator={false}
-                                        style={{
-                                            flex: 1,
-                                            maxHeight: 500,
-                                        }}>
-                                        {props.children}
-                                    </ScrollView>
-                                ) : (
-                                    <VBox style={{
-                                        width: '100%'
-                                    }}>
-                                        {props.children}
-                                    </VBox>
-                                )
-                            }
-
-
-                        </VBox>
-                    </View>
-                </Wrapper>
-            </Modal>
         </View>
     );
+
+    return (
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={handleDismiss}
+        >
+            {/* Overlay */}
+            <Pressable
+                style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
+                onPress={cancellable ? handleDismiss : undefined}
+                accessible={false}
+            />
+            {/* Sheet */}
+            {Sheet}
+        </Modal>
+    );
 };
+
 
 const styles = StyleSheet.create({
     container: {
