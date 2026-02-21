@@ -36,17 +36,19 @@ export function AlertMessage(props:
         'warning': '#FFC107',
         'critical': '#F44336'
     }[type];
-
+    let colorType = theme.colors[type] || color
+    let textColor = theme.name != 'dark' && type == 'warning' ? theme.colors.text : colorType;
     if (!props.text || props.text.length < 1) {
         return undefined
     }
 
     return (
         <HBox style={[{
-            flex: 1,
             minHeight: isDesktop() ? undefined : '10%',
             margin: theme.dimens.space.sm,
-            backgroundColor: theme.colors[type] || color,
+            borderColor: colorType,
+            borderWidth: theme.dimens.space.xs,
+            backgroundColor: colorType + "1A",
             alignItems: 'center',
             justifyContent: 'space-between',
             flexDirection: 'row',
@@ -56,7 +58,7 @@ export function AlertMessage(props:
                 theme.dimens.space.lg : theme.dimens.space.md,
             paddingTop: props.text.length > 40 && Platform.OS == 'web' ?
                 theme.dimens.space.lg : theme.dimens.space.md,
-            borderRadius: theme.dimens.space.sm,
+            borderRadius: theme.dimens.space.md,
         }, props.style]}>
 
             <HBox style={{
@@ -69,11 +71,11 @@ export function AlertMessage(props:
                     }}
                     name={icon}
                     size={theme.dimens.icon.md}
-                    color={props.color || theme.colors.invert.text} />
+                    color={props.color || textColor} />
                 <TextView style={{
                     flexShrink: 1,
                     padding: 0,
-                    color: props.color || theme.colors.invert.text,
+                    color: props.color || textColor,
                 }}>{props.text}
                 </TextView>
             </HBox>
@@ -89,7 +91,7 @@ export function AlertMessage(props:
                     }}>
                     <FontAwesome name={'close'}
                         size={theme.dimens.icon.md}
-                        color={theme.colors.invert.text} />
+                        color={theme.colors.text} />
                 </Pressable>
             }
         </HBox>
