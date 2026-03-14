@@ -486,44 +486,48 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 }}
                                 title={props.title || ''} >
 
-                                {
-                                    props.options?.length == 0 && props.onEmptyListPlaceholder ?
-                                        (
-                                            props.onEmptyListPlaceholder(() => {
-                                                setVisible(false)
-                                            })
-                                        )
-                                        :
-                                        (
-
-                                            props.onRenderList ?
-                                                props.onRenderList(props.options, (selectedId: string, opt: DropDownViewOption) => {
+                                <ScrollView style={{
+                                    maxHeight: '50%',
+                                }}>
+                                    {
+                                        props.options?.length == 0 && props.onEmptyListPlaceholder ?
+                                            (
+                                                props.onEmptyListPlaceholder(() => {
                                                     setVisible(false)
-                                                    props.onSelect(selectedId, opt)
-                                                }) :
-                                                (
-                                                    props.options.map((opt, idx) => {
-                                                        if (props.onRenderOption) {
-                                                            return props.onRenderOption(opt, onSelect)
-                                                        }
-                                                        return (
-                                                            <TertiaryButtonView
-                                                                onPress={() => {
-                                                                    setVisible(false)
-                                                                    props.onSelect(opt.id, opt)
-                                                                }}
-                                                                style={{
-                                                                    padding: 0,
-                                                                    paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
-                                                                    paddingTop: idx == 0 ? theme.dimens.space.md : 0,
-                                                                }}
-                                                                key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
-                                                        )
-                                                    })
-                                                )
-                                        )
+                                                })
+                                            )
+                                            :
+                                            (
 
-                                }
+                                                props.onRenderList ?
+                                                    props.onRenderList(props.options, (selectedId: string, opt: DropDownViewOption) => {
+                                                        setVisible(false)
+                                                        props.onSelect(selectedId, opt)
+                                                    }) :
+                                                    (
+                                                        props.options.map((opt, idx) => {
+                                                            if (props.onRenderOption) {
+                                                                return props.onRenderOption(opt, onSelect)
+                                                            }
+                                                            return (
+                                                                <TertiaryButtonView
+                                                                    onPress={() => {
+                                                                        setVisible(false)
+                                                                        props.onSelect(opt.id, opt)
+                                                                    }}
+                                                                    style={{
+                                                                        padding: 0,
+                                                                        paddingBottom: idx == props.options.length - 1 ? theme.dimens.space.md : 0,
+                                                                        paddingTop: idx == 0 ? theme.dimens.space.md : 0,
+                                                                    }}
+                                                                    key={opt.id} >{opt.title || opt.value}</TertiaryButtonView>
+                                                            )
+                                                        })
+                                                    )
+                                            )
+
+                                    }
+                                </ScrollView>
                             </BottomSheet>
                         )
                 }
