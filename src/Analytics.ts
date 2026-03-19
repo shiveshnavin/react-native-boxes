@@ -11,20 +11,38 @@ export const TrackingViewType = {
     BOTTOMBAR: 'bottombar',
     PAGE: 'page'
 }
-export const TrackerUtils = {
-    textOf(value: any) {
-        if (typeof value == 'string') {
-            return value
-        }
-        if (typeof value == 'object') {
-            return 'object'
-        }
-        return "undefined"
+function textOf(value: any) {
+    if (typeof value == 'string') {
+        return value
     }
+    if (typeof value == 'object') {
+        return 'object'
+    }
+    return "undefined"
+}
+
+function textOrAnalyticsId(analyticsId: any, value: any) {
+    if (analyticsId !== undefined && analyticsId !== null) {
+        return analyticsId
+    }
+    return textOf(value)
+}
+
+function analyticsIdWithSuffix(analyticsId: any, suffix: string) {
+    if (analyticsId !== undefined && analyticsId !== null) {
+        return `${analyticsId}_${suffix}`
+    }
+    return undefined
+}
+
+export const TrackerUtils = {
+    textOf,
+    textOrAnalyticsId,
+    analyticsIdWithSuffix
 }
 export const TrackingActionType = {
     CLICK: 'click',
     VIEW: 'view',
     NAVIGATE: 'navigate'
 }
-export type AnalyticTracker = (action: string, view: string, text?: string, extra?: any) => void
+export type AnalyticTracker = (action: string, view: string, textOrAnalyticsId?: string, extra?: any) => void

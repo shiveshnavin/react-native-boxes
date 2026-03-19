@@ -7,6 +7,7 @@ import { Platform, Pressable, Text, ViewProps, ViewStyle } from "react-native";
 import { TextView } from "./Text";
 import { isDesktop } from "./utils";
 import { TransparentButton } from "./Button";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 
 
@@ -19,6 +20,8 @@ export function AlertMessage(props:
         action?: React.ReactNode
         style?: ViewStyle
         onPress?: () => void
+        analyticsId?: string
+        analyticsExtras?: any
     }) {
     const theme = useContext(ThemeContext)
     const type = props.type || 'info'
@@ -82,11 +85,23 @@ export function AlertMessage(props:
             {props.action}
             {
                 props.onDismiss && <Pressable
+                    testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss')}
+                    //@ts-ignore
+                    nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss')}
                     style={{
                         flexDirection: 'row-reverse',
                         flex: 0.06,
                     }}
                     onPress={() => {
+                        theme.onTrack(
+                            TrackingActionType.CLICK,
+                            TrackingViewType.TEXT,
+                            TrackerUtils.textOrAnalyticsId(
+                                TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss'),
+                                props.text
+                            ),
+                            props.analyticsExtras
+                        )
                         props.onDismiss && props.onDismiss()
                     }}>
                     <FontAwesome name={'close'}

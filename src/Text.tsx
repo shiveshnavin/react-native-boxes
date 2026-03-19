@@ -1,18 +1,22 @@
 import { useContext } from "react";
 import { TextProps, Text } from "react-native";
 import { ThemeContext } from "./ThemeContext";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 export type TextViewProps = TextProps & {
     skipI18n?: boolean
     value?: string
     text?: string
+    analyticsId?: string
+    analyticsExtras?: any
 }
 export function TextView(props: TextViewProps) {
     const theme = useContext(ThemeContext)
-    let children = props.children
-    let value = props.value
-    let text = props.text
-    if (theme.i18n && !props.skipI18n) {
+    const { analyticsId, analyticsExtras, skipI18n, value: valueProp, text: textProp, onPress, children: childrenProp, ...textProps } = props
+    let children = childrenProp
+    let value = valueProp
+    let text = textProp
+    if (theme.i18n && !skipI18n) {
         if (children && typeof children == 'string') {
             children = theme.i18n.t(children)
         }
@@ -24,19 +28,31 @@ export function TextView(props: TextViewProps) {
         }
     }
     return (
-        <Text {...props}
+        <Text {...textProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
+            onPress={onPress ? (e) => {
+                onPress(e)
+                theme.onTrack(
+                    TrackingActionType.CLICK,
+                    TrackingViewType.TEXT,
+                    TrackerUtils.textOrAnalyticsId(analyticsId, children || text || value),
+                    analyticsExtras
+                )
+            } : undefined}
             style={[{
                 flexWrap: 'wrap',
                 color: theme.colors.text,
                 padding: theme.dimens.space.sm
-            }, theme.styles.text, props.style]} >
+            }, theme.styles.text, textProps.style]} >
             {children || text || value}
         </Text>
     )
 }
 
 
-export function Subtitle(props: TextProps) {
+export function Subtitle(props: TextViewProps) {
     const theme = useContext(ThemeContext)
     return (
         <TextView {...props} style={[
@@ -51,7 +67,7 @@ export function Subtitle(props: TextProps) {
 }
 
 
-export function Title(props: TextProps) {
+export function Title(props: TextViewProps) {
     const theme = useContext(ThemeContext)
     return (
         <TextView {...props} style={[
@@ -65,7 +81,7 @@ export function Title(props: TextProps) {
     )
 }
 
-export function Caption(props: TextProps) {
+export function Caption(props: TextViewProps) {
     const theme = useContext(ThemeContext)
     return (
         <TextView {...props} style={[
@@ -79,7 +95,7 @@ export function Caption(props: TextProps) {
 }
 
 
-export function TitleText(props: TextProps) {
+export function TitleText(props: TextViewProps) {
     const theme = useContext(ThemeContext)
     return (
         <TextView {...props} style={[

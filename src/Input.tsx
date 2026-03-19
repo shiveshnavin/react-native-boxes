@@ -5,6 +5,7 @@ import { assignFields, isWeb } from "./utils";
 import { HBox, VBox } from "./Box";
 import { TextView } from "./Text";
 import { Icon } from "./Image";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 
 /**
@@ -15,6 +16,8 @@ import { Icon } from "./Image";
 export function TextInputView(props: TextInputProps & {
     initialText?: string,
     pattern?: string,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext)
     const [text, setText] = useState(props.initialText)
@@ -27,6 +30,9 @@ export function TextInputView(props: TextInputProps & {
     return (
         <TextInput
             {...props}
+            testID={props.analyticsId}
+            //@ts-ignore
+            nativeID={props.analyticsId}
             onFocus={(e) => {
                 setFocused(true)
                 props.onFocus && props.onFocus(e)
@@ -78,7 +84,9 @@ export type CompositeTextInputViewProps = TextInputProps & {
     icon?: 'close' | 'eye' | string | React.Component,
     onIconPress?: ((event: GestureResponderEvent) => void) | undefined,
     textInputProps?: TextInputProps,
-    onDone?: (txt: string) => void
+    onDone?: (txt: string) => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }
 /**
  * Note: if input is inside a ScrollView in heirarchy anywhere then add keyboardShouldPersistTaps={'handled'}
@@ -188,6 +196,9 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
                     }}
                 >{props.placeholder || ''}</TextView>}
                 <TextComponent
+                    testID={props.analyticsId}
+                    //@ts-ignore
+                    nativeID={props.analyticsId}
                     onSubmitEditing={(e) => {
                         props.onDone && props.onDone(text!)
                     }}
@@ -243,12 +254,25 @@ export function CompositeTextInputView(props: CompositeTextInputViewProps) {
             </VBox>
             {
                 props.icon != undefined &&
-                <TouchableOpacity onPress={(e) => {
-                    if (!props.onIconPress && props.icon == 'close') {
-                        onTextChange('')
-                    }
-                    props.onIconPress && props.onIconPress(e)
-                }}>
+                <TouchableOpacity
+                    testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'icon')}
+                    //@ts-ignore
+                    nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'icon')}
+                    onPress={(e) => {
+                        if (!props.onIconPress && props.icon == 'close') {
+                            onTextChange('')
+                        }
+                        props.onIconPress && props.onIconPress(e)
+                        theme.onTrack(
+                            TrackingActionType.CLICK,
+                            TrackingViewType.BOX,
+                            TrackerUtils.textOrAnalyticsId(
+                                TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'icon'),
+                                props.hint || props.placeholder || props.icon || text || props.value
+                            ),
+                            props.analyticsExtras
+                        )
+                    }}>
                     {
                         (IconComponent)
                     }

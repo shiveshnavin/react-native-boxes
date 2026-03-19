@@ -6,7 +6,7 @@ import { TextView, TextViewProps } from "./Text";
 import { getIcon } from "./Image";
 import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
-export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle, children?: any }
+export type ButtonViewProps = TextProps & TouchableHighlightProps & { icon?: any, text?: string, textStyle?: TextStyle, children?: any, analyticsId?: string, analyticsExtras?: any }
 
 export function TertiaryButtonView(props: ButtonViewProps) {
     const theme = useContext(ThemeContext)
@@ -25,9 +25,10 @@ export function TertiaryButtonView(props: ButtonViewProps) {
     )
 }
 export function TransparentButton(props: TextProps & TouchableHighlightProps
-    & { icon?: any, text?: string }) {
+    & { icon?: any, text?: string, analyticsId?: string, analyticsExtras?: any }) {
     const theme = useContext(ThemeContext)
     const tstyle = props.style || {}
+    const { analyticsId, analyticsExtras, ...touchableProps } = props
     const [isPressed, setIsPressed] = useState(false)
     const onPressIn = (e: GestureResponderEvent) => {
         setIsPressed(true)
@@ -40,10 +41,18 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
 
     return (
         <TouchableHighlight
-            {...props}
+            {...touchableProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(
+                    TrackingActionType.CLICK,
+                    TrackingViewType.BUTTON,
+                    TrackerUtils.textOrAnalyticsId(analyticsId, (props.text || TrackerUtils.textOf(props.children))),
+                    analyticsExtras
+                )
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -100,6 +109,7 @@ export function TransparentButton(props: TextProps & TouchableHighlightProps
 export function ButtonView(props: ButtonViewProps) {
     const theme = useContext(ThemeContext)
     const tstyle = props.style || {}
+    const { analyticsId, analyticsExtras, ...touchableProps } = props
     const [isPressed, setIsPressed] = useState(false)
     const onPressIn = (e: GestureResponderEvent) => {
         setIsPressed(true)
@@ -112,10 +122,21 @@ export function ButtonView(props: ButtonViewProps) {
     const BtnIcon = getIcon(props.icon)
     return (
         <TouchableHighlight
-            {...props}
+            {...touchableProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props['aria-label'] ? props['aria-label'] + '-' : '') + (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(
+                    TrackingActionType.CLICK,
+                    TrackingViewType.BUTTON,
+                    TrackerUtils.textOrAnalyticsId(
+                        analyticsId,
+                        (props['aria-label'] ? props['aria-label'] + '-' : '') + (props.text || TrackerUtils.textOf(props.children))
+                    ),
+                    analyticsExtras
+                )
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -181,6 +202,7 @@ export function RightIconButton(props: ButtonViewProps) {
 
     const theme = useContext(ThemeContext)
     const tstyle = props.style || {}
+    const { analyticsId, analyticsExtras, ...touchableProps } = props
     const [isPressed, setIsPressed] = useState(false)
     const onPressIn = (e: GestureResponderEvent) => {
         setIsPressed(true)
@@ -194,10 +216,18 @@ export function RightIconButton(props: ButtonViewProps) {
 
     return (
         <TouchableHighlight
-            {...props}
+            {...touchableProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
             onPress={(e) => {
                 props.onPress && props.onPress(e)
-                theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BUTTON, (props.text || TrackerUtils.textOf(props.children)))
+                theme.onTrack(
+                    TrackingActionType.CLICK,
+                    TrackingViewType.BUTTON,
+                    TrackerUtils.textOrAnalyticsId(analyticsId, (props.text || TrackerUtils.textOf(props.children))),
+                    analyticsExtras
+                )
             }}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
@@ -270,28 +300,26 @@ export function RightIconButton(props: ButtonViewProps) {
 }
 
 
-export function LoadingButton(props: TextProps & TouchableHighlightProps
-    & {
-        loading: boolean,
-        icon?: any,
-        text?: string,
-        loaderStyle?: 'normal' | 'transparent',
-        underlayColor?: string
-    }) {
+export function LoadingButton(props: ButtonViewProps & {
+    loading: boolean,
+    loaderStyle?: 'normal' | 'transparent',
+    underlayColor?: string
+}) {
+    const { loading, loaderStyle, ...buttonProps } = props
     const theme = useContext(ThemeContext)
-    const [_loading, _setIsLoading] = useState(props.loading)
+    const [_loading, _setIsLoading] = useState(loading)
     useEffect(() => {
-        if (props.loading != _loading) {
+        if (loading != _loading) {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         }
-        _setIsLoading(props.loading)
-    }, [props.loading]);
+        _setIsLoading(loading)
+    }, [loading]);
     let loaderColor = theme.colors.invert.text
     let loaderSize = theme.dimens.icon.md
     let btnBg = theme.colors.accent
     let btnBgPressed = props.underlayColor || theme.colors.accentLight
 
-    if (_loading && props.loaderStyle == 'transparent') {
+    if (_loading && loaderStyle == 'transparent') {
         loaderColor = theme.colors.accent
         btnBg = theme.colors.transparent
         btnBgPressed = theme.colors.transparent
@@ -299,39 +327,58 @@ export function LoadingButton(props: TextProps & TouchableHighlightProps
     }
     return (
         <ButtonView
-            {...props}
+            {...buttonProps}
             underlayColor={btnBgPressed}
             style={[{
                 backgroundColor: btnBg,
-                padding: _loading && props.loaderStyle == 'transparent' ?
+                padding: _loading && loaderStyle == 'transparent' ?
                     theme.dimens.space.sm : theme.dimens.space.md
             }, props.style]}
             icon={_loading ?
                 <ActivityIndicator
                     size={loaderSize}
                     color={loaderColor} />
-                : props.icon
+                : buttonProps.icon
             }
-            text={!_loading ? props.text : undefined} />
+            text={!_loading ? buttonProps.text : undefined} />
     )
 }
 
 
 
-export function PressableView(props: PressableProps) {
-    //@ts-ignore
-    return (<Pressable {...props} style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, props.style]} />)
+export function PressableView(props: PressableProps & { analyticsId?: string, analyticsExtras?: any }) {
+    const theme = useContext(ThemeContext)
+    const { analyticsId, analyticsExtras, onPress, style, ...rest } = props as any
+    return (
+        <Pressable
+            {...rest}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
+            onPress={(e) => {
+                onPress && onPress(e)
+                if (analyticsId !== undefined && analyticsId !== null) {
+                    theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BOX, analyticsId, analyticsExtras)
+                }
+            }}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }, style]}
+        />
+    )
 }
 
-export function SwitchView(props: SwitchProps & { text?: string, orientation?: "row" | "column" | "row-reverse" | "column-reverse" | undefined, textStyle?: TextStyle }) {
+export function SwitchView(props: SwitchProps & { text?: string, orientation?: "row" | "column" | "row-reverse" | "column-reverse" | undefined, textStyle?: TextStyle, analyticsId?: string, analyticsExtras?: any }) {
     const theme = useContext(ThemeContext)
+    const { text, orientation, textStyle, analyticsId, analyticsExtras, style, onValueChange, ...switchProps } = props
     return (
         <HBox style={[{
-            flexDirection: props.orientation || 'row',
+            flexDirection: orientation || 'row',
             alignContent: 'center',
             alignItems: 'center'
-        }, props.style]}>
+        }, style]}>
             <Switch
+                testID={analyticsId}
+                //@ts-ignore
+                nativeID={analyticsId}
                 trackColor={{
                     false: theme.colors.caption,
                     true: theme.colors.success
@@ -339,14 +386,19 @@ export function SwitchView(props: SwitchProps & { text?: string, orientation?: "
                 thumbColor={props.value ? theme.colors.invert.text : theme.colors.text}
                 ios_backgroundColor={theme.colors.caption}
                 onValueChange={(value) => {
-                    props.onValueChange && props.onValueChange(value)
-                    theme.onTrack(TrackingActionType.CLICK, TrackingViewType.SWITCH, (props.text) + '-' + value, { value })
+                    onValueChange && onValueChange(value)
+                    theme.onTrack(
+                        TrackingActionType.CLICK,
+                        TrackingViewType.SWITCH,
+                        TrackerUtils.textOrAnalyticsId(analyticsId, (text || '') + '-' + value),
+                        analyticsExtras !== undefined ? analyticsExtras : { value }
+                    )
                 }}
-                {...props}
+                {...switchProps}
             />
             {
-                props.text && (
-                    <TextView style={props.textStyle}>{props.text}</TextView>
+                text && (
+                    <TextView style={textStyle}>{text}</TextView>
                 )
             }
         </HBox>

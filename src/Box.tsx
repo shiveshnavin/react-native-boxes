@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ScrollViewProps, View, ViewProps } from "react-native";
 import { ThemeContext } from "./ThemeContext";
 import * as React from 'react'
 import { KeyboardAvoidingView, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { isWeb } from "./utils";
+import { TrackingActionType, TrackingViewType } from "./Analytics";
 
 export function Box(props: ViewProps) {
     const theme = useContext(ThemeContext)
@@ -61,19 +62,39 @@ export function Center(props: ViewProps) {
 }
 
 
-export function VPage(props: ViewProps) {
+export type PageViewProps = ViewProps & {
+    analyticsId?: string,
+    analyticsExtras?: any
+}
+
+export function VPage(props: PageViewProps) {
     const theme = useContext(ThemeContext)
+    const { analyticsId, analyticsExtras, ...viewProps } = props
+    useEffect(() => {
+        if (analyticsId !== undefined && analyticsId !== null) {
+            theme.onTrack(
+                TrackingActionType.VIEW,
+                TrackingViewType.PAGE,
+                analyticsId,
+                analyticsExtras
+            )
+        }
+    }, [analyticsExtras, analyticsId])
     return (
-        <VBox  {...props} style={[
-            {
-                width: '100%',
-                height: '100%',
-                padding: 0,
-                margin: 0,
-                backgroundColor: theme.colors.background,
-            },
-            props.style
-        ]} />
+        <VBox  {...viewProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
+            style={[
+                {
+                    width: '100%',
+                    height: '100%',
+                    padding: 0,
+                    margin: 0,
+                    backgroundColor: theme.colors.background,
+                },
+                viewProps.style
+            ]} />
     )
 }
 

@@ -54,7 +54,9 @@ export type SimpleDatatableViewItemProps = {
     body?: string | React.ReactNode,
     action?: React.ReactNode,
     onPress?: () => void,
-    flexRatio?: [number, number, number]
+    flexRatio?: [number, number, number],
+    analyticsId?: string,
+    analyticsExtras?: any
 }
 
 
@@ -140,12 +142,18 @@ export function InfoRow(props: {
     color?: string,
     style?: ViewStyle,
     textStyle?: TextStyle,
-    onPress?: () => void
+    onPress?: () => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext)
     const InfoIcon = getIcon(props.icon)
     return (
-        <PressableView onPress={props.onPress} style={{
+        <PressableView
+            onPress={props.onPress}
+            analyticsId={props.analyticsId}
+            analyticsExtras={props.analyticsExtras}
+            style={{
             opacity: props.onPress ? undefined : 1
         }}>
             <HBox style={{
@@ -193,12 +201,17 @@ export function IconRow(props: {
     text: string,
     icon?: string | React.ReactNode,
     onPress?: () => void,
-    color?: string
+    color?: string,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext)
     const LeftIcon = getIcon(props.icon)
     return (
-        <PressableView onPress={props.onPress}>
+        <PressableView
+            onPress={props.onPress}
+            analyticsId={props.analyticsId}
+            analyticsExtras={props.analyticsExtras}>
             <HBox style={{
                 marginBottom: theme.dimens.space.md,
                 alignItems: 'center'
@@ -226,6 +239,8 @@ export function SettingRow({
     description,
     rightIcon,
     onPress,
+    analyticsId,
+    analyticsExtras,
 }: {
     text: string;
     icon?: string | any;
@@ -235,13 +250,15 @@ export function SettingRow({
     rightIcon?: string | any;
     style?: ViewStyle;
     onPress: () => void;
+    analyticsId?: string;
+    analyticsExtras?: any;
 }) {
     const theme = useContext(ThemeContext);
     const RightIcon = getIcon(rightIcon);
     const LeftIcon = getIcon(icon);
     return (
 
-        <PressableView onPress={onPress} style={{
+        <PressableView onPress={onPress} analyticsId={analyticsId} analyticsExtras={analyticsExtras} style={{
             width: '100%',
 
         }}>

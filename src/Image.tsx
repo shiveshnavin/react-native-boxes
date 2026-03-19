@@ -4,19 +4,35 @@ import { useContext } from "react";
 import { Theme, ThemeContext } from "./ThemeContext";
 import { Center } from "./Box";
 import { Subtitle } from "./Text";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 export type IconProps = {
     name: any,
     size?: number,
     color?: string,
-    onPress?: () => void
+    onPress?: () => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }
 export function Icon(props: ViewProps & IconProps) {
     const theme = useContext(ThemeContext)
+    const { analyticsId, analyticsExtras, onPress, ...iconProps } = props
     return (
-        <FontAwesome {...props}
+        <FontAwesome {...iconProps}
+            testID={analyticsId}
+            //@ts-ignore
+            nativeID={analyticsId}
             size={props.size || theme.dimens?.icon?.md}
             color={props.color || theme.colors?.text}
+            onPress={onPress ? () => {
+                onPress()
+                theme.onTrack(
+                    TrackingActionType.CLICK,
+                    TrackingViewType.IMAGE,
+                    TrackerUtils.textOrAnalyticsId(analyticsId, props.name),
+                    analyticsExtras
+                )
+            } : undefined}
         />
     )
 }
@@ -33,7 +49,9 @@ export function Avatar(props: ViewProps & {
     iconName?: string,
     iconText?: string,
     iconNameProps?: IconProps,
-    style?: any
+    style?: any,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext)
     const view = <Center style={[{
@@ -82,10 +100,23 @@ export function Avatar(props: ViewProps & {
     </Center>
     if (props.onPress)
         return (
-            <Pressable onPress={() => {
-                if (props.onPress)
-                    props.onPress()
-            }}>
+            <Pressable
+                testID={props.analyticsId}
+                //@ts-ignore
+                nativeID={props.analyticsId}
+                onPress={props.onPress ? (() => {
+                    theme.onTrack(
+                        TrackingActionType.CLICK,
+                        TrackingViewType.IMAGE,
+                        TrackerUtils.textOrAnalyticsId(
+                            props.analyticsId,
+                            props.iconText || props.iconName || props.iconNameProps?.name || props.iconUrl || 'avatar'
+                        ),
+                        props.analyticsExtras
+                    )
+                    if (props.onPress)
+                        props.onPress()
+                }) : undefined}>
                 {view}
             </Pressable>
         )

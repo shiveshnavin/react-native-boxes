@@ -24,6 +24,8 @@ export type BottomSheetProps = {
     closeIcon?: string | React.ReactNode
     swipeToCloseDisabled?: boolean
     containerStyle?: StyleProp<ViewStyle>
+    analyticsId?: string
+    analyticsExtras?: any
 
 }
 
@@ -35,11 +37,31 @@ export const BottomSheet = (props: BottomSheetProps) => {
     useEffect(() => {
         setModalVisible(props.visible);
         if (props.visible) {
-            theme.onTrack(TrackingActionType.VIEW, TrackingViewType.DIALOG, TrackerUtils.textOf(props.title));
+            theme.onTrack(
+                TrackingActionType.VIEW,
+                TrackingViewType.DIALOG,
+                TrackerUtils.textOrAnalyticsId(props.analyticsId, props.title),
+                props.analyticsExtras
+            );
         }
     }, [props.visible]);
 
-    const handleDismiss = () => {
+    const trackDismiss = () => {
+        theme.onTrack(
+            TrackingActionType.CLICK,
+            TrackingViewType.DIALOG,
+            TrackerUtils.textOrAnalyticsId(
+                TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss'),
+                typeof props.title === 'string' ? 'dismiss-' + props.title : 'dismiss'
+            ),
+            props.analyticsExtras
+        );
+    };
+
+    const handleDismiss = (shouldTrack?: boolean) => {
+        if (shouldTrack) {
+            trackDismiss();
+        }
         setModalVisible(false);
         props.onDismiss && props.onDismiss();
     };
@@ -54,7 +76,12 @@ export const BottomSheet = (props: BottomSheetProps) => {
                 <Subtitle style={{ fontFamily: theme.fonts.Bold }}>{props.title}</Subtitle>
             ) : (props.title as any)}
             {cancellable ? (
-                <TouchableOpacity style={{ padding: theme.dimens.space.sm }} onPress={handleDismiss}>
+                <TouchableOpacity
+                    testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss')}
+                    //@ts-ignore
+                    nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dismiss')}
+                    style={{ padding: theme.dimens.space.sm }}
+                    onPress={() => handleDismiss(true)}>
                     <CloseIcon />
                 </TouchableOpacity>
             ) : (
@@ -82,6 +109,9 @@ export const BottomSheet = (props: BottomSheetProps) => {
     // The sheet itself
     const Sheet = (
         <View
+            testID={props.analyticsId}
+            //@ts-ignore
+            nativeID={props.analyticsId}
             style={[
                 styles.modalContainer,
                 { backgroundColor: props.backgroundColor || theme.colors.forground },
@@ -105,12 +135,12 @@ export const BottomSheet = (props: BottomSheetProps) => {
             animationType="slide"
             transparent={true}
             visible={modalVisible}
-            onRequestClose={handleDismiss}
+            onRequestClose={() => handleDismiss(true)}
         >
             {/* Overlay */}
             <Pressable
                 style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
-                onPress={cancellable ? handleDismiss : undefined}
+                onPress={cancellable ? () => handleDismiss(true) : undefined}
                 accessible={false}
             />
             {/* Sheet */}
@@ -164,7 +194,9 @@ export function Expand(props: ViewProps & {
     initialExpand?: boolean,
     duration?: number,
     onExpand?: (isExpanded: boolean) => void,
-    onChange?: (isExpanded: boolean) => void
+    onChange?: (isExpanded: boolean) => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext);
     const [expanded, setExpanded] = useState(props.initialExpand != undefined ? props.initialExpand : false);
@@ -208,7 +240,15 @@ export function Expand(props: ViewProps & {
     const toggleExpand = () => {
         let newValue = !expanded
         setExpanded(newValue);
-        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.DIALOG, (newValue ? 'expand' : 'collaps') + '-' + props.title)
+        theme.onTrack(
+            TrackingActionType.CLICK,
+            TrackingViewType.DIALOG,
+            TrackerUtils.textOrAnalyticsId(
+                TrackerUtils.analyticsIdWithSuffix(props.analyticsId, newValue ? 'expand' : 'collapse'),
+                (newValue ? 'expand' : 'collapse') + '-' + props.title
+            ),
+            props.analyticsExtras
+        )
     };
     var onLayoutContent = (event: LayoutChangeEvent) => {
         if (!contentHeight) {
@@ -239,6 +279,9 @@ export function Expand(props: ViewProps & {
     const ExpandIcon = () => {
         return (
             <Pressable
+                testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, expanded ? 'collapse' : 'expand')}
+                //@ts-ignore
+                nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, expanded ? 'collapse' : 'expand')}
                 style={[{
                     borderRadius: theme.dimens.space.md,
                     padding: theme.dimens.space.md,
@@ -331,6 +374,8 @@ export type DropDownViewProps = {
     onEmptyListPlaceholder?: (dismiss?: () => void) => React.ReactNode
     forceDialogSelectOnWeb?: Boolean
     swipeToCloseDisabled?: boolean
+    analyticsId?: string
+    analyticsExtras?: any
 } & CompositeTextInputViewProps
 
 /**
@@ -343,18 +388,28 @@ export const DropDownView = (props: DropDownViewProps) => {
     const theme = useContext(ThemeContext)
     const [visible, setVisible] = useState(props.initialVisile || false)
     const flatlistRef = useRef<FlatList<any>>()
+    const openAnalyticsId = TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'open')
+    const selectAnalyticsId = TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'select')
 
     const getSelected = (): DropDownViewOption | undefined => {
         let se = props.options.find(op => op.id == props.selectedId)
         return se
     };
+    const openDropDown = () => {
+        setVisible(true)
+    }
     const onSelect = (selectedId: string, opt: DropDownViewOption) => {
         props.onSelect(selectedId, opt)
-        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.DROPDOWN, 'select-' + props.title, {
-            value: selectedId,
-            title: opt.title,
-            displayType: displayType
-        })
+        theme.onTrack(
+            TrackingActionType.CLICK,
+            TrackingViewType.DROPDOWN,
+            TrackerUtils.textOrAnalyticsId(selectAnalyticsId, 'select-' + props.title),
+            props.analyticsExtras !== undefined ? props.analyticsExtras : {
+                value: selectedId,
+                title: opt.title,
+                displayType: displayType
+            }
+        )
         setVisible(false)
     }
     const shouldShowLabel = props.listType == 'horizontal-list' ? !visible : true
@@ -450,6 +505,9 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 }
                                 return (
                                     <PressableView
+                                        testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
+                                        //@ts-ignore
+                                        nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
                                         key={opt.id}
                                         onPress={() => {
                                             setVisible(false)
@@ -484,6 +542,8 @@ export const DropDownView = (props: DropDownViewProps) => {
                                 onDismiss={() => {
                                     setVisible(false)
                                 }}
+                                analyticsId={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'dialog')}
+                                analyticsExtras={props.analyticsExtras}
                                 title={props.title || ''} >
 
                                 <ScrollView style={{
@@ -511,6 +571,9 @@ export const DropDownView = (props: DropDownViewProps) => {
                                                             }
                                                             return (
                                                                 <TertiaryButtonView
+                                                                    testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
+                                                                    //@ts-ignore
+                                                                    nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
                                                                     onPress={() => {
                                                                         setVisible(false)
                                                                         props.onSelect(opt.id, opt)
@@ -539,8 +602,10 @@ export const DropDownView = (props: DropDownViewProps) => {
                             //@ts-ignore
                             <ButtonView
                                 {...props}
+                                analyticsId={openAnalyticsId}
+                                analyticsExtras={props.analyticsExtras}
                                 onPress={() => {
-                                    setVisible(true)
+                                    openDropDown()
                                 }}
                                 text={getSelected()?.title || getSelected()?.id || 'select'} style={props.style}>
                             </ButtonView>
@@ -548,8 +613,10 @@ export const DropDownView = (props: DropDownViewProps) => {
                             //@ts-ignore
                             <PressableView
                                 {...props}
+                                analyticsId={openAnalyticsId}
+                                analyticsExtras={props.analyticsExtras}
                                 onPress={() => {
-                                    setVisible(true)
+                                    openDropDown()
                                 }}
                             >
                                 <CompositeTextInputView
@@ -595,7 +662,9 @@ export type ConfirmationDialogProps = {
     cancelText?: String,
     children?: any,
     noSheet?: boolean,
-    style?: ViewStyle
+    style?: ViewStyle,
+    analyticsId?: string,
+    analyticsExtras?: any
 }
 
 export function ConfirmationDialog(props: ConfirmationDialogProps) {
@@ -630,7 +699,9 @@ export function GenericDialog(props: ConfirmationDialogProps) {
                     confirmText && <ButtonView aria-label={props.title as string} text={confirmText as string} onPress={() => {
                         props.onDismiss && props.onDismiss()
                         props.onConfirm && props.onConfirm()
-                    }} />
+                    }}
+                        analyticsId={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'confirm')}
+                        analyticsExtras={props.analyticsExtras} />
                 }
                 {
                     cancelText && <TertiaryButtonView
@@ -641,7 +712,9 @@ export function GenericDialog(props: ConfirmationDialogProps) {
                         text={cancelText as string} onPress={() => {
                             props.onDismiss && props.onDismiss()
                             props.onCancel && props.onCancel()
-                        }} />
+                        }}
+                        analyticsId={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'cancel')}
+                        analyticsExtras={props.analyticsExtras} />
                 }
 
             </VBox>
@@ -658,6 +731,8 @@ export function WebBrowserView(props: {
     openMessage?: string,
     retryMessage?: string,
     cancelMessage?: string;
+    analyticsId?: string,
+    analyticsExtras?: any,
     onCancel: () => void,
     navigation: {
         navigate: (path: string, params: any) => void
@@ -680,10 +755,15 @@ export function WebBrowserView(props: {
     };
 
     useEffect(() => {
-        theme.onTrack(TrackingActionType.VIEW, TrackingViewType.WEBVIEW, 'webview-' + props.title, {
-            url: props.url,
-            message: props.openMessage
-        })
+        theme.onTrack(
+            TrackingActionType.VIEW,
+            TrackingViewType.WEBVIEW,
+            TrackerUtils.textOrAnalyticsId(props.analyticsId, 'webview-' + props.title),
+            props.analyticsExtras !== undefined ? props.analyticsExtras : {
+                url: props.url,
+                message: props.openMessage
+            }
+        )
         if (result == null)
             _handlePressButtonAsync()
     }, [])
@@ -720,6 +800,8 @@ export function WebBrowserView(props: {
                     onPress={() => {
                         _handlePressButtonAsync()
                     }}
+                    analyticsId={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'retry')}
+                    analyticsExtras={props.analyticsExtras}
                     style={{
                         width: '80%'
                     }}>{props.retryMessage || "Retry"}</LoadingButton>
@@ -727,6 +809,8 @@ export function WebBrowserView(props: {
                     onPress={() => {
                         props.onCancel && props.onCancel()
                     }}
+                    analyticsId={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'cancel')}
+                    analyticsExtras={props.analyticsExtras}
                     text={props.cancelMessage || "Cancel"} />
             </Center>
         </VPage>

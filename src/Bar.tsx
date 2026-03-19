@@ -8,13 +8,15 @@ import { Icon, getIcon } from "./Image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PressableView } from "./Button";
 import { isDesktop, isWeb } from "./utils";
-import { TrackingActionType, TrackingViewType } from "./Analytics";
+import { TrackerUtils, TrackingActionType, TrackingViewType } from "./Analytics";
 
 export interface Option {
     id: string,
     title?: string,
     icon?: string | any,
-    onClick?: (id: string) => void
+    onClick?: (id: string) => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }
 
 export interface SimpleToolbarProps extends ViewProps {
@@ -25,6 +27,8 @@ export interface SimpleToolbarProps extends ViewProps {
     forgroundColor?: string,
     homeIcon?: string | typeof Icon,
     onHomePress?: () => void
+    analyticsId?: string,
+    analyticsExtras?: any
     textStyle?: TextStyle
     options?: Option[]
 }
@@ -88,10 +92,22 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                     paddingLeft: theme.dimens.space.sm,
                     margin: 0,
                 }}>
-                    <PressableView onPress={() => {
-                        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.TOOLBAR, 'back')
-                        props.onHomePress && props.onHomePress()
-                    }}>
+                    <PressableView
+                        testID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'back')}
+                        //@ts-ignore
+                        nativeID={TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'back')}
+                        onPress={() => {
+                            theme.onTrack(
+                                TrackingActionType.CLICK,
+                                TrackingViewType.TOOLBAR,
+                                TrackerUtils.textOrAnalyticsId(
+                                    TrackerUtils.analyticsIdWithSuffix(props.analyticsId, 'back'),
+                                    'back'
+                                ),
+                                props.analyticsExtras
+                            )
+                            props.onHomePress && props.onHomePress()
+                        }}>
                         {HomeIcon && <HomeIcon color={props.forgroundColor || theme.colors.text} />}
                     </PressableView>
                 </Center>
@@ -105,13 +121,24 @@ export function SimpleToolbar(props: SimpleToolbarProps) {
                             let title = opt.title || opt.id
                             return (
                                 <PressableView
+                                    testID={opt.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
+                                    //@ts-ignore
+                                    nativeID={opt.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id)}
                                     style={{
                                         padding: theme.dimens.space.md
                                     }}
                                     key={opt.id}
                                     accessibilityHint={title}
                                     onPress={() => {
-                                        theme.onTrack(TrackingActionType.CLICK, TrackingViewType.TOOLBAR, 'option-' + opt.id)
+                                        theme.onTrack(
+                                            TrackingActionType.CLICK,
+                                            TrackingViewType.TOOLBAR,
+                                            TrackerUtils.textOrAnalyticsId(
+                                                opt.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, opt.id),
+                                                'option-' + opt.id
+                                            ),
+                                            opt.analyticsExtras !== undefined ? opt.analyticsExtras : props.analyticsExtras
+                                        )
                                         opt.onClick && opt.onClick(opt.id)
                                     }}>
                                     <ActionIcon
@@ -153,7 +180,9 @@ export function BottomNavBar(props: ViewProps &
     options: Option[],
     selectedId: string,
     onSelect: (id: string) => void,
-    onDimens?: (width: number, height: number) => void
+    onDimens?: (width: number, height: number) => void,
+    analyticsId?: string,
+    analyticsExtras?: any
 }) {
     const theme = useContext(ThemeContext)
     const onDimens = props.onDimens
@@ -166,6 +195,9 @@ export function BottomNavBar(props: ViewProps &
         const title = op.title || (hasText ? op.id : undefined)
         return (
             <PressableView
+                testID={op.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, op.id)}
+                //@ts-ignore
+                nativeID={op.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, op.id)}
                 style={{
                     flex: 1,
                     justifyContent: 'center',
@@ -177,7 +209,15 @@ export function BottomNavBar(props: ViewProps &
                 key={op.id}
                 onPress={() => {
                     op.onClick && op.onClick(op.id)
-                    theme.onTrack(TrackingActionType.CLICK, TrackingViewType.BOTTOMBAR, 'option-' + op.id)
+                    theme.onTrack(
+                        TrackingActionType.CLICK,
+                        TrackingViewType.BOTTOMBAR,
+                        TrackerUtils.textOrAnalyticsId(
+                            op.analyticsId ?? TrackerUtils.analyticsIdWithSuffix(props.analyticsId, op.id),
+                            'option-' + op.id
+                        ),
+                        op.analyticsExtras !== undefined ? op.analyticsExtras : props.analyticsExtras
+                    )
                     props.onSelect(op.id)
                 }}>
                 <Center >
